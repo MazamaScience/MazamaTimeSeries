@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Example SingleTimeSeries dataset — example_sts • MazamaTimeSeries</title>
+<title>Retain only distinct data records in sts$data — sts_distinct • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,18 +39,14 @@
 
 
 
-<meta property="og:title" content="Example SingleTimeSeries dataset — example_sts" />
-<meta property="og:description" content="The example_sts dataset provides a quickly loadable
-version of an sts object for practicing and code examples.
-This dataset was was generated on 2021-01-08 by running:
+<meta property="og:title" content="Retain only distinct data records in sts$data — sts_distinct" />
+<meta property="og:description" content="Three successive steps are used to guarantee that the
+datetime axis contains no repeated values:
 
-library(AirSensor)
-
-example_sts &amp;lt;- example_pat
-example_sts$meta$elevation &amp;lt;- as.numeric(NA)
-example_sts$meta$siteName &amp;lt;- example_sts$meta$label
-
-save(example_sts, file = &quot;data/example_sts.rda&quot;)
+remove any duplicate records
+guarantee that rows are in datetime order
+average together fields for any remaining records that share the same
+datetime
 
 " />
 
@@ -123,33 +119,37 @@ save(example_sts, file = &quot;data/example_sts.rda&quot;)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Example SingleTimeSeries dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaLocationUtils/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>example_sts.Rd</code></div>
+    <h1>Retain only distinct data records in sts$data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaLocationUtils/blob/master/R/utils-sts.R'><code>R/utils-sts.R</code></a></small>
+    <div class="hidden name"><code>sts_distinct.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <code>example_sts</code> dataset provides a quickly loadable
-version of an <em>sts</em> object for practicing and code examples.</p>
-<p>This dataset was was generated on 2021-01-08 by running:</p>
-<pre>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/AirSensor'>AirSensor</a></span><span class='op'>)</span>
-
-<span class='va'>example_sts</span> <span class='op'>&lt;-</span> <span class='va'>example_pat</span>
-<span class='va'>example_sts</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>$</span><span class='va'>elevation</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='cn'>NA</span><span class='op'>)</span>
-<span class='va'>example_sts</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>$</span><span class='va'>siteName</span> <span class='op'>&lt;-</span> <span class='va'>example_sts</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>$</span><span class='va'>label</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span><span class='op'>(</span><span class='va'>example_sts</span>, file <span class='op'>=</span> <span class='st'>"data/example_sts.rda"</span><span class='op'>)</span>
-</pre>
+    <p>Three successive steps are used to guarantee that the
+<code>datetime</code> axis contains no repeated values:</p>
+<ol>
+<li><p>remove any duplicate records</p></li>
+<li><p>guarantee that rows are in <code>datetime</code> order</p></li>
+<li><p>average together fields for any remaining records that share the same
+<code>datetime</code></p></li>
+</ol>
 
     </div>
 
-    <pre class="usage"><span class='va'>example_sts</span></pre>
+    <pre class="usage"><span class='fu'>sts_distinct</span><span class='op'>(</span><span class='va'>sts</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>sts</th>
+      <td><p><em>sts</em> object</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An S3 object composed of "meta" and "data" dataframes.</p>
+    <p>A <em>sts</em> object with no duplicated data records.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

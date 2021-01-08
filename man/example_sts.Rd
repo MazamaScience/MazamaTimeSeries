@@ -3,7 +3,7 @@
 \docType{data}
 \name{example_sts}
 \alias{example_sts}
-\title{Example PurpleAir Timeseries dataset}
+\title{Example SingleTimeSeries dataset}
 \format{
 An S3 object composed of "meta" and "data" dataframes.
 }
@@ -11,8 +11,8 @@ An S3 object composed of "meta" and "data" dataframes.
 example_sts
 }
 \description{
-The \code{example_sts} dataset provides a quickly loadable version of
-an \emph{sts} object for practicing and code examples.
+The \code{example_sts} dataset provides a quickly loadable
+version of an \emph{sts} object for practicing and code examples.
 
 This dataset was was generated on 2021-01-08 by running:
 

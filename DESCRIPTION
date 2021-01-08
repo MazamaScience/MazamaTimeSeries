@@ -26,8 +26,6 @@ Imports:
     geodist,
     magrittr,
     MazamaCoreUtils,
-    MazamaSpatialUtils,
-    MazamaLocationUtils,
     rlang,
     stringr
 Suggests:
