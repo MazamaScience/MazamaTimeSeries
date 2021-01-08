@@ -23,13 +23,13 @@ sensors report at regular time intervals.
 ## Data Model
 
 The most compact format for time series data collected at fixed locations 
-is a list include two tables. Time series measurements are stored in a table 
-where each row is a _record_ for a particular UTC timestamp and each 
+is a list including two tables. Time series measurements are stored in a `data`
+table where each row is a _record_ for a particular UTC timestamp and each 
 column contains data associated with that time. Any time invariant 
 _spatial metadata_ associated with a location should be stored in a separate
-table. A unique identifier connects the two tables. In the language of relational
-databases, this "normalizes" the database and can greatly reduce the memory and
-disk space needed to work with the data
+`meta` table. A unique identifier connects the two tables. In the language of 
+relational databases, this "normalizes" the database and can greatly reduce the 
+memory and disk space needed to work with the data
 
 ### Single Time Series
 
@@ -39,13 +39,14 @@ list of two dataframes. The package refers to this structure as an `sts` object
 for **S**ingle**T**ime**S**eries:
 
 `sts$meta` -- 1 row = unique sensor-deployment; cols = sensor/location metadata
+
 `sts$data` -- rows = UTC time; cols = measured parameters (plus an additional `datetime` column)
 
 Each `sts` object can support the following types of time series data:
 
-* stationary sensor deployments (no "mobile" sensors)
-* single instrument
-* irregular time axes
+* stationary sensor deployments only (no "mobile" sensors)
+* single instrument only
+* regular and irregular time axes
 * multiple parameters
 * multiple deployments require multiple records in the `meta` dataframe
 
@@ -64,13 +65,14 @@ stored in an R list of two dataframes. The package refers to this structure as
 an `mts` object for **M**ultiple**T**ime**S**eries:
 
 `mts$meta` -- N rows = unique sensor-deployments; cols = sensor/location metadata
+
 `mts$data` -- rows = UTC time; N cols = sensor-deployments (plus an additional `datetime` column)
 
 Each `mts` object can support the following types of time series data:
 
-* stationary sensor deployments (no "mobile" sensors)
-* multiple instrument
-* regular (shared) time axes
+* stationary sensor deployments only (no "mobile" sensors)
+* multiple instruments
+* regular (shared) time axes only
 * single parameter
 
 ----
