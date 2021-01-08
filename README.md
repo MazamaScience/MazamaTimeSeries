@@ -42,7 +42,7 @@ for **S**ingle**T**ime**S**eries:
 
 `sts$data` -- rows = UTC time; cols = measured parameters (plus an additional `datetime` column)
 
-Each `sts` object can support the following types of time series data:
+`sts` objects can support the following types of time series data:
 
 * stationary sensor deployments only (no "mobile" sensors)
 * single instrument only
@@ -68,7 +68,7 @@ an `mts` object for **M**ultiple**T**ime**S**eries:
 
 `mts$data` -- rows = UTC time; N cols = sensor-deployments (plus an additional `datetime` column)
 
-Each `mts` object can support the following types of time series data:
+`mts` objects can support the following types of time series data:
 
 * stationary sensor deployments only (no "mobile" sensors)
 * multiple instruments
