@@ -86,40 +86,40 @@ column followed by measurements made at each time.</code></pre>
 <div id="background" class="section level2">
 <h2 class="hasAnchor">
 <a href="#background" class="anchor"></a>Background</h2>
-<p>This package is intended to be used in support of data management activities associated with environmental time series collected at fixed locations in space. The motivating fields include both air and water quality monitoring where fixed sensors report at regular time intervals.</p>
+<p>This package supports data management activities associated with environmental time series collected at fixed locations in space. The motivating fields include both air and water quality monitoring where fixed sensors report at regular time intervals.</p>
 </div>
 <div id="data-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-model" class="anchor"></a>Data Model</h2>
-<p>The most compact format for time series data collected at fixed locations is a list including two tables. Time series measurements are stored in a <code>data</code> table where each row is a <em>record</em> for a particular UTC timestamp and each column contains data associated with that time. Any time invariant <em>spatial metadata</em> associated with a location should be stored in a separate <code>meta</code> table. A unique identifier connects the two tables. In the language of relational databases, this “normalizes” the database and can greatly reduce the memory and disk space needed to work with the data</p>
+<p>The most compact format for time series data collected at fixed locations is a list including two tables. <strong>MazamaTimeSeries</strong> stores ime series measurements in a <code>data</code> table where each row is a <em>record</em> for a particular UTC timestamp and each column contains data associated with that time. Any time invariant <em>spatial metadata</em> associated with a “device-deployment” at a known location is stored in a separate <code>meta</code> table. A unique identifier connects the two tables. In the language of relational databases, this “normalizes” the database and can greatly reduce the memory and disk space needed to work with the data</p>
 <div id="single-time-series" class="section level3">
 <h3 class="hasAnchor">
 <a href="#single-time-series" class="anchor"></a>Single Time Series</h3>
-<p>Time series data from a single environmental sensor will typically consist of multiple parameters measured at each time. This data will be stored in an R list of two dataframes. The package refers to this structure as an <code>sts</code> object for <strong>S</strong>ingle<strong>T</strong>ime<strong>S</strong>eries:</p>
-<p><code>sts$meta</code> – 1 row = unique sensor-deployment; cols = sensor/location metadata</p>
+<p>Time series data from a single environmental sensor (aka “device”) typically consists of multiple parameters measured at successive times. This data is stored in an R list containing two dataframes. The package refers to this structure as an <code>sts</code> object for <strong>S</strong>ingle<strong>T</strong>ime<strong>S</strong>eries:</p>
+<p><code>sts$meta</code> – 1 row = unique device-deployment; cols = device/location metadata</p>
 <p><code>sts$data</code> – rows = UTC time; cols = measured parameters (plus an additional <code>datetime</code> column)</p>
 <p><code>sts</code> objects can support the following types of time series data:</p>
 <ul>
-<li>stationary sensor deployments only (no “mobile” sensors)</li>
-<li>single instrument only</li>
-<li>regular and irregular time axes</li>
+<li>stationary device-deployments only (no “mobile” devices)</li>
+<li>single sensor only</li>
+<li>regular or irregular time axes</li>
 <li>multiple parameters</li>
-<li>multiple deployments require multiple records in the <code>meta</code> dataframe</li>
+<li>multiple deployments are supported with multiple records in the <code>meta</code> dataframe</li>
 </ul>
 </div>
 <div id="multiple-time-series" class="section level3">
 <h3 class="hasAnchor">
 <a href="#multiple-time-series" class="anchor"></a>Multiple Time Series</h3>
-<p>Working with timeseries data from multiple instruments is often challenging because of the amount of memory required to store all the data from each instrument. However, a common situation is to have time series that share a common time axis – <em>e.g.</em> hourly measurements. In this case, it is possible to create single-parameter <code>data</code> dataframes that contain all data for all instruments for a parameter of interest. In air quality applications, common parameters of interest include PM2.5 and Ozone.</p>
-<p>Single-parameter time series data from mulitple environmental sensors will be stored in an R list of two dataframes. The package refers to this structure as an <code>mts</code> object for <strong>M</strong>ultiple<strong>T</strong>ime<strong>S</strong>eries:</p>
-<p><code>mts$meta</code> – N rows = unique sensor-deployments; cols = sensor/location metadata</p>
-<p><code>mts$data</code> – rows = UTC time; N cols = sensor-deployments (plus an additional <code>datetime</code> column)</p>
+<p>Working with timeseries data from multiple sensors is often challenging because of the amount of memory required to store all the data from each sensor. However, a common situation is to have time series that share a common time axis – <em>e.g.</em> hourly measurements. In this case, it is possible to create single-parameter <code>data</code> dataframes that contain all data for all sensors for a single parameter of interest. In air quality applications, common parameters of interest include PM2.5 and Ozone.</p>
+<p>Multi-sensor, single-parameter time series data is stored in an R list with two dataframes. The package refers to this structure as an <code>mts</code> object for <strong>M</strong>ultiple<strong>T</strong>ime<strong>S</strong>eries:</p>
+<p><code>mts$meta</code> – N rows = unique device-deployments; cols = device/location metadata</p>
+<p><code>mts$data</code> – rows = UTC time; N cols = device-deployments (plus an additional <code>datetime</code> column)</p>
 <p><code>mts</code> objects can support the following types of time series data:</p>
 <ul>
-<li>stationary sensor deployments only (no “mobile” sensors)</li>
-<li>multiple instruments</li>
+<li>stationary device-deployments only (no “mobile” sensors)</li>
+<li>multiple sensors</li>
 <li>regular (shared) time axes only</li>
-<li>single parameter</li>
+<li>single parameter only</li>
 </ul>
 <hr>
 <p>This project is supported by Mazama Science.</p>
