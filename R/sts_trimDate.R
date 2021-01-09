@@ -26,10 +26,11 @@
 #'   timezone = "UTC"
 #' )
 #'
+#' # UTC day boundaries
 #' head(UTC_week$data)
 #'
+#' # Trim to local time day boundaries
 #' local_week <- sts_trimDate(UTC_week)
-#'
 #' head(local_week$data)
 #'
 
