@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
       </span>
     </div>
 
@@ -114,6 +114,8 @@ column followed by measurements made at each time.</code></pre>
 <p>Multi-sensor, single-parameter time series data is stored in an R list with two dataframes. The package refers to this structure as an <code>mts</code> object for <strong>M</strong>ultiple<strong>T</strong>ime<strong>S</strong>eries:</p>
 <p><code>mts$meta</code> – N rows = unique device-deployments; cols = device/location metadata</p>
 <p><code>mts$data</code> – rows = UTC time; N cols = device-deployments (plus an additional <code>datetime</code> column)</p>
+<p>A key feature of <code>mts</code> objects is the use of the <code>deviceDeploymentID</code> as a “foreign key” that allows <code>data</code> columns to be mapped onto the associated spatial metadata in a <code>meta</code> row. The following will always be true:</p>
+<pre><code><a href="https://rdrr.io/r/base/identical.html">identical(names(mts$data), c('datetime', mts$meta$deviceDeploymentID))</a></code></pre>
 <p><code>mts</code> objects can support the following types of time series data:</p>
 <ul>
 <li>stationary device-deployments only (no “mobile” sensors)</li>

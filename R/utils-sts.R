@@ -1,9 +1,9 @@
 #' @export
 #'
 #' @name sts_isValid
-#' @title Test \emph{sts_timeseries} object for correct structure
+#' @title Test \emph{sts} object for correct structure
 #'
-#' @param sts \emph{sts_timeseries} object
+#' @param sts \emph{sts} object
 #'
 #' @description The \code{sts} is checked for the presence of core
 #' \code{meta} and \code{data} columns.
@@ -46,7 +46,7 @@ sts_isValid <- function(
   MazamaCoreUtils::stopIfNull(sts)
 
   # TODO:  Include class name check when this won't break AirSensor or RAWSmet
-  # if ( !("sts_timeseries" %in% class(sts)) ) return(FALSE)
+  # if ( !("sts" %in% class(sts)) ) return(FALSE)
 
   if ( !("meta" %in% names(sts)) ) return(FALSE)
   if ( !("data" %in% names(sts)) ) return(FALSE)
@@ -68,7 +68,7 @@ sts_isValid <- function(
     return(FALSE)
 
   if ( any(duplicated(sts$data$datetime)) )
-    warning("Duplicate timesteps found in 'sts_timeseries' object.")
+    warning("Duplicate timesteps found in 'sts' object.")
 
   # Nothing failed so return TRUE
   return(TRUE)

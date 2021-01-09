@@ -68,6 +68,14 @@ an `mts` object for **M**ultiple**T**ime**S**eries:
 
 `mts$data` -- rows = UTC time; N cols = device-deployments (plus an additional `datetime` column)
 
+A key feature of `mts` objects is the use of the `deviceDeploymentID` as a
+"foreign key" that allows `data` columns to be mapped onto the associated
+spatial metadata in a `meta` row. The following will always be true:
+
+```
+identical(names(mts$data), c('datetime', mts$meta$deviceDeploymentID))
+```
+
 `mts` objects can support the following types of time series data:
 
 * stationary device-deployments only (no "mobile" sensors)
