@@ -22,18 +22,18 @@ sensors report at regular time intervals.
 
 ## Data Model
 
-The most compact format for time series data collected at fixed locations 
-is a list including two tables. **MazamaTimeSeries** stores ime series measurements in a `data`
-table where each row is a _record_ for a particular UTC timestamp and each 
-column contains data associated with that time. Any time invariant 
-_spatial metadata_ associated with a  "device-deployment" at a known location is stored in a separate
-`meta` table. A unique identifier connects the two tables. In the language of 
-relational databases, this "normalizes" the database and can greatly reduce the 
-memory and disk space needed to work with the data
+The most compact format for time series data collected at fixed locations is a
+list including two tables. **MazamaTimeSeries** stores time series measurements in a
+`data` table where each row is a _record_ for a particular UTC timestamp and each 
+column contains data measured by a single sensor (aka "device"). Any time invariant 
+_spatial metadata_ associated with a sensor at a known location (aka a "device-deployment")
+is stored in a separate `meta` table. A unique identifier connects the two tables. 
+In the language of relational databases, this "normalizes" the database and can 
+greatly reduce the memory and disk space needed to store the data
 
 ### Single Time Series
 
-Time series data from a single environmental sensor (aka "device") typically consists of 
+Time series data from a single environmental sensor typically consists of 
 multiple parameters measured at successive times. This data is stored in an R 
 list containing two dataframes. The package refers to this structure as an `sts` object
 for **S**ingle**T**ime**S**eries:
@@ -44,7 +44,7 @@ for **S**ingle**T**ime**S**eries:
 
 `sts` objects can support the following types of time series data:
 
-* stationary device-deployments only (no "mobile" devices)
+* stationary device-deployments only (no "mobile" sensors)
 * single sensor only
 * regular or irregular time axes
 * multiple parameters
@@ -64,13 +64,13 @@ Multi-sensor, single-parameter time series data is
 stored in an R list with two dataframes. The package refers to this structure as 
 an `mts` object for **M**ultiple**T**ime**S**eries:
 
-`mts$meta` -- N rows = unique device-deployments; cols = device/location metadata
+`mts$meta` -- N rows = unique device-deployments; cols = sensor/location metadata
 
 `mts$data` -- rows = UTC time; N cols = device-deployments (plus an additional `datetime` column)
 
 A key feature of `mts` objects is the use of the `deviceDeploymentID` as a
-"foreign key" that allows `data` columns to be mapped onto the associated
-spatial metadata in a `meta` row. The following will always be true:
+"foreign key" that allows sensor `data` columns to be mapped onto the associated
+spatial metadata in a sensor `meta` row. The following will always be true:
 
 ```
 identical(names(mts$data), c('datetime', mts$meta$deviceDeploymentID))
