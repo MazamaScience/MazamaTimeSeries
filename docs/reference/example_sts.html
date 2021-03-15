@@ -84,7 +84,7 @@ save(example_sts, file = &quot;data/example_sts.rda&quot;)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
       </span>
     </div>
 
@@ -92,12 +92,24 @@ save(example_sts, file = &quot;data/example_sts.rda&quot;)
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Developer_Style_Guide.html">Developer Style Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -106,7 +118,7 @@ save(example_sts, file = &quot;data/example_sts.rda&quot;)
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/MazamaScience/MazamaLocationUtils/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -133,18 +145,18 @@ save(example_sts, file = &quot;data/example_sts.rda&quot;)
 version of an <em>sts</em> object for practicing and code examples.</p>
 <p>This dataset was was generated on 2021-01-08 by running:</p>
 <pre>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/AirSensor'>AirSensor</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/MazamaScience/AirSensor'>AirSensor</a></span>)
 
-<span class='va'>example_sts</span> <span class='op'>&lt;-</span> <span class='va'>example_pat</span>
-<span class='va'>example_sts</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>$</span><span class='va'>elevation</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='cn'>NA</span><span class='op'>)</span>
-<span class='va'>example_sts</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>$</span><span class='va'>siteName</span> <span class='op'>&lt;-</span> <span class='va'>example_sts</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>$</span><span class='va'>label</span>
+<span class='kw'>example_sts</span> <span class='op'>&lt;-</span> <span class='kw'>example_pat</span>
+<span class='kw'>example_sts</span><span class='op'>$</span><span class='kw'>meta</span><span class='op'>$</span><span class='kw'>elevation</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fl'>NA</span>)
+<span class='kw'>example_sts</span><span class='op'>$</span><span class='kw'>meta</span><span class='op'>$</span><span class='kw'>siteName</span> <span class='op'>&lt;-</span> <span class='kw'>example_sts</span><span class='op'>$</span><span class='kw'>meta</span><span class='op'>$</span><span class='kw'>label</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span><span class='op'>(</span><span class='va'>example_sts</span>, file <span class='op'>=</span> <span class='st'>"data/example_sts.rda"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span>(<span class='kw'>example_sts</span>, file = <span class='st'>"data/example_sts.rda"</span>)
 </pre>
 
     </div>
 
-    <pre class="usage"><span class='va'>example_sts</span></pre>
+    <pre class="usage"><span class='kw'>example_sts</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
