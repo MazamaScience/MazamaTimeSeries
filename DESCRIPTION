@@ -25,6 +25,7 @@ Imports:
     lubridate,
     magrittr,
     MazamaCoreUtils,
+    MazamaLocationUtils,
     rlang,
     stringr
 Suggests:
