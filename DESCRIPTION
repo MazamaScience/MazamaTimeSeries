@@ -26,6 +26,7 @@ Imports:
     magrittr,
     MazamaCoreUtils,
     MazamaLocationUtils,
+    readr,
     rlang,
     stringr
 Suggests:
