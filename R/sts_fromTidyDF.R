@@ -1,0 +1,111 @@
+#' @export
+#' @importFrom rlang .data
+#' @importFrom MazamaLocationUtils location_createID
+#'
+#' @title Convert a tidy dataframe into a SingleTimeSeries object
+#'
+#' @param tidyDF Tidy dataframe containing data and metadata.
+#' @param nameMapping List mapping columns in tidyDF to the required columns 
+#' specified below
+#'
+#' @description Converts a tidy dataframe containing data and metadata from
+#' one device into a \emph{sts} object.
+#' 
+#' The required metadata columns in the provided tidy dataframe are as follows:
+#' \itemize{
+#'   \item{\code{deviceID} -- device identifier (character, non-numeric)}
+#'   \item{\code{longitude} -- decimal degrees E}
+#'   \item{\code{latitude} -- decimal degrees N}
+#'   \item{\code{countryCode} -- ISO 3166-1 alpha-2}
+#'   \item{\code{stateCode} -- ISO 3166-2 alpha-2}
+#'   \item{\code{timezone} -- Olson time zone}
+#' }
+#' 
+#' Data stored in these columns will be put in the meta dataframe of the resulting 
+#' \emph{sts} object.
+#' 
+#' The required data columns are as follows:
+#' \itemize{
+#'   \item{\code{datetime} -- measurement time (UTC)}
+#' }
+#' 
+#' These columns along with any other numeric columns in the tidy dataframe will be 
+#' put in the data dataframe of the resulting \emph{sts} object.
+#'
+#' @return A \emph{sts} object containing data and metadata from the original 
+#' tidy dataframe
+#'
+#' @examples
+#'
+#' library(MazamaTimeSeries)
+#'
+#' # TODO: write example for sts_fromTidyDF()
+#'
+
+sts_fromTidyDF <- function(
+  tidyDF = NULL,
+  nameMapping = NULL
+) {
+  
+  # ----- Validate parameters --------------------------------------------------
+  
+  requiredColumns = c('deviceID', 'longitude', 'latitude', 'countryCode', 
+                      'stateCode', 'timezone', 'datetime')
+  
+  if ( !all(requiredColumns %in% names(tidyDF)) ) {
+    badColumns <- setdiff(requiredColumns, names(tidyDF))
+    stop(sprintf(
+      "Required columns are not found in tidyDF: '%s'",
+      paste(badColumns, collapse = ", ")
+    ))
+  }
+  
+  # ----- Create meta dataframe ------------------------------------------------
+  
+  # Define columns for final meta dataframe
+  allMetaColumns <- c('deviceDeploymentID', 'deviceID', 'locationID', 'siteName', 
+                      'longitude', 'latitude', 'elevation', 'countryCode', 
+                      'stateCode', 'timezone')
+  
+  meta <- data.frame(
+    # create deviceDeploymentID. Will be overwritten if one was already
+    # provided in tidyDF
+    deviceDeploymentID = 
+      MazamaLocationUtils::location_createID(unique(tidyDF$longitude), unique(tidyDF$latitude))
+  )
+  
+  # Add all meta columns
+  # NOTE: If a column was not provided in tidyDF, set it to NA
+  for(col in allMetaColumns) {
+    if(col %in% names(tidyDF)) {
+      meta[col] <- unique(tidyDF[[col]])
+    } else {
+      meta[col] <- as.character(NULL)
+    }
+  }
+  
+  # Add all other non-numeric columns to meta (except for any POSIXct columns)
+  for(col in names(tidyDF)) {
+    if(!is.numeric(tidyDF[[col]]) & !col %in% names(meta) & !'POSIXct' %in% class(tidyDF[[col]])) {
+      meta[col] <- unique(tidyDF[[col]])
+    }
+  }
+  
+  # ----- Create data dataframe ------------------------------------------------
+  
+  # The data dataframe contains all of the columns not in the meta dataframe
+  # This will be all of the numeric columns along with datetime
+  data <- tidyDF[, !names(tidyDF) %in% names(meta)]
+  
+  # ----- Create and validate final sts ----------------------------------------
+  
+  sts <- list(meta = meta, data = data)
+  
+  if ( !sts_isValid(sts) )
+    stop("Resulting object is not a valid sts object.")
+  
+  # ----- Return ---------------------------------------------------------------
+  
+  return(sts)
+  
+}
