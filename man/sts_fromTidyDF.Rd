@@ -40,6 +40,13 @@ The required data columns are as follows:
 
 These columns along with any other numeric columns in the tidy dataframe will be 
 put in the data dataframe of the resulting \emph{sts} object.
+
+
+If the column names in 'tidyDF' do not match the names of the required columns,
+they can be mapped to the correct column names with the 'nameMapping' parameter. 
+
+For example, to map columns 'lon' and 'lat' in 'tidyDF' to 'longitude' and 'latitude',
+'nameMapping' can be defined as nameMapping = list("lon" = "longitude", "lat" = "latitude")
 }
 \examples{
 

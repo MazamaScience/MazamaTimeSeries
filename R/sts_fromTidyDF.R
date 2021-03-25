@@ -1,5 +1,5 @@
 #' @export
-#' @importFrom rlang .data
+#' @importFrom rlang .data :=
 #' @importFrom MazamaLocationUtils location_createID
 #'
 #' @title Convert a tidy dataframe into a SingleTimeSeries object
@@ -31,6 +31,13 @@
 #' 
 #' These columns along with any other numeric columns in the tidy dataframe will be 
 #' put in the data dataframe of the resulting \emph{sts} object.
+#' 
+#' 
+#' If the column names in 'tidyDF' do not match the names of the required columns,
+#' they can be mapped to the correct column names with the 'nameMapping' parameter. 
+#' 
+#' For example, to map columns 'lon' and 'lat' in 'tidyDF' to 'longitude' and 'latitude',
+#' 'nameMapping' can be defined as nameMapping = list("lon" = "longitude", "lat" = "latitude")
 #'
 #' @return A \emph{sts} object containing data and metadata from the original 
 #' tidy dataframe
@@ -52,6 +59,19 @@ sts_fromTidyDF <- function(
   requiredColumns = c('deviceID', 'longitude', 'latitude', 'countryCode', 
                       'stateCode', 'timezone', 'datetime')
   
+  if( typeof(nameMapping) != "list")
+    stop("Parameter 'nameMapping' must be a list.")
+  
+  for( name in names(nameMapping) ) {
+    # Each element must be a single character
+    if( length(nameMapping[[name]]) != 1 )
+      stop("Elements of 'nameMapping' must be of length 1.")
+    
+    # Rename column in tidyDF as defined in 'nameMapping'
+    if( name %in% names(tidyDF) ) 
+      tidyDF <- tidyDF %>% dplyr::rename(!!nameMapping[[name]] := name)
+  }
+  
   if ( !all(requiredColumns %in% names(tidyDF)) ) {
     badColumns <- setdiff(requiredColumns, names(tidyDF))
     stop(sprintf(
@@ -59,6 +79,9 @@ sts_fromTidyDF <- function(
       paste(badColumns, collapse = ", ")
     ))
   }
+  
+  if ( length(unique(tidyDF$longitude)) > 1 || length(unique(tidyDF$latitude)) > 1 )
+    stop("Duplicate locations were found in 'tidyDF'")
   
   # ----- Create meta dataframe ------------------------------------------------
   
@@ -76,17 +99,17 @@ sts_fromTidyDF <- function(
   
   # Add all meta columns
   # NOTE: If a column was not provided in tidyDF, set it to NA
-  for(col in allMetaColumns) {
-    if(col %in% names(tidyDF)) {
+  for( col in allMetaColumns ) {
+    if( col %in% names(tidyDF) ) {
       meta[col] <- unique(tidyDF[[col]])
     } else {
       meta[col] <- as.character(NULL)
     }
   }
   
-  # Add all other non-numeric columns to meta (except for any POSIXct columns)
-  for(col in names(tidyDF)) {
-    if(!is.numeric(tidyDF[[col]]) & !col %in% names(meta) & !'POSIXct' %in% class(tidyDF[[col]])) {
+  # Add all other non-numeric columns to meta (except for columns including 'datetime')
+  for( col in names(tidyDF) ) {
+    if( !is.numeric(tidyDF[[col]]) & !col %in% names(meta) & !grepl("datetime", col) ) {
       meta[col] <- unique(tidyDF[[col]])
     }
   }
