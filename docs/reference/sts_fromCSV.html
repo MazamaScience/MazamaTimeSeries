@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Example MultipleTimeSeries dataset — example_mts • MazamaTimeSeries</title>
+<title>Load a CSV file into a SingleTimeSeries object — sts_fromCSV • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,18 +39,26 @@
 
 
 
-<meta property="og:title" content="Example MultipleTimeSeries dataset — example_mts" />
-<meta property="og:description" content="The example_mts dataset provides a quickly loadable
-version of a mts object for practicing and code examples.
-This dataset was was generated on 2021-01-09 by running:
+<meta property="og:title" content="Load a CSV file into a SingleTimeSeries object — sts_fromCSV" />
+<meta property="og:description" content="Loads a CSV file containing metadata and data from a single 
+device into a SingleTimeSeries object.
+The required metadata columns in the provided CSV are as follows:
+deviceID -- device identifier (character, non-numeric)
+longitude -- decimal degrees E
+latitude -- decimal degrees N
+countryCode -- ISO 3166-1 alpha-2
+stateCode -- ISO 3166-2 alpha-2
+timezone -- Olson time zone
 
-library(AirSensor)
 
-example_mts &amp;lt;- example_sensor
+Data stored in these columns will be put in the meta dataframe of the resulting 
+sts object.
+The required data columns are as follows:
+datetime -- measurement time (UTC)
 
-save(example_mts, file = &quot;data/example_mts.rda&quot;)
 
-" />
+These columns along with any other numeric columns in the tidy dataframe will be 
+put in the data dataframe of the resulting sts object." />
 
 
 
@@ -133,32 +141,60 @@ save(example_mts, file = &quot;data/example_mts.rda&quot;)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Example MultipleTimeSeries dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaLocationUtils/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>example_mts.Rd</code></div>
+    <h1>Load a CSV file into a SingleTimeSeries object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaLocationUtils/blob/master/R/sts_fromCSV.R'><code>R/sts_fromCSV.R</code></a></small>
+    <div class="hidden name"><code>sts_fromCSV.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <code>example_mts</code> dataset provides a quickly loadable
-version of a <em>mts</em> object for practicing and code examples.</p>
-<p>This dataset was was generated on 2021-01-09 by running:</p>
-<pre>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/MazamaScience/AirSensor'>AirSensor</a></span>)
+    <p>Loads a CSV file containing metadata and data from a single 
+device into a SingleTimeSeries object.</p>
+<p>The required metadata columns in the provided CSV are as follows:</p><ul>
+<li><p><code>deviceID</code> -- device identifier (character, non-numeric)</p></li>
+<li><p><code>longitude</code> -- decimal degrees E</p></li>
+<li><p><code>latitude</code> -- decimal degrees N</p></li>
+<li><p><code>countryCode</code> -- ISO 3166-1 alpha-2</p></li>
+<li><p><code>stateCode</code> -- ISO 3166-2 alpha-2</p></li>
+<li><p><code>timezone</code> -- Olson time zone</p></li>
+</ul>
 
-<span class='kw'>example_mts</span> <span class='op'>&lt;-</span> <span class='kw'>example_sensor</span>
+<p>Data stored in these columns will be put in the meta dataframe of the resulting 
+<em>sts</em> object.</p>
+<p>The required data columns are as follows:</p><ul>
+<li><p><code>datetime</code> -- measurement time (UTC)</p></li>
+</ul>
 
-<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span>(<span class='kw'>example_mts</span>, file = <span class='st'>"data/example_mts.rda"</span>)
-</pre>
-
+<p>These columns along with any other numeric columns in the tidy dataframe will be 
+put in the data dataframe of the resulting <em>sts</em> object.</p>
     </div>
 
-    <pre class="usage"><span class='kw'>example_mts</span></pre>
+    <pre class="usage"><span class='fu'>sts_fromCSV</span>(file = <span class='kw'>NULL</span>, nameMapping = <span class='kw'>NULL</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>file</th>
+      <td><p>path or URL to the CSV file to load</p></td>
+    </tr>
+    <tr>
+      <th>nameMapping</th>
+      <td><p>List mapping columns in the CSV file to the required columns 
+specified below</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An S3 object composed of "meta" and "data" dataframes.</p>
+    <p>A <em>sts</em> object containing data and metadata from the provided CSV</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/MazamaScience/MazamaLocationUtils'>MazamaTimeSeries</a></span>)
+
+<span class='co'># TODO: write example for sts_fromCSV()</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

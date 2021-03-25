@@ -1,3 +1,9 @@
+# MazamaTimeSeries 0.0.4
+
+* Added functions for loading data into the `sts` format:
+  - `sts_fromTidyDF()`
+  - `sts_fromCSV()`
+
 # MazamaTimeSeries 0.0.3
 
 * Added basic unit tests for `sts` functions.
