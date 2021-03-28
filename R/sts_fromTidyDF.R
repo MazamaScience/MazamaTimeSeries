@@ -59,7 +59,7 @@ sts_fromTidyDF <- function(
   requiredColumns = c('deviceID', 'longitude', 'latitude', 'countryCode', 
                       'stateCode', 'timezone', 'datetime')
   
-  if( typeof(nameMapping) != "list")
+  if( !is.null(nameMapping) && typeof(nameMapping) != "list")
     stop("Parameter 'nameMapping' must be a list.")
   
   for( name in names(nameMapping) ) {
@@ -86,7 +86,7 @@ sts_fromTidyDF <- function(
   # ----- Create meta dataframe ------------------------------------------------
   
   # Define columns for final meta dataframe
-  allMetaColumns <- c('deviceDeploymentID', 'deviceID', 'locationID', 'siteName', 
+  allMetaColumns <- c('deviceID', 'locationID', 'siteName', 
                       'longitude', 'latitude', 'elevation', 'countryCode', 
                       'stateCode', 'timezone')
   
@@ -96,7 +96,7 @@ sts_fromTidyDF <- function(
     deviceDeploymentID = 
       MazamaLocationUtils::location_createID(unique(tidyDF$longitude), unique(tidyDF$latitude))
   )
-  
+
   # Add all meta columns
   # NOTE: If a column was not provided in tidyDF, set it to NA
   for( col in allMetaColumns ) {
@@ -128,7 +128,7 @@ sts_fromTidyDF <- function(
     stop("Resulting object is not a valid sts object.")
   
   # ----- Return ---------------------------------------------------------------
-  
+
   return(sts)
   
 }
