@@ -72,6 +72,7 @@ sts_fromTidyDF <- function(
       tidyDF <- tidyDF %>% dplyr::rename(!!nameMapping[[name]] := name)
   }
   
+  # Check for missing required columns in tidyDF
   if ( !all(requiredColumns %in% names(tidyDF)) ) {
     badColumns <- setdiff(requiredColumns, names(tidyDF))
     stop(sprintf(
@@ -80,8 +81,13 @@ sts_fromTidyDF <- function(
     ))
   }
   
+  # Check for unique locations
   if ( length(unique(tidyDF$longitude)) > 1 || length(unique(tidyDF$latitude)) > 1 )
-    stop("Duplicate locations were found in 'tidyDF'")
+    stop("Duplicate locations were found in 'tidyDF'.")
+  
+  # Check for duplicate datetimes. wide data, long data
+  if ( length(tidyDF$datetime[duplicated(tidyDF$datetime)]) > 0 )
+    stop("Duplicated measurement times were found in 'tidyDF'.")
   
   # ----- Create meta dataframe ------------------------------------------------
   
@@ -107,10 +113,20 @@ sts_fromTidyDF <- function(
     }
   }
   
-  # Add all other non-numeric columns to meta (except for columns including 'datetime')
+  # Add all metadata columns to meta. These include:
+  # - All other non-numeric columns (except for columns including 'datetime')
+  # - All columns ending in ID (case sensitive) that contain a unique value
+  # - All columns named elevation or elev (case sensitive) that contain a unique value
   for( col in names(tidyDF) ) {
-    if( !is.numeric(tidyDF[[col]]) & !col %in% names(meta) & !grepl("datetime", col) ) {
-      meta[col] <- unique(tidyDF[[col]])
+    if( (!is.numeric(tidyDF[[col]]) & !col %in% names(meta) & !grepl('datetime', col)) | 
+        (stringr::str_sub(tolower(col), -2) == 'id' & length(unique(tidyDF[[col]])) == 1) |
+        (tolower(col) == 'elevation' | tolower(col) == 'elev' & length(unique(tidyDF[[col]])) == 1) ) {
+      
+      # requires a special check since 'elevation' is currently required by sts_isValid() 
+      if ( tolower(col) == 'elevation' | tolower(col) == 'elev' )
+        meta['elevation'] <- unique(tidyDF[[col]])
+      else
+        meta[col] <- unique(tidyDF[[col]])
     }
   }
   
