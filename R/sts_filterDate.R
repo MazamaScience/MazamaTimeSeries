@@ -6,9 +6,14 @@
 #' @param sts MazamaSingleTimeseries \emph{sts} object.
 #' @param startdate Desired start datetime (ISO 8601).
 #' @param enddate Desired end datetime (ISO 8601).
-#' @param days Number of days to include in the filterDate interval.
-#' @param weeks Number of weeks to include in the filterDate interval.
 #' @param timezone Olson timezone used to interpret dates.
+#' @param unit Units used to determine time at end-of-day.
+#' @param ceilingStart Logical instruction to apply
+#'   \code{\link[lubridate]{ceiling_date}} to the \code{startdate} rather than
+#'   \code{\link[lubridate]{floor_date}}
+#' @param ceilingEnd Logical instruction to apply
+#'   \code{\link[lubridate]{ceiling_date}} to the \code{enddate} rather than
+#'   \code{\link[lubridate]{floor_date}}
 #'
 #' @description Subsets a MazamaSingleTimeseries object by date. This function
 #' always filters to day-boundaries. For sub-day filtering, use
@@ -54,9 +59,10 @@ sts_filterDate <- function(
   sts = NULL,
   startdate = NULL,
   enddate = NULL,
-  days = 7,
-  weeks = NULL,
-  timezone = NULL
+  timezone = NULL,
+  unit = "sec",
+  ceilingStart = FALSE,
+  ceilingEnd = FALSE
 ) {
 
   # ----- Validate parameters --------------------------------------------------
@@ -94,19 +100,13 @@ sts_filterDate <- function(
 
   # ----- Get the start and end times ------------------------------------------
 
-  if ( !is.null(weeks) ) {
-    days <- weeks * 7
-  }
-
-  # NOTE:  MazamaCoreUtils::dateRange() ignores days if both startdate and
-  # NOTE:  enddate are provided.
   dateRange <- MazamaCoreUtils::dateRange(
     startdate = startdate,
     enddate = enddate,
     timezone = timezone,
     unit = "sec",
-    ceilingEnd = FALSE,
-    days = days
+    ceilingStart = ceilingStart,
+    ceilingEnd = ceilingEnd,
   )
 
   # ----- Subset the 'sts' object ----------------------------------------------

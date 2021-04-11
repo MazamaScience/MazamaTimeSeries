@@ -114,16 +114,16 @@ test_that("POSIXct date formats work", {
 
   # Local times
   start_Hawaii <- ISOdatetime(2018, 08, 02, 00, 00, 00, tz = "US/Hawaii")
-  end_Hawaii <- ISOdatetime(2018, 08, 02, 23, 59, 00, tz = "US/Hawaii")
+  end_Hawaii <- ISOdatetime(2018, 08, 03, 00, 00, 00, tz = "US/Hawaii")
 
   start_LA <- ISOdatetime(2018, 08, 02, 00, 00, 00, tz = "America/Los_Angeles")
-  end_LA <- ISOdatetime(2018, 08, 02, 23, 59, 00, tz = "America/Los_Angeles")
+  end_LA <- ISOdatetime(2018, 08, 03, 00, 00, 00, tz = "America/Los_Angeles")
 
   start_Denver <- ISOdatetime(2018, 08, 02, 00, 00, 00, tz = "America/Denver")
-  end_Denver <- ISOdatetime(2018, 08, 02, 23, 59, 00, tz = "America/Denver")
+  end_Denver <- ISOdatetime(2018, 08, 03, 00, 00, 00, tz = "America/Denver")
 
   start_NYC <- ISOdatetime(2018, 08, 02, 00, 00, 00, tz = "America/New_York")
-  end_NYC <- ISOdatetime(2018, 08, 02, 23, 59, 00, tz = "America/New_York")
+  end_NYC <- ISOdatetime(2018, 08, 03, 00, 00, 00, tz = "America/New_York")
 
   expect_identical(
     c(start_HST, end_HST),
@@ -147,7 +147,7 @@ test_that("POSIXct date formats work", {
 
   expect_identical(
     c(start_UTC, end_UTC),
-    range( sts_filterDatetime(example_sts, start_UTC, end_UTC)$data$datetime )
+    range( sts_filterDatetime(example_sts, start_UTC, end_UTC + lubridate::minutes(1))$data$datetime )
   )
 
 })
@@ -178,16 +178,16 @@ test_that("POSIXct date formats work with timezones", {
 
   # Local times
   start_Hawaii <- ISOdatetime(2018, 08, 02, 00, 00, 00, tz = "US/Hawaii")
-  end_Hawaii <- ISOdatetime(2018, 08, 02, 23, 59, 00, tz = "US/Hawaii")
+  end_Hawaii <- ISOdatetime(2018, 08, 03, 00, 00, 00, tz = "US/Hawaii")
 
   start_LA <- ISOdatetime(2018, 08, 02, 00, 00, 00, tz = "America/Los_Angeles")
-  end_LA <- ISOdatetime(2018, 08, 02, 23, 59, 00, tz = "America/Los_Angeles")
+  end_LA <- ISOdatetime(2018, 08, 03, 00, 00, 00, tz = "America/Los_Angeles")
 
   start_Denver <- ISOdatetime(2018, 08, 02, 00, 00, 00, tz = "America/Denver")
-  end_Denver <- ISOdatetime(2018, 08, 02, 23, 59, 00, tz = "America/Denver")
+  end_Denver <- ISOdatetime(2018, 08, 03, 00, 00, 00, tz = "America/Denver")
 
   start_NYC <- ISOdatetime(2018, 08, 02, 00, 00, 00, tz = "America/New_York")
-  end_NYC <- ISOdatetime(2018, 08, 02, 23, 59, 00, tz = "America/New_York")
+  end_NYC <- ISOdatetime(2018, 08, 03, 00, 00, 00, tz = "America/New_York")
 
   expect_identical(
     c(start_HST, end_HST),
@@ -211,7 +211,7 @@ test_that("POSIXct date formats work with timezones", {
 
   expect_identical(
     c(start_UTC, end_UTC),
-    range( sts_filterDatetime(example_sts, start_UTC, end_UTC, timezone = "UTC")$data$datetime )
+    range( sts_filterDatetime(example_sts, start_UTC, end_UTC + lubridate::minutes(1), timezone = "UTC")$data$datetime )
   )
 
 })

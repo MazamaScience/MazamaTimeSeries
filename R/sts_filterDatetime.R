@@ -7,7 +7,14 @@
 #' @param startdate Desired start datetime (ISO 8601).
 #' @param enddate Desired end datetime (ISO 8601).
 #' @param timezone Olson timezone used to interpret dates.
-#'
+#' @param unit Units used to determine time at end-of-day.
+#' @param ceilingStart Logical instruction to apply
+#'   \code{\link[lubridate]{ceiling_date}} to the \code{startdate} rather than
+#'   \code{\link[lubridate]{floor_date}}
+#' @param ceilingEnd Logical instruction to apply
+#'   \code{\link[lubridate]{ceiling_date}} to the \code{enddate} rather than
+#'   \code{\link[lubridate]{floor_date}}
+#' 
 #' @description Subsets a MazamaSingleTimeseries object by datetime. This function
 #' allows for sub-day filtering as opposed to \code{sts_filterDate()} which
 #' always filters to day-boundaries.
@@ -46,7 +53,10 @@ sts_filterDatetime <- function(
   sts = NULL,
   startdate = NULL,
   enddate = NULL,
-  timezone = NULL
+  timezone = NULL,
+  unit = "sec",
+  ceilingStart = FALSE,
+  ceilingEnd = FALSE
 ) {
 
   # ----- Validate parameters --------------------------------------------------
@@ -87,9 +97,9 @@ sts_filterDatetime <- function(
     starttime = startdate,
     endtime = enddate,
     timezone = timezone,
-    unit = "sec",
-    ceilingStart = FALSE,
-    ceilingEnd = FALSE
+    unit = unit,
+    ceilingStart = ceilingStart,
+    ceilingEnd = ceilingEnd
   )
 
   # ----- Subset the 'sts' object ----------------------------------------------

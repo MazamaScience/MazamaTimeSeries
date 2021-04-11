@@ -8,9 +8,10 @@ sts_filterDate(
   sts = NULL,
   startdate = NULL,
   enddate = NULL,
-  days = 7,
-  weeks = NULL,
-  timezone = NULL
+  timezone = NULL,
+  unit = "sec",
+  ceilingStart = FALSE,
+  ceilingEnd = FALSE
 )
 }
 \arguments{
@@ -20,11 +21,17 @@ sts_filterDate(
 
 \item{enddate}{Desired end datetime (ISO 8601).}
 
-\item{days}{Number of days to include in the filterDate interval.}
-
-\item{weeks}{Number of weeks to include in the filterDate interval.}
-
 \item{timezone}{Olson timezone used to interpret dates.}
+
+\item{unit}{Units used to determine time at end-of-day.}
+
+\item{ceilingStart}{Logical instruction to apply
+\code{\link[lubridate]{ceiling_date}} to the \code{startdate} rather than
+\code{\link[lubridate]{floor_date}}}
+
+\item{ceilingEnd}{Logical instruction to apply
+\code{\link[lubridate]{ceiling_date}} to the \code{enddate} rather than
+\code{\link[lubridate]{floor_date}}}
 }
 \value{
 A subset of the given \emph{sts} object.
