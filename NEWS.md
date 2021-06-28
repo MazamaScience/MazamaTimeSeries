@@ -1,3 +1,7 @@
+# MazamaTimeSeries 0.0.5
+
+* Improved warning messages in `sts_isValid()` and `mts_isValid()`.
+
 # MazamaTimeSeries 0.0.4
 
 * Added functions for loading data into the `sts` format:

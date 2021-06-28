@@ -49,7 +49,10 @@ sts_isValid <- function(
   # if ( !("sts" %in% class(sts)) ) return(FALSE)
 
   if ( !("meta" %in% names(sts)) ) return(FALSE)
+  if ( !("data.frame" %in% class(sts$meta)) ) return(FALSE)
+
   if ( !("data" %in% names(sts)) ) return(FALSE)
+  if ( !("data.frame" %in% class(sts$data)) ) return(FALSE)
 
   requiredNamesMeta <- c(
     'deviceDeploymentID', 'deviceID', 'locationID', 'siteName',
@@ -57,15 +60,28 @@ sts_isValid <- function(
     'countryCode', 'stateCode', 'timezone'
   )
 
-  if ( !all(requiredNamesMeta %in% names(sts$meta)) )
-    return(FALSE)
+  if ( !all(requiredNamesMeta %in% names(sts$meta)) ) {
+    missingColumns <- setdiff(requiredNamesMeta, names(sts$meta))
+    stop(sprintf(
+      "sts$meta must contain columns for '%s'",
+      paste(missingColumns, collapse = ", ")
+    ))
+  }
 
   requiredNamesData <- c(
     'datetime'
   )
 
-  if ( !all(requiredNamesData %in% names(sts$data)) )
-    return(FALSE)
+  if ( !all(requiredNamesData %in% names(sts$data)) ) {
+    missingColumns <- setdiff(requiredNamesData, names(sts$data))
+    stop(sprintf(
+      "sts$data must contain columns for '%s'",
+      paste(missingColumns, collapse = ", ")
+    ))
+  }
+
+  if ( !("POSIXct" %in% class(sts$data$datetime)) )
+    stop("sts$data$datetime is not of class 'POSIXct'")
 
   if ( any(duplicated(sts$data$datetime)) )
     warning("Duplicate timesteps found in 'sts' object.")

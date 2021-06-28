@@ -55,7 +55,7 @@ sts_filter <- function(
   # ----- Filter data ----------------------------------------------------------
 
   sts$data <-
-    dplyr::filter(sts$data,...)
+    dplyr::filter(sts$data, ...)
 
   # ----- Return ---------------------------------------------------------------
 

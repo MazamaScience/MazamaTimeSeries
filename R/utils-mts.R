@@ -49,7 +49,10 @@ mts_isValid <- function(
   # if ( !("mts" %in% class(mts)) ) return(FALSE)
 
   if ( !("meta" %in% names(mts)) ) return(FALSE)
+  if ( !("data.frame" %in% class(mts$meta)) ) return(FALSE)
+
   if ( !("data" %in% names(mts)) ) return(FALSE)
+  if ( !("data.frame" %in% class(mts$data)) ) return(FALSE)
 
   requiredNamesMeta <- c(
     'deviceDeploymentID', 'deviceID', 'locationID', 'siteName',
@@ -57,8 +60,13 @@ mts_isValid <- function(
     'countryCode', 'stateCode', 'timezone'
   )
 
-  if ( !all(requiredNamesMeta %in% names(mts$meta)) )
-    return(FALSE)
+  if ( !all(requiredNamesMeta %in% names(mts$meta)) ) {
+    missingColumns <- setdiff(requiredNamesMeta, names(mts$meta))
+    stop(sprintf(
+      "mts$meta must contain columns for '%s'",
+      paste(missingColumns, collapse = ", ")
+    ))
+  }
 
   # Guarantee that 'data' columns exactly match meta$deviceDeploymentID
   # NOTE:  This is a core guarantee of the 'mts' data model.
@@ -67,6 +75,21 @@ mts_isValid <- function(
       "Mismatch between mts$meta$monitorID and names(mts$data)\n",
       "Columns in 'data' must be in the same order as rows in 'meta'."
     ))
+
+  requiredNamesData <- c(
+    'datetime'
+  )
+
+  if ( !all(requiredNamesData %in% names(mts$data)) ) {
+    missingColumns <- setdiff(requiredNamesData, names(mts$data))
+    stop(sprintf(
+      "mts$data must contain columns for '%s'",
+      paste(missingColumns, collapse = ", ")
+    ))
+  }
+
+  if ( !("POSIXct" %in% class(mts$data$datetime)) )
+    stop("mts$data$datetime is not of class 'POSIXct'")
 
   if ( any(duplicated(mts$data$datetime)) )
     warning("Duplicate timesteps found in 'mts' object.")
