@@ -4,10 +4,12 @@
 \alias{sts_isValid}
 \title{Test \emph{sts} object for correct structure}
 \usage{
-sts_isValid(sts = NULL)
+sts_isValid(sts = NULL, verbose = FALSE)
 }
 \arguments{
 \item{sts}{\emph{sts} object}
+
+\item{verbose}{Logical specifying whether to produce detailed warning messages.}
 }
 \value{
 \code{TRUE} if \code{sts} has the correct structure,

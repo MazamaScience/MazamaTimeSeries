@@ -6,19 +6,19 @@
 # MazamaTimeSeries
 
 ```
-A suite of utility functions for working with environmental time
-series data from known locations. The compact data model is structured as a 
-list with two dataframes. A 'meta' dataframe contains spatial metadata
-associated with known locations. A 'data' dataframe contains a 'datetime'
-column followed by measurements made at each time.
+Utility functions for working with environmental time series data from known 
+locations. The compact data model is structured as a list with two dataframes. A 
+'meta' dataframe contains spatial and measuring device metadata associated with 
+deployments at known locations. A  'data' dataframe contains a 'datetime' column 
+followed by measurements made at each time.
 ```
 
 ## Background
 
-This package supports data management activities
-associated with environmental time series collected at fixed locations in space.
-The motivating fields include both air and water quality monitoring where fixed 
-sensors report at regular time intervals.
+This package supports data management activities associated with environmental 
+time series collected at fixed locations in space. The motivating fields include 
+both air and water quality monitoring where fixed sensors report at regular time 
+intervals.
 
 ## Data Model
 
@@ -26,7 +26,7 @@ The most compact format for time series data collected at fixed locations is a
 list including two tables. **MazamaTimeSeries** stores time series measurements in a
 `data` table where each row is a _record_ for a particular UTC timestamp and each 
 column contains data measured by a single sensor (aka "device"). Any time invariant 
-_spatial metadata_ associated with a sensor at a known location (aka a "device-deployment")
+metadata associated with a sensor at a known location (aka a "device-deployment")
 is stored in a separate `meta` table. A unique identifier connects the two tables. 
 In the language of relational databases, this "normalizes" the database and can 
 greatly reduce the memory and disk space needed to store the data
@@ -48,7 +48,7 @@ for **S**ingle**T**ime**S**eries:
 * single sensor only
 * regular or irregular time axes
 * multiple parameters
-* multiple deployments are supported with multiple records in the `meta` dataframe
+* multiple deployments of a single sensor are supported with multiple records in the `meta` dataframe
 
 ### Multiple Time Series
 
@@ -70,7 +70,7 @@ an `mts` object for **M**ultiple**T**ime**S**eries:
 
 A key feature of `mts` objects is the use of the `deviceDeploymentID` as a
 "foreign key" that allows sensor `data` columns to be mapped onto the associated
-spatial metadata in a sensor `meta` row. The following will always be true:
+spatial and sensor metadata in a `meta` row. The following will always be true:
 
 ```
 identical(names(mts$data), c('datetime', mts$meta$deviceDeploymentID))

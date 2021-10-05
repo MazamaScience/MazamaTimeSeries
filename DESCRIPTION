@@ -1,6 +1,6 @@
 Type: Package
 Package: MazamaTimeSeries
-Version: 0.0.4
+Version: 0.0.5
 Title: Core Functionalitiy for Environmental Time Series
 Authors@R: c(
     person("Jonathan", "Callahan", email="jonathan.s.callahan@gmail.com", role=c("aut","cre")),
@@ -11,7 +11,7 @@ Author: Jonathan Callahan [aut, cre],
     Hans Martin [aut]
     Eli Grosman [aut]
 Maintainer: Jonathan Callahan <jonathan.s.callahan@gmail.com>
-Description: A suite of utility functions for working with environmental time
+Description: Utility functions for working with environmental time
     series data from known locations. The compact data model is structured as a 
     list with two dataframes. A 'meta' dataframe contains spatial metadata
     associated with known locations. A 'data' dataframe contains a 'datetime'
@@ -23,7 +23,6 @@ Depends:
     R (>= 3.5.0)
 Imports:
     dplyr,
-    geodist,
     lubridate,
     magrittr,
     MazamaCoreUtils,
@@ -40,4 +39,4 @@ Suggests:
 Encoding: UTF-8
 VignetteBuilder: knitr
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

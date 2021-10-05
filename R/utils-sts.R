@@ -4,6 +4,7 @@
 #' @title Test \emph{sts} object for correct structure
 #'
 #' @param sts \emph{sts} object
+#' @param verbose Logical specifying whether to produce detailed warning messages.
 #'
 #' @description The \code{sts} is checked for the presence of core
 #' \code{meta} and \code{data} columns.
@@ -38,57 +39,107 @@
 #' sts_isValid(example_sts)
 #'
 sts_isValid <- function(
-  sts = NULL
+  sts = NULL,
+  verbose = FALSE
 ) {
-
-  # ----- Validate parameters --------------------------------------------------
 
   MazamaCoreUtils::stopIfNull(sts)
 
-  # TODO:  Include class name check when this won't break AirSensor or RAWSmet
-  # if ( !("sts" %in% class(sts)) ) return(FALSE)
-
-  if ( !("meta" %in% names(sts)) ) return(FALSE)
-  if ( !("data.frame" %in% class(sts$meta)) ) return(FALSE)
-
-  if ( !("data" %in% names(sts)) ) return(FALSE)
-  if ( !("data.frame" %in% class(sts$data)) ) return(FALSE)
-
-  requiredNamesMeta <- c(
-    'deviceDeploymentID', 'deviceID', 'locationID', 'siteName',
-    'longitude', 'latitude', 'elevation',
-    'countryCode', 'stateCode', 'timezone'
+  msg <- ifelse(
+    verbose,
+    function(m) warning(m, call. = FALSE, immediate. = TRUE),
+    function(m) NULL
   )
 
-  if ( !all(requiredNamesMeta %in% names(sts$meta)) ) {
-    missingColumns <- setdiff(requiredNamesMeta, names(sts$meta))
-    stop(sprintf(
+  # TODO:  Include class name check when this won't break AirSensor or RAWSmet
+  # if (!"sts" %in% class(sts)) {
+  #   msg("\n Not an `sts` class object. See help('is_sts').")
+  #   return(FALSE)
+  # }
+
+  if ( !"meta" %in% names(sts) ) {
+    msg("no 'meta' found in sts object")
+    return(FALSE)
+  }
+
+  if ( !"data" %in% names(sts) ) {
+    msg("no 'data' found in sts object")
+    return(FALSE)
+  }
+
+  if ( !"data.frame" %in% class(sts$meta) ) {
+    msg("sts$meta is not of class data.frame")
+    return(FALSE)
+  }
+
+  if ( !"data.frame" %in% class(sts$data) ) {
+    msg("sts$data is not of class data.frame")
+    return(FALSE)
+  }
+
+  if ( !"datetime" %in% names(sts$data) ) {
+    msg("sts$data$datetime axis is missing")
+  }
+
+  if ( !("POSIXct" %in% class(sts$data$datetime)) ) {
+    stop("sts$data$datetime is not of class 'POSIXct'")
+    return(FALSE)
+  }
+
+  if ( any(duplicated(sts$data$datetime)) ) {
+    stop("duplicate timesteps found in sts$data$datetime")
+    return(FALSE)
+  }
+
+  if ( !"deviceDeploymentID" %in% names(sts$meta) ) {
+    msg("sts$meta$deviceDeploymentID is missing")
+    return(FALSE)
+  }
+
+  if ( any(duplicated(sts$meta$deviceDeploymentID)) ||
+       any(duplicated(names(sts$data))) ) {
+    msg("sts contains duplicate deviceDeploymentIDs")
+    return(FALSE)
+  }
+
+  if ( !all(requiredMetaNames %in% names(sts$meta)) ) {
+    missingColumns <- setdiff(requiredMetaNames, names(sts$meta))
+    msg(sprintf(
       "sts$meta must contain columns for '%s'",
       paste(missingColumns, collapse = ", ")
     ))
   }
 
-  requiredNamesData <- c(
-    'datetime'
-  )
-
-  if ( !all(requiredNamesData %in% names(sts$data)) ) {
-    missingColumns <- setdiff(requiredNamesData, names(sts$data))
-    stop(sprintf(
-      "sts$data must contain columns for '%s'",
-      paste(missingColumns, collapse = ", ")
-    ))
-  }
-
-  if ( !("POSIXct" %in% class(sts$data$datetime)) )
-    stop("sts$data$datetime is not of class 'POSIXct'")
-
-  if ( any(duplicated(sts$data$datetime)) )
-    warning("Duplicate timesteps found in 'sts' object.")
-
   # Nothing failed so return TRUE
   return(TRUE)
 
+}
+
+
+#' @export
+#'
+#' @title Check an \emph{sts} object for validitiy.
+#'
+#' @param sts \emph{sts} objet.
+#'
+#' @description Checks on the validity of an \emph{sts} object. If any test
+#' fails, this function will stop with a warning message.
+#'
+#' library(MazamaTimeSeries)
+#'
+#' sts_check(example_sts)
+#'
+#' # Break the 'sts' object
+#' broken_sts <- sts
+#' names(broken_sts) <- c('meta', 'bop')
+#'
+#' sts_check(broken_sts)
+#'
+sts_check <- function(sts) {
+  tryCatch(
+    sts_isValid(sts, verbose = TRUE),
+    warning = function(w) stop(w)
+  )
 }
 
 
@@ -239,4 +290,5 @@ sts_extractMeta <- function(sts) {
   return(df)
 
 }
+
 
