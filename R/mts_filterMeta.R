@@ -1,41 +1,40 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title General purpose data filtering for \emph{mts} objects
+#' @title General purpose metadata filtering for \emph{mts} objects
 #'
 #' @param mts \emph{mts} object.
 #' @param ... Logical predicates defined in terms of the variables in
-#' \code{mts$data}.
+#' \code{mts$meta}.
 #'
-#' @description A generalized data filter for \emph{mts} objects to
+#' @description A generalized metadata filter for \emph{mts} objects to
 #' choose rows/cases where conditions are true.  Multiple conditions are
 #' combined with \code{&} or separated by a comma. Only rows where the condition
 #' evaluates to TRUE are kept. Rows where the condition evaluates to \code{NA}
 #' are dropped.
 #'
-#' @note Filtering is done on variables in \code{mts$data}.
+#' @note Filtering is done on variables in \code{mts$meta}.
 #'
 #' @return A subset of the incoming \code{mts}.
 #'
+#' @seealso \link{mts_filter}
 #' @seealso \link{mts_filterDate}
 #' @seealso \link{mts_filterDatetime}
-#' @seealso \link{mts_filterMeta}
 #' @examples
 #'
 #' library(MazamaTimeSeries)
 #'
-#' # Are there any times when data exceeded 150?
-#' sapply(example_mts$data, function(x) { any(x > 150, na.rm = TRUE) })
-#'
-#' # Filter for all times where da4cadd2d6ea5302_4686 > 150
-#' very_unhealthy <-
+#' # Filter for all labels with "SCSH"
+#' scap <-
 #'   example_mts %>%
-#'   mts_filter(da4cadd2d6ea5302_4686 > 150)
+#'   mts_filterMeta(communityRegion == "Temescal Valley")
 #'
-#' head(very_unhealthy$data)
+#' dplyr::select(scap$meta, ID, label, longitude, latitude, communityRegion)
+#'
+#' head(scap$data)
 #'
 
-mts_filter <- function(
+mts_filterMeta <- function(
   mts,
   ...
 ) {
@@ -62,10 +61,18 @@ mts_filter <- function(
   # Remove any duplicate data records
   mts <- mts_distinct(mts)
 
+  # ----- Filter meta ----------------------------------------------------------
+
+  mts$meta <-
+    dplyr::filter(mts$meta, ...)
+
   # ----- Filter data ----------------------------------------------------------
 
+  # NOTE:  The columns in 'data' must always match the rows in 'meta'
+
+  colNames <- c('datetime', mts$meta$deviceDeploymentID)
   mts$data <-
-    dplyr::filter(mts$data, ...)
+    dplyr::select(mts$data, dplyr::all_of(colNames))
 
   # ----- Return ---------------------------------------------------------------
 

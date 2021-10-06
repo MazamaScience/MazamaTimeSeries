@@ -9,7 +9,7 @@ sts_filter(sts, ...)
 \arguments{
 \item{sts}{\emph{sts} object.}
 
-\item{...}{Logical predicates defined in terms of the variables in the
+\item{...}{Logical predicates defined in terms of the variables in
 \code{sts$data}.}
 }
 \value{

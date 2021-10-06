@@ -36,6 +36,7 @@
 #'
 #' @seealso \link{mts_filter}
 #' @seealso \link{mts_filterDate}
+#' @seealso \link{mts_filterMeta}
 #'
 #' @examples
 #' library(MazamaTimeSeries)

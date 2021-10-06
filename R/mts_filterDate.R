@@ -46,6 +46,8 @@
 #'
 #' @seealso \link{mts_filter}
 #' @seealso \link{mts_filterDatetime}
+#' @seealso \link{mts_filterMeta}
+#'
 #' @examples
 #' library(MazamaTimeSeries)
 #'

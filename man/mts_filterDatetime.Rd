@@ -70,4 +70,6 @@ example_mts \%>\%
 \link{mts_filter}
 
 \link{mts_filterDate}
+
+\link{mts_filterMeta}
 }

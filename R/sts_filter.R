@@ -4,7 +4,7 @@
 #' @title General purpose data filtering for \emph{sts} objects
 #'
 #' @param sts \emph{sts} object.
-#' @param ... Logical predicates defined in terms of the variables in the
+#' @param ... Logical predicates defined in terms of the variables in
 #' \code{sts$data}.
 #'
 #' @description A generalized data filter for \emph{sts} objects to
