@@ -69,7 +69,7 @@ single day is returned.
 library(MazamaTimeSeries)
 
 example_mts \%>\%
-  mts_filterDate(startdate = 20180808, enddate = 20180815) \%>\%
+  mts_filterDate(startdate = 20190703, enddate = 20190706) \%>\%
   mts_extractData() \%>\%
   head()
 

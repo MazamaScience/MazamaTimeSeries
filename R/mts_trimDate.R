@@ -1,28 +1,28 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Trim a SingleTimeSeries object to full days
+#' @title Trim a \emph{mts} object to full days
 #'
-#' @param sts SingleTimeSeries \emph{sts} object.
+#' @param mts \emph{mts} bject.
 #' @param timezone Olson timezone used to interpret dates.
 #'
-#' @description Trims the date range of a \emph{sts} object to local time date
+#' @description Trims the date range of a \emph{mts} object to local time date
 #' boundaries which are \emph{within} the range of data. This has the effect
 #' of removing partial-day data records at the start and end of the timeseries
 #' and is useful when calculating full-day statistics.
 #'
 #' Day boundaries are calculated using the specified \code{timezone} or, if
-#' \code{NULL}, from \code{sts$meta$timezone}.
+#' \code{NULL}, from \code{mts$meta$timezone}.
 #'
-#' @return A subset of the given \emph{sts} object.
+#' @return A subset of the given \emph{mts} object.
 #'
 #' @examples
 #' library(MazamaTimeSeries)
 #'
-#' UTC_week <- sts_filterDate(
-#'   example_sts,
-#'   startdate = 20180808,
-#'   enddate = 20180815,
+#' UTC_week <- mts_filterDate(
+#'   example_mts,
+#'   startdate = 20190703,
+#'   enddate = 20190706,
 #'   timezone = "UTC"
 #' )
 #'
@@ -30,34 +30,34 @@
 #' head(UTC_week$data)
 #'
 #' # Trim to local time day boundaries
-#' local_week <- sts_trimDate(UTC_week)
-#' head(local_week$data)
+#' local_week <- mts_trimDate(UTC_week)
+#' range(local_week$data$datetime)
 #'
 
-sts_trimDate <- function(
-  sts = NULL,
+mts_trimDate <- function(
+  mts = NULL,
   timezone = NULL
 ) {
 
   # ----- Validate parameters --------------------------------------------------
 
-  MazamaCoreUtils::stopIfNull(sts)
+  MazamaCoreUtils::stopIfNull(mts)
 
-  if ( !sts_isValid(sts) )
-    stop("Parameter 'sts' is not a valid 'sts' object.")
+  if ( !mts_isValid(mts) )
+    stop("Parameter 'mts' is not a valid 'mts' object.")
 
-  if ( sts_isEmpty(sts) )
-    stop("Parameter 'sts' has no data.")
+  if ( mts_isEmpty(mts) )
+    stop("Parameter 'mts' has no data.")
 
   # Remove any duplicate data records
-  sts <- sts_distinct(sts)
+  mts <- mts_distinct(mts)
 
   # Use internal function to determine the timezone to use
-  timezone <- .determineTimezone(sts, NULL, timezone, verbose = TRUE)
+  timezone <- .determineTimezone(mts, NULL, timezone, verbose = TRUE)
 
   # ----- Get the start and end times ------------------------------------------
 
-  timeRange <- range(sts$data$datetime)
+  timeRange <- range(mts$data$datetime)
 
   # NOTE:  The dateRange() is used to restrict the time range to days that have
   # NOTE:  complete data.
@@ -85,17 +85,17 @@ sts_trimDate <- function(
       ceilingEnd = FALSE   # date boundary *before* the end
     )
 
-  # ----- Subset the "sts" object ----------------------------------------------
+  # ----- Subset the "mts" object ----------------------------------------------
 
   data <-
-    sts$data %>%
+    mts$data %>%
     dplyr::filter(.data$datetime >= dateRange[1]) %>%
     dplyr::filter(.data$datetime < dateRange[2])
 
-  sts$data <- data
+  mts$data <- data
 
   # ----- Return ---------------------------------------------------------------
 
-  return(sts)
+  return(mts)
 
 }

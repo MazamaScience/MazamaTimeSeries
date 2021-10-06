@@ -43,8 +43,8 @@
 #'
 #' example_mts %>%
 #'   mts_filterDatetime(
-#'     startdate = "2018-08-08 06:00:00",
-#'     enddate = "2018-08-14 18:00:00"
+#'     startdate = "2019-07-03 06:00:00",
+#'     enddate = "2019-07-06 18:00:00"
 #'   ) %>%
 #'   mts_extractData() %>%
 #'   head()
@@ -75,42 +75,8 @@ mts_filterDatetime <- function(
   # Remove any duplicate data records
   mts <- mts_distinct(mts)
 
-  # Timezone determination precedence assumes that if you are passing in
-  # POSIXct times then you know what you are doing.
-  #   1) get timezone from startdate if it is POSIXct
-  #   2) use passed in timezone
-  #   3) get timezone from mts
-
-  if ( lubridate::is.POSIXt(startdate) ) {
-
-    timezone <- lubridate::tz(startdate)
-
-  } else if ( !is.null(timezone) ) {
-
-    # Do nothing
-
-  } else {
-
-    # Handle multiple timezones in 'mts'
-    timezoneCount <- length(unique(mts$meta$timezone))
-
-    # Use table(timezone) to find the most common one
-    if ( timezoneCount > 1 ) {
-      timezoneTable <- sort(table(mts$meta$timezone), decreasing = TRUE)
-      timezone <- names(timezoneTable)[1]
-      warning(sprintf(
-        "Found %d timezones. Only %s will be used.",
-        timezoneCount,
-        timezone
-      ))
-    } else {
-      timezone <- mts$meta$timezone[1]
-    }
-
-  }
-
-  if ( !timezone %in% OlsonNames() )
-    stop(sprintf("timezone '%s' is not a valid Olson timezone", timezone))
+  # Use internal function to determine the timezone to use
+  timezone <- .determineTimezone(mts, startdate, timezone, verbose = TRUE)
 
   # ----- Get the start and end times ------------------------------------------
 
@@ -132,10 +98,7 @@ mts_filterDatetime <- function(
   if (timeRange[1] > mts$data$datetime[length(mts$data$datetime)] |
       timeRange[2] < mts$data$datetime[1]) {
 
-    message(sprintf(
-      "mts (%s) does not contain requested time range",
-      mts$meta$siteName
-    ))
+    message(sprintf("mts does not contain the requested time range"))
 
     data <- mts$data[0,]
 

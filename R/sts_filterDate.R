@@ -81,42 +81,8 @@ sts_filterDate <- function(
   if ( is.null(startdate) && !is.null(enddate) )
     stop("At least one of 'startdate' or 'enddate' must be specified")
 
-  # Timezone determination precedence assumes that if you are passing in
-  # POSIXct times then you know what you are doing.
-  #   1) get timezone from startdate if it is POSIXct
-  #   2) use passed in timezone
-  #   3) get timezone from sts
-
-  if ( lubridate::is.POSIXt(startdate) ) {
-
-    timezone <- lubridate::tz(startdate)
-
-  } else if ( !is.null(timezone) ) {
-
-    # Do nothing
-
-  } else {
-
-    # Handle multiple timezones in 'sts'
-    timezoneCount <- length(unique(sts$meta$timezone))
-
-    # Use table(timezone) to find the most common one
-    if ( timezoneCount > 1 ) {
-      timezoneTable <- sort(table(sts$meta$timezone), decreasing = TRUE)
-      timezone <- names(timezoneTable)[1]
-      warning(sprintf(
-        "Found %d timezones. Only %s will be used.",
-        timezoneCount,
-        timezone
-      ))
-    } else {
-      timezone <- sts$meta$timezone[1]
-    }
-
-  }
-
-  if ( !timezone %in% OlsonNames() )
-    stop(sprintf("timezone '%s' is not a valid Olson timezone", timezone))
+  # Use internal function to determine the timezone to use
+  timezone <- .determineTimezone(sts, startdate, timezone, verbose = TRUE)
 
   # ----- Get the start and end times ------------------------------------------
 

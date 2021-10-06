@@ -52,7 +52,7 @@
 #' library(MazamaTimeSeries)
 #'
 #' example_mts %>%
-#'   mts_filterDate(startdate = 20180808, enddate = 20180815) %>%
+#'   mts_filterDate(startdate = 20190703, enddate = 20190706) %>%
 #'   mts_extractData() %>%
 #'   head()
 #'
@@ -92,42 +92,8 @@ mts_filterDate <- function(
   if ( is.null(startdate) && !is.null(enddate) )
     stop("At least one of 'startdate' or 'enddate' must be specified")
 
-  # Timezone determination precedence assumes that if you are passing in
-  # POSIXct times then you know what you are doing.
-  #   1) get timezone from startdate if it is POSIXct
-  #   2) use passed in timezone
-  #   3) get timezone from mts
-
-  if ( lubridate::is.POSIXt(startdate) ) {
-
-    timezone <- lubridate::tz(startdate)
-
-  } else if ( !is.null(timezone) ) {
-
-    # Do nothing
-
-  } else {
-
-    # Handle multiple timezones in 'mts'
-    timezoneCount <- length(unique(mts$meta$timezone))
-
-    # Use table(timezone) to find the most common one
-    if ( timezoneCount > 1 ) {
-      timezoneTable <- sort(table(mts$meta$timezone), decreasing = TRUE)
-      timezone <- names(timezoneTable)[1]
-      warning(sprintf(
-        "Found %d timezones. Only %s will be used.",
-        timezoneCount,
-        timezone
-      ))
-    } else {
-      timezone <- mts$meta$timezone[1]
-    }
-
-  }
-
-  if ( !timezone %in% OlsonNames() )
-    stop(sprintf("timezone '%s' is not a valid Olson timezone", timezone))
+  # Use internal function to determine the timezone to use
+  timezone <- .determineTimezone(mts, startdate, timezone, verbose = TRUE)
 
   # ----- Get the start and end times ------------------------------------------
 
@@ -149,10 +115,7 @@ mts_filterDate <- function(
   if (dateRange[1] > mts$data$datetime[length(mts$data$datetime)] |
       dateRange[2] < mts$data$datetime[1]) {
 
-    message(sprintf(
-      "mts (%s) does not contain requested date range",
-      mts$meta$siteName
-    ))
+    message(sprintf("mts does not contain the requested date range"))
 
     data <- mts$data[0,]
 

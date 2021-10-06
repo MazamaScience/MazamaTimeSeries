@@ -59,8 +59,8 @@ library(MazamaTimeSeries)
 
 example_mts \%>\%
   mts_filterDatetime(
-    startdate = "2018-08-08 06:00:00",
-    enddate = "2018-08-14 18:00:00"
+    startdate = "2019-07-03 06:00:00",
+    enddate = "2019-07-06 18:00:00"
   ) \%>\%
   mts_extractData() \%>\%
   head()
