@@ -55,7 +55,7 @@ sts_trimDate <- function(
   if ( is.null(timezone) )
     timezone <- sts$meta$timezone
 
-  if ( !timezone %in% OlsonNames() )
+  if ( !all(timezone %in% OlsonNames()) )
     stop(sprintf("timezone '%s' is not a valid Olson timezone", timezone))
 
   # ----- Get the start and end times ------------------------------------------

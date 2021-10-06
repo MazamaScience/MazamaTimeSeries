@@ -4,10 +4,12 @@
 \alias{mts_isValid}
 \title{Test \emph{mts} object for correct structure}
 \usage{
-mts_isValid(mts = NULL)
+mts_isValid(mts = NULL, verbose = FALSE)
 }
 \arguments{
 \item{mts}{\emph{mts} object}
+
+\item{verbose}{Logical specifying whether to produce detailed warning messages.}
 }
 \value{
 \code{TRUE} if \code{mts} has the correct structure,

@@ -2,12 +2,12 @@
 % Please edit documentation in R/utils-sts.R
 \name{sts_check}
 \alias{sts_check}
-\title{Check an STS object for validitiy.}
+\title{Check an \emph{sts} object for validity.}
 \usage{
 sts_check(sts)
 }
 \arguments{
-\item{sts}{\emph{sts} to check.}
+\item{sts}{\emph{sts} objet.}
 }
 \description{
 Checks on the validity of an \emph{sts} object. If any test
@@ -18,7 +18,7 @@ library(MazamaTimeSeries)
 sts_check(example_sts)
 
 # Break the 'sts' object
-broken_sts <- sts
+broken_sts <- example_sts
 names(broken_sts) <- c('meta', 'bop')
 
 sts_check(broken_sts)

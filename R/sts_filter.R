@@ -1,9 +1,9 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title General purpose data filtering for MazamaSingleTimeseries objects
+#' @title General purpose data filtering for \emph{sts} objects
 #'
-#' @param sts MazamaSingleTimeseries \emph{sts} object.
+#' @param sts \emph{sts} object.
 #' @param ... Logical predicates defined in terms of the variables in the
 #' \code{sts$data}.
 #'
@@ -12,6 +12,8 @@
 #' combined with \code{&} or separated by a comma. Only rows where the condition
 #' evaluates to TRUE are kept. Rows where the condition evaluates to \code{NA}
 #' are dropped.
+#'
+#' @note Filtering is done on values in \code{sts$data}.
 #'
 #' @return A subset of the incoming \code{sts}.
 #'

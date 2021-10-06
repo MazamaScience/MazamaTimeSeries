@@ -19,7 +19,11 @@ This dataset was was generated on 2021-01-09 by running:
 \preformatted{
 library(AirSensor)
 
-example_mts <- example_sensor
+ids <- sample(example_sensor_scaqmd$meta$deviceDeploymentID, 10)
+
+example_mts <-
+  example_sensor_scaqmd %>%
+  sensor_filterMeta(deviceDeploymentID %in% ids)
 
 save(example_mts, file = "data/example_mts.rda")
 }

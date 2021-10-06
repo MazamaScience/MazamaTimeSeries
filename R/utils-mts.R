@@ -1,9 +1,37 @@
 #' @export
 #'
+#' @title Check an \emph{mts} object for validity.
+#'
+#' @param mts \emph{mts} objet.
+#'
+#' @description Checks on the validity of an \emph{mts} object. If any test
+#' fails, this function will stop with a warning message.
+#'
+#' library(MazamaTimeSeries)
+#'
+#' sts_check(example_mts)
+#'
+#' # Break the 'mts' object
+#' broken_mts <- example_mts
+#' names(broken_mts) <- c('meta', 'bop')
+#'
+#' sts_check(broken_mts)
+#'
+mts_check <- function(mts) {
+  tryCatch(
+    mts_isValid(mts, verbose = TRUE),
+    warning = function(w) stop(w)
+  )
+}
+
+
+#' @export
+#'
 #' @name mts_isValid
 #' @title Test \emph{mts} object for correct structure
 #'
 #' @param mts \emph{mts} object
+#' @param verbose Logical specifying whether to produce detailed warning messages.
 #'
 #' @description The \code{mts} is checked for the presence of core
 #' \code{meta} and \code{data} columns.
@@ -38,31 +66,72 @@
 #' mts_isValid(example_mts)
 #'
 mts_isValid <- function(
-  mts = NULL
+  mts = NULL,
+  verbose = FALSE
 ) {
-
-  # ----- Validate parameters --------------------------------------------------
 
   MazamaCoreUtils::stopIfNull(mts)
 
-  # TODO:  Include class name check when this won't break AirSensor or PWFSLSmoke
-  # if ( !("mts" %in% class(mts)) ) return(FALSE)
-
-  if ( !("meta" %in% names(mts)) ) return(FALSE)
-  if ( !("data.frame" %in% class(mts$meta)) ) return(FALSE)
-
-  if ( !("data" %in% names(mts)) ) return(FALSE)
-  if ( !("data.frame" %in% class(mts$data)) ) return(FALSE)
-
-  requiredNamesMeta <- c(
-    'deviceDeploymentID', 'deviceID', 'locationID', 'siteName',
-    'longitude', 'latitude', 'elevation',
-    'countryCode', 'stateCode', 'timezone'
+  msg <- ifelse(
+    verbose,
+    function(m) warning(m, call. = FALSE, immediate. = TRUE),
+    function(m) NULL
   )
 
-  if ( !all(requiredNamesMeta %in% names(mts$meta)) ) {
-    missingColumns <- setdiff(requiredNamesMeta, names(mts$meta))
-    stop(sprintf(
+  # TODO:  Include class name check when this won't break AirSensor or RAWSmet
+  # if (!"mts" %in% class(mts)) {
+  #   msg("\n Not an `mts` class object. See help('is_mts').")
+  #   return(FALSE)
+  # }
+
+  if ( !"meta" %in% names(mts) ) {
+    msg("no 'meta' found in mts object")
+    return(FALSE)
+  }
+
+  if ( !"data" %in% names(mts) ) {
+    msg("no 'data' found in mts object")
+    return(FALSE)
+  }
+
+  if ( !"data.frame" %in% class(mts$meta) ) {
+    msg("mts$meta is not of class data.frame")
+    return(FALSE)
+  }
+
+  if ( !"data.frame" %in% class(mts$data) ) {
+    msg("mts$data is not of class data.frame")
+    return(FALSE)
+  }
+
+  if ( !"datetime" %in% names(mts$data) ) {
+    msg("mts$data$datetime axis is missing")
+  }
+
+  if ( !("POSIXct" %in% class(mts$data$datetime)) ) {
+    msg("mts$data$datetime is not of class 'POSIXct'")
+    return(FALSE)
+  }
+
+  if ( any(duplicated(mts$data$datetime)) ) {
+    msg("duplicate timesteps found in mts$data$datetime")
+    return(FALSE)
+  }
+
+  if ( !"deviceDeploymentID" %in% names(mts$meta) ) {
+    msg("mts$meta$deviceDeploymentID is missing")
+    return(FALSE)
+  }
+
+  if ( any(duplicated(mts$meta$deviceDeploymentID)) ||
+       any(duplicated(names(mts$data))) ) {
+    msg("mts contains duplicate deviceDeploymentIDs")
+    return(FALSE)
+  }
+
+  if ( !all(requiredMetaNames %in% names(mts$meta)) ) {
+    missingColumns <- setdiff(requiredMetaNames, names(mts$meta))
+    msg(sprintf(
       "mts$meta must contain columns for '%s'",
       paste(missingColumns, collapse = ", ")
     ))
@@ -70,29 +139,13 @@ mts_isValid <- function(
 
   # Guarantee that 'data' columns exactly match meta$deviceDeploymentID
   # NOTE:  This is a core guarantee of the 'mts' data model.
-  if ( !identical(names(mts$data), c('datetime', mts$meta$deviceDeploymentID)) )
-    stop(paste0(
-      "Mismatch between mts$meta$monitorID and names(mts$data)\n",
+  if ( !identical(names(mts$data), c('datetime', mts$meta$deviceDeploymentID)) ) {
+    msg(sprintf(
+      "%s\n%s",
+      "mismatch between mts$meta$monitorID and names(mts$data)",
       "Columns in 'data' must be in the same order as rows in 'meta'."
     ))
-
-  requiredNamesData <- c(
-    'datetime'
-  )
-
-  if ( !all(requiredNamesData %in% names(mts$data)) ) {
-    missingColumns <- setdiff(requiredNamesData, names(mts$data))
-    stop(sprintf(
-      "mts$data must contain columns for '%s'",
-      paste(missingColumns, collapse = ", ")
-    ))
   }
-
-  if ( !("POSIXct" %in% class(mts$data$datetime)) )
-    stop("mts$data$datetime is not of class 'POSIXct'")
-
-  if ( any(duplicated(mts$data$datetime)) )
-    warning("Duplicate timesteps found in 'mts' object.")
 
   # Nothing failed so return TRUE
   return(TRUE)
@@ -118,7 +171,7 @@ mts_isEmpty <- function(mts) {
   MazamaCoreUtils::stopIfNull(mts)
   # NOTE:  Use minimal validation for improved speed
   if ( !'data' %in% names(mts) || !'data.frame' %in% class(mts$data) )
-    stop("Not a valid 'mts' object.")
+    stop("mts is not a valid 'mts' object")
 
   return( nrow(mts$data) == 0 )
 
@@ -146,7 +199,7 @@ mts_distinct <- function(mts) {
 
   # NOTE:  Use minimal validation for improved speed
   if ( !'data' %in% names(mts) || !'data.frame' %in% class(mts$data) )
-    stop("Not a valid 'mts' object.")
+    stop("mts is not a valid 'mts' object")
 
   mts$data <-
     mts$data %>%
@@ -154,7 +207,7 @@ mts_distinct <- function(mts) {
     dplyr::arrange(.data$datetime)
 
   if ( any(duplicated(mts$data$datetime)) )
-    stop("Duplicate timesteps with differing values found in 'mts' object.")
+    stop("duplicate timesteps with differing values found in 'mts' object")
 
   return( mts )
 
@@ -193,7 +246,7 @@ mts_extractData <- function(mts) {
 
   # NOTE:  Use minimal validation for improved speed
   if ( !'data' %in% names(mts) || !'data.frame' %in% class(mts$data) )
-    stop("Not a valid 'mts' object.")
+    stop("mts is not a valid 'mts' object")
 
   return(mts$data)
 
@@ -207,7 +260,7 @@ mts_extractMeta <- function(mts) {
 
   # NOTE:  Use minimal validation for improved speed
   if ( !'meta' %in% names(mts) || !'data.frame' %in% class(mts$meta) )
-    stop("Not a valid 'mts' object.")
+    stop("mts is not a valid 'mts' object")
 
   return(mts$meta)
 

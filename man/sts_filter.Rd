@@ -2,12 +2,12 @@
 % Please edit documentation in R/sts_filter.R
 \name{sts_filter}
 \alias{sts_filter}
-\title{General purpose data filtering for MazamaSingleTimeseries objects}
+\title{General purpose data filtering for \emph{sts} objects}
 \usage{
 sts_filter(sts, ...)
 }
 \arguments{
-\item{sts}{MazamaSingleTimeseries \emph{sts} object.}
+\item{sts}{\emph{sts} object.}
 
 \item{...}{Logical predicates defined in terms of the variables in the
 \code{sts$data}.}
@@ -21,6 +21,9 @@ choose rows/cases where conditions are true.  Multiple conditions are
 combined with \code{&} or separated by a comma. Only rows where the condition
 evaluates to TRUE are kept. Rows where the condition evaluates to \code{NA}
 are dropped.
+}
+\note{
+Filtering is done on values in \code{sts$data}.
 }
 \examples{
 

@@ -1,5 +1,32 @@
 #' @export
 #'
+#' @title Check an \emph{sts} object for validity.
+#'
+#' @param sts \emph{sts} objet.
+#'
+#' @description Checks on the validity of an \emph{sts} object. If any test
+#' fails, this function will stop with a warning message.
+#'
+#' library(MazamaTimeSeries)
+#'
+#' sts_check(example_sts)
+#'
+#' # Break the 'sts' object
+#' broken_sts <- example_sts
+#' names(broken_sts) <- c('meta', 'bop')
+#'
+#' sts_check(broken_sts)
+#'
+sts_check <- function(sts) {
+  tryCatch(
+    sts_isValid(sts, verbose = TRUE),
+    warning = function(w) stop(w)
+  )
+}
+
+
+#' @export
+#'
 #' @name sts_isValid
 #' @title Test \emph{sts} object for correct structure
 #'
@@ -82,12 +109,12 @@ sts_isValid <- function(
   }
 
   if ( !("POSIXct" %in% class(sts$data$datetime)) ) {
-    stop("sts$data$datetime is not of class 'POSIXct'")
+    msg("sts$data$datetime is not of class 'POSIXct'")
     return(FALSE)
   }
 
   if ( any(duplicated(sts$data$datetime)) ) {
-    stop("duplicate timesteps found in sts$data$datetime")
+    msg("duplicate timesteps found in sts$data$datetime")
     return(FALSE)
   }
 
@@ -118,33 +145,6 @@ sts_isValid <- function(
 
 #' @export
 #'
-#' @title Check an \emph{sts} object for validitiy.
-#'
-#' @param sts \emph{sts} objet.
-#'
-#' @description Checks on the validity of an \emph{sts} object. If any test
-#' fails, this function will stop with a warning message.
-#'
-#' library(MazamaTimeSeries)
-#'
-#' sts_check(example_sts)
-#'
-#' # Break the 'sts' object
-#' broken_sts <- sts
-#' names(broken_sts) <- c('meta', 'bop')
-#'
-#' sts_check(broken_sts)
-#'
-sts_check <- function(sts) {
-  tryCatch(
-    sts_isValid(sts, verbose = TRUE),
-    warning = function(w) stop(w)
-  )
-}
-
-
-#' @export
-#'
 #' @title Test for an empty \emph{sts} object
 #'
 #' @param sts \emph{sts} object
@@ -161,7 +161,7 @@ sts_isEmpty <- function(sts) {
   MazamaCoreUtils::stopIfNull(sts)
   # NOTE:  Use minimal validation for improved speed
   if ( !'data' %in% names(sts) || !'data.frame' %in% class(sts$data) )
-    stop("Not a valid 'sts' object.")
+    stop("sts is not a valid 'sts' object")
 
   return( nrow(sts$data) == 0 )
 
@@ -191,7 +191,7 @@ sts_distinct <- function(sts) {
 
   # NOTE:  Use minimal validation for improved speed
   if ( !'data' %in% names(sts) || !'data.frame' %in% class(sts$data) )
-    stop("Not a valid 'sts' object.")
+    stop("sts is not a valid 'sts' object")
 
   sts$data <-
     sts$data %>%
@@ -236,7 +236,7 @@ sts_extractData <- function(sts) {
 
   # NOTE:  Use minimal validation for improved speed
   if ( !'data' %in% names(sts) || !'data.frame' %in% class(sts$data) )
-    stop("Not a valid 'sts' object.")
+    stop("sts is not a valid 'sts' object")
 
   return(sts$data)
 
@@ -250,7 +250,7 @@ sts_extractMeta <- function(sts) {
 
   # NOTE:  Use minimal validation for improved speed
   if ( !'meta' %in% names(sts) || !'data.frame' %in% class(sts$meta) )
-    stop("Not a valid 'sts' object.")
+    stop("sts is not valid 'sts' object")
 
   return(sts$meta)
 
