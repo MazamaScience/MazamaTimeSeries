@@ -20,7 +20,8 @@
 mts_check <- function(mts) {
   tryCatch(
     mts_isValid(mts, verbose = TRUE),
-    warning = function(w) stop(w)
+    warning = function(w) stop(w),
+    finally = invisible(TRUE)
   )
 }
 
@@ -81,27 +82,27 @@ mts_isValid <- function(
   # TODO:  Include class name check when this won't break AirSensor or RAWSmet
   # if (!"mts" %in% class(mts)) {
   #   msg("\n Not an `mts` class object. See help('is_mts').")
-  #   return(FALSE)
+  #   return(invisible(FALSE))
   # }
 
   if ( !"meta" %in% names(mts) ) {
     msg("no 'meta' found in mts object")
-    return(FALSE)
+    return(invisible(FALSE))
   }
 
   if ( !"data" %in% names(mts) ) {
     msg("no 'data' found in mts object")
-    return(FALSE)
+    return(invisible(FALSE))
   }
 
   if ( !"data.frame" %in% class(mts$meta) ) {
     msg("mts$meta is not of class data.frame")
-    return(FALSE)
+    return(invisible(FALSE))
   }
 
   if ( !"data.frame" %in% class(mts$data) ) {
     msg("mts$data is not of class data.frame")
-    return(FALSE)
+    return(invisible(FALSE))
   }
 
   if ( !"datetime" %in% names(mts$data) ) {
@@ -110,23 +111,23 @@ mts_isValid <- function(
 
   if ( !("POSIXct" %in% class(mts$data$datetime)) ) {
     msg("mts$data$datetime is not of class 'POSIXct'")
-    return(FALSE)
+    return(invisible(FALSE))
   }
 
   if ( any(duplicated(mts$data$datetime)) ) {
     msg("duplicate timesteps found in mts$data$datetime")
-    return(FALSE)
+    return(invisible(FALSE))
   }
 
   if ( !"deviceDeploymentID" %in% names(mts$meta) ) {
     msg("mts$meta$deviceDeploymentID is missing")
-    return(FALSE)
+    return(invisible(FALSE))
   }
 
   if ( any(duplicated(mts$meta$deviceDeploymentID)) ||
        any(duplicated(names(mts$data))) ) {
     msg("mts contains duplicate deviceDeploymentIDs")
-    return(FALSE)
+    return(invisible(FALSE))
   }
 
   if ( !all(requiredMetaNames %in% names(mts$meta)) ) {
@@ -148,7 +149,7 @@ mts_isValid <- function(
   }
 
   # Nothing failed so return TRUE
-  return(TRUE)
+  return(invisible(TRUE))
 
 }
 
