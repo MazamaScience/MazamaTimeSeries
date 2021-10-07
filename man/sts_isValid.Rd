@@ -25,7 +25,7 @@ Core \code{meta} columns include:
   \item{\code{deviceDeploymentID} -- unique identifier (see \pkg{MazmaLocationUtils})}
   \item{\code{deviceID} -- device identifier}
   \item{\code{locationID} -- location identifier (see \pkg{MazmaLocationUtils})}
-  \item{\code{siteName} -- English language name}
+  \item{\code{locationName} -- English language name}
   \item{\code{longitude} -- decimal degrees E}
   \item{\code{latitude} -- decimal degrees N}
   \item{\code{elevation} -- elevation of station in m}

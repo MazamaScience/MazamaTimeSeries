@@ -98,7 +98,7 @@ sts_join <- function(
   meta <- stsList[[1]]$meta
   data <- do.call(rbind, dataList) # duplicates removed below in sts_distinct()
 
-  # ----- Create the MazamaSingleTimeseries (sts) object -----------------------
+  # ----- Create the 'sts' object ----------------------------------------------
 
   sts <- list(meta = meta, data = data)
   class(sts) <- c("sts", class(sts))

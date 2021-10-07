@@ -33,7 +33,7 @@ nameMapping1 <- list(Latitude = "latitude", Longitude = "longitude", Measurement
 test_data1_sts <- sts_fromTidyDF(test_data1, nameMapping1)
 
 test_data1_sts %>% sts_extractMeta()
-#   deviceDeploymentID deviceID locationID siteName longitude latitude elevation countryCode stateCode            timezone
+#   deviceDeploymentID deviceID locationID locationName longitude latitude elevation countryCode stateCode            timezone
 #   cb98b110253b3b8b  temp id       <NA>     <NA> -118.2268  34.0664      <NA>          US        CA America/Los_Angeles
 # County                       Community     DataProvider       Site Instrument  MonitorId              Parameter
 # Los Angeles East Los Angeles, Boyle Heights South Coast AQMD Central LA Thermo 42i NO-0016730 Nitrogen Dioxide (NO2)
@@ -87,7 +87,7 @@ nameMapping2 <- list(Latitude = "latitude", Longitude = "longitude", Measurement
 test_data2_sts <- sts_fromTidyDF(test_data2, nameMapping2)
 
 test_data2_sts %>% sts_extractMeta()
-#   deviceDeploymentID  deviceID locationID siteName longitude latitude elevation countryCode stateCode            timezone         County
+#   deviceDeploymentID  deviceID locationID locationName longitude latitude elevation countryCode stateCode            timezone         County
 #   fb9152649f4a1f1a AE33-SNBO       <NA>     <NA> -117.2741  34.1067      <NA>          US        CA America/Los_Angeles San Bernardino
 # Community     DataProvider           Site Instrument               Parameter AdjustedValue        Units AdjustmentDesc DataProviderFlag
 # Muscoy, San Bernardino South Coast AQMD San Bernardino Magee AE33 Black Carbon PM2.5 (BC)            NA ng/m3 (25 C)             NA               NA

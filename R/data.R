@@ -10,7 +10,7 @@
 #'
 #' example_sts <- example_pat
 #' example_sts$meta$elevation <- as.numeric(NA)
-#' example_sts$meta$siteName <- example_sts$meta$label
+#' example_sts$meta$locationName <- example_sts$meta$label
 #'
 #' save(example_sts, file = "data/example_sts.rda")
 #' }

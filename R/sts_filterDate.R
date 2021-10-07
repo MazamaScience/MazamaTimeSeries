@@ -106,7 +106,7 @@ sts_filterDate <- function(
 
     message(sprintf(
       "sts (%s) does not contain requested date range",
-      sts$meta$siteName
+      sts$meta$locationName
     ))
 
     data <- sts$data[0,]

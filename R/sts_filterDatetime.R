@@ -99,7 +99,7 @@ sts_filterDatetime <- function(
 
     message(sprintf(
       "sts (%s) does not contain requested time range",
-      sts$meta$siteName
+      sts$meta$locationName
     ))
 
     data <- sts$data[0,]

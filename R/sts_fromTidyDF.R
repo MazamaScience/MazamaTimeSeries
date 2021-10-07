@@ -92,7 +92,7 @@ sts_fromTidyDF <- function(
   # ----- Create meta dataframe ------------------------------------------------
   
   # Define columns for final meta dataframe
-  allMetaColumns <- c('deviceID', 'locationID', 'siteName', 
+  allMetaColumns <- c('deviceID', 'locationID', 'locationName', 
                       'longitude', 'latitude', 'elevation', 'countryCode', 
                       'stateCode', 'timezone')
   

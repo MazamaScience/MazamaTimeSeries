@@ -36,7 +36,7 @@
 
 sts_toTidyDF <- function(
   sts = NULL,
-  metaColumns = c('deviceDeploymentID', 'siteName', 'longitude', 'latitude'),
+  metaColumns = c('deviceDeploymentID', 'locationName', 'longitude', 'latitude'),
   sizeMax = 100
 ) {
 

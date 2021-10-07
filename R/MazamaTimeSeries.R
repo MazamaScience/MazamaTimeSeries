@@ -28,7 +28,7 @@ requiredMetaNames <- c(
   "deviceDeploymentID",
   "deviceID",
   "locationID",
-  "siteName",
+  "locationName",
   "longitude",
   "latitude",
   "elevation",
