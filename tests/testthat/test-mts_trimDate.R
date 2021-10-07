@@ -1,0 +1,31 @@
+# NOTE:  mts objects have an hourly time axis
+
+test_that("tidy dataframes", {
+
+  startdate <- 20190702
+  enddate <- 20190706
+
+  UTC_days <- mts_filterDate(
+    example_mts,
+    startdate = startdate,
+    enddate = enddate,
+    timezone = "UTC"
+  )
+
+  # From MazamaSpatialUtils::SimpleTimezones
+  utc_offset <- 7
+
+  # mts_trimDate gets timezone from mts' meta
+  local_days <- mts_trimDate(UTC_days)
+
+  expect_equal(
+    min(local_days$data$datetime),
+    lubridate::parse_date_time(startdate, orders = "ymd", tz = "UTC") + lubridate::hours(7)
+  )
+
+  expect_equal(
+    max(local_days$data$datetime),
+    lubridate::parse_date_time(enddate, orders = "ymd", tz = "UTC") - lubridate::hours(24-7) - lubridate::hours(1)
+  )
+
+})

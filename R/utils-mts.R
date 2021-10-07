@@ -19,7 +19,7 @@
 #'
 mts_check <- function(mts) {
   tryCatch(
-    mts_isValid(mts, verbose = FALSE),
+    mts_isValid(mts, verbose = TRUE),
     warning = function(w) stop(w)
   )
 }
@@ -173,7 +173,7 @@ mts_isEmpty <- function(mts) {
   if ( !'data' %in% names(mts) || !'data.frame' %in% class(mts$data) )
     stop("mts is not a valid 'mts' object")
 
-  return( nrow(mts$data) == 0 )
+  return( nrow(mts$data) == 0 || ncol(mts$data) == 1 )
 
 }
 

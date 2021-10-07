@@ -32,7 +32,7 @@ library(MazamaTimeSeries)
 # Filter for all labels with "SCSH"
 scap <-
   example_mts \%>\%
-  mts_filterMeta(communityRegion == "Temescal Valley")
+  mts_filterMeta(communityRegion == "El Monte")
 
 dplyr::select(scap$meta, ID, label, longitude, latitude, communityRegion)
 

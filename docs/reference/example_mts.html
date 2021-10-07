@@ -42,11 +42,18 @@
 <meta property="og:title" content="Example MultipleTimeSeries dataset — example_mts" />
 <meta property="og:description" content="The example_mts dataset provides a quickly loadable
 version of a mts object for practicing and code examples.
-This dataset was was generated on 2021-01-09 by running:
+This dataset was was generated on 2021-10-07 by running:
 
 library(AirSensor)
 
-example_mts &amp;lt;- example_sensor
+communities &amp;lt;- c(&quot;Alhambra/Monterey Park&quot;, &quot;El Monte&quot;)
+
+example_mts &amp;lt;-
+  example_sensor_scaqmd &amp;lt;!-- %&amp;gt;% --&amp;gt;
+  sensor_filterMeta(communityRegion &amp;lt;!-- %in% communities) --&amp;gt;
+
+# Add required &quot;locationName&quot;
+example_mts$meta$locationName &amp;lt;- example_mts$meta$siteName
 
 save(example_mts, file = &quot;data/example_mts.rda&quot;)
 
@@ -82,7 +89,7 @@ save(example_mts, file = &quot;data/example_mts.rda&quot;)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5</span>
       </span>
     </div>
 
@@ -93,6 +100,9 @@ save(example_mts, file = &quot;data/example_mts.rda&quot;)
     <span class="fas fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/MazamaTimeSeries.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -141,18 +151,25 @@ save(example_mts, file = &quot;data/example_mts.rda&quot;)
     <div class="ref-description">
     <p>The <code>example_mts</code> dataset provides a quickly loadable
 version of a <em>mts</em> object for practicing and code examples.</p>
-<p>This dataset was was generated on 2021-01-09 by running:</p>
+<p>This dataset was was generated on 2021-10-07 by running:</p>
 <pre>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/MazamaScience/AirSensor'>AirSensor</a></span>)
+library(AirSensor)
 
-<span class='kw'>example_mts</span> <span class='op'>&lt;-</span> <span class='kw'>example_sensor</span>
+communities &lt;- c("Alhambra/Monterey Park", "El Monte")
 
-<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span>(<span class='kw'>example_mts</span>, file = <span class='st'>"data/example_mts.rda"</span>)
+example_mts &lt;-
+  example_sensor_scaqmd &lt;!-- %&gt;% --&gt;
+  sensor_filterMeta(communityRegion &lt;!-- %in% communities) --&gt;
+
+# Add required "locationName"
+example_mts$meta$locationName &lt;- example_mts$meta$siteName
+
+save(example_mts, file = "data/example_mts.rda")
 </pre>
 
     </div>
 
-    <pre class="usage"><span class='kw'>example_mts</span></pre>
+    <pre class="usage"><span class='va'>example_mts</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>

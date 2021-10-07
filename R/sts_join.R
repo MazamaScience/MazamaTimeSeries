@@ -38,13 +38,16 @@ sts_join <- function(
 
   # ----- Validate parameters --------------------------------------------------
 
-  # ----- Join (concatenate) timeseries ----------------------------------------
+  if ( length(stsList) == 0 )
+    stop("no 'sts' arguments provided")
 
   # NOTE:  If the first element is just a plain "list" of length 1, assume we are
   # NOTE:  being handed a list of sts objects rather than separate sts objects.
   if ( length(class(stsList[[1]])) == 1 && class(stsList[[1]]) == "list" ) {
     stsList <- stsList[[1]]
   }
+
+  # ----- Join (concatenate) timeseries ----------------------------------------
 
   # Initialize empty lists
   dataList <- list()

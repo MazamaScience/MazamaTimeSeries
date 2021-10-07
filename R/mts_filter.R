@@ -8,7 +8,7 @@
 #' \code{mts$data}.
 #'
 #' @description A generalized data filter for \emph{mts} objects to
-#' choose rows/cases where conditions are true.  Multiple conditions are
+#' choose rows/cases where conditions are true.  Multiple conditions should be
 #' combined with \code{&} or separated by a comma. Only rows where the condition
 #' evaluates to TRUE are kept. Rows where the condition evaluates to \code{NA}
 #' are dropped.
@@ -32,7 +32,8 @@
 #'   example_mts %>%
 #'   mts_filter(da4cadd2d6ea5302_4686 > 150)
 #'
-#' head(very_unhealthy$data)
+#' # Show all data
+#' dplyr::glimpse(very_unhealthy$data)
 #'
 
 mts_filter <- function(

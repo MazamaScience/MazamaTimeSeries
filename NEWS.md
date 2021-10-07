@@ -1,5 +1,7 @@
 # MazamaTimeSeries 0.0.5
 
+* Added tests for all functions.
+* Added `mts_combine()`.
 * Adding `mts_filter~()` equivalents to `sts_filter~()` functions.
 * Improved warning messages in `sts_isValid()` and `mts_isValid()`.
 

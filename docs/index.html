@@ -12,11 +12,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Core Functionalitiy for Environmental Time Series">
-<meta property="og:description" content="A suite of utility functions for working with environmental time
-    series data from known locations. The compact data model is structured as a 
-    list with two dataframes. A meta dataframe contains spatial metadata
-    associated with known locations. A data dataframe contains a datetime
-    column followed by measurements made at each time.">
+<meta property="og:description" content='Utility functions for working with environmental time series data from known 
+    locations. The compact data model is structured as a list with two dataframes. A 
+    meta dataframe contains spatial and measuring device metadata associated with 
+    deployments at known locations. A data dataframe contains a datetime column 
+    followed by columns of measurements associated with each "device-deployment".'>
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5</span>
       </span>
     </div>
 
@@ -46,6 +46,9 @@
     <span class="fas fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="articles/MazamaTimeSeries.html">Get started</a>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
@@ -90,11 +93,11 @@
 <div id="mazamatimeseries" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#mazamatimeseries" class="anchor"></a>MazamaTimeSeries</h1></div>
-<pre><code>A suite of utility functions for working with environmental time
-series data from known locations. The compact data model is structured as a 
-list with two dataframes. A 'meta' dataframe contains spatial metadata
-associated with known locations. A 'data' dataframe contains a 'datetime'
-column followed by measurements made at each time.</code></pre>
+<pre><code>Utility functions for working with environmental time series data from known 
+locations. The compact data model is structured as a list with two dataframes. A 
+'meta' dataframe contains spatial and measuring device metadata associated with 
+deployments at known locations. A 'data' dataframe contains a 'datetime' column 
+followed by columns of measurements associated with each "device-deployment".</code></pre>
 <div id="background" class="section level2">
 <h2 class="hasAnchor">
 <a href="#background" class="anchor"></a>Background</h2>
@@ -103,7 +106,7 @@ column followed by measurements made at each time.</code></pre>
 <div id="data-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-model" class="anchor"></a>Data Model</h2>
-<p>The most compact format for time series data collected at fixed locations is a list including two tables. <strong>MazamaTimeSeries</strong> stores time series measurements in a <code>data</code> table where each row is a <em>record</em> for a particular UTC timestamp and each column contains data measured by a single sensor (aka “device”). Any time invariant <em>spatial metadata</em> associated with a sensor at a known location (aka a “device-deployment”) is stored in a separate <code>meta</code> table. A unique identifier connects the two tables. In the language of relational databases, this “normalizes” the database and can greatly reduce the memory and disk space needed to store the data</p>
+<p>The most compact format for time series data collected at fixed locations is a list including two tables. <strong>MazamaTimeSeries</strong> stores time series measurements in a <code>data</code> table where each row is a <em>record</em> for a particular UTC time stamp and each column contains data measured by a single sensor (aka “device”). Any time invariant metadata associated with a sensor at a known location (aka a “device-deployment”) is stored in a separate <code>meta</code> table. A unique <code>deviceDeploymentID</code> connects the two tables. In the language of relational databases, this “normalizes” the database and can greatly reduce the disk space and memory needed to store and work with the data.</p>
 <div id="single-time-series" class="section level3">
 <h3 class="hasAnchor">
 <a href="#single-time-series" class="anchor"></a>Single Time Series</h3>
@@ -116,27 +119,31 @@ column followed by measurements made at each time.</code></pre>
 <li>single sensor only</li>
 <li>regular or irregular time axes</li>
 <li>multiple parameters</li>
-<li>multiple deployments are supported with multiple records in the <code>meta</code> dataframe</li>
 </ul>
+<p>Raw “engineering data” containing uncalibrated measurements, instrument voltages and QC flags may be stored in this format. This format is also appropriate for processed and QC’ed data whenever mutiple parameters are measured by a single device.</p>
+<p><em><strong>Note:</strong></em> The <code>sts</code> object time axis specified in <code>data$datetime</code> reflects device measurement times and is not required to have uniform spacing. (It <em>may</em> be regular but it need not be.)</p>
 </div>
 <div id="multiple-time-series" class="section level3">
 <h3 class="hasAnchor">
 <a href="#multiple-time-series" class="anchor"></a>Multiple Time Series</h3>
-<p>Working with timeseries data from multiple sensors is often challenging because of the amount of memory required to store all the data from each sensor. However, a common situation is to have time series that share a common time axis – <em>e.g.</em> hourly measurements. In this case, it is possible to create single-parameter <code>data</code> dataframes that contain all data for all sensors for a single parameter of interest. In air quality applications, common parameters of interest include PM2.5 and Ozone.</p>
+<p>Working with timeseries data from multiple sensors at once is often challenging because of the amount of memory required to store all the data from each sensor. However, a common situation is to have time series that share a common time axis – <em>e.g.</em> hourly measurements. In this case, it is possible to create single-parameter <code>data</code> dataframes that contain all data for all sensors for a single parameter of interest. In air quality applications, common parameters of interest include PM2.5 and Ozone.</p>
 <p>Multi-sensor, single-parameter time series data is stored in an R list with two dataframes. The package refers to this structure as an <code>mts</code> object for <strong>M</strong>ultiple<strong>T</strong>ime<strong>S</strong>eries:</p>
 <p><code>mts$meta</code> – N rows = unique device-deployments; cols = sensor/location metadata</p>
 <p><code>mts$data</code> – rows = UTC time; N cols = device-deployments (plus an additional <code>datetime</code> column)</p>
-<p>A key feature of <code>mts</code> objects is the use of the <code>deviceDeploymentID</code> as a “foreign key” that allows sensor <code>data</code> columns to be mapped onto the associated spatial metadata in a sensor <code>meta</code> row. The following will always be true:</p>
+<p>A key feature of <code>mts</code> objects is the use of the <code>deviceDeploymentID</code> as a “foreign key” that allows sensor <code>data</code> columns to be mapped onto the associated spatial and sensor metadata in a <code>meta</code> row. The following will always be true:</p>
 <pre><code><a href="https://rdrr.io/r/base/identical.html">identical(names(mts$data), c('datetime', mts$meta$deviceDeploymentID))</a></code></pre>
 <p><code>mts</code> objects can support the following types of time series data:</p>
 <ul>
 <li>stationary device-deployments only (no “mobile” sensors)</li>
 <li>multiple sensors</li>
-<li>regular (shared) time axes only</li>
+<li>regular (shared) hourly time axes only</li>
 <li>single parameter only</li>
 </ul>
+<p>Each column of <code>mts$data</code> represents a timeseries associated with a partricular device-deployment while each row represents a <em>synoptic</em> snap shot of all measurements made at a particular time.</p>
+<p>In this manner, software can create both timeseries plots and maps from a single <code>mts</code> object in memory.</p>
+<p><em><strong>Note:</strong></em> The <code>mts</code> object time axis specified in <code>data$datetime</code> is guaranteed to be a regular hourly axis with no gaps.</p>
 <hr>
-<p>This project is supported by Mazama Science.</p>
+<p>This R package was created by <a href="http://mazamascience.com">Mazama Science</a> and is being funded by the USFS <a href="https://airfire.org">AirFire Research Team</a>.</p>
 </div>
 </div>
 </div>

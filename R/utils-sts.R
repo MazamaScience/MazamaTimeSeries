@@ -19,7 +19,7 @@
 #'
 sts_check <- function(sts) {
   tryCatch(
-    sts_isValid(sts, verbose = FALSE),
+    sts_isValid(sts, verbose = TRUE),
     warning = function(w) stop(w)
   )
 }
@@ -163,7 +163,7 @@ sts_isEmpty <- function(sts) {
   if ( !'data' %in% names(sts) || !'data.frame' %in% class(sts$data) )
     stop("sts is not a valid 'sts' object")
 
-  return( nrow(sts$data) == 0 )
+  return( nrow(sts$data) == 0 || ncol(sts$data) == 1 )
 
 }
 

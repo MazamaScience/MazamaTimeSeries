@@ -9,8 +9,8 @@
 Utility functions for working with environmental time series data from known 
 locations. The compact data model is structured as a list with two dataframes. A 
 'meta' dataframe contains spatial and measuring device metadata associated with 
-deployments at known locations. A  'data' dataframe contains a 'datetime' column 
-followed by measurements made at each time.
+deployments at known locations. A 'data' dataframe contains a 'datetime' column 
+followed by columns of measurements associated with each "device-deployment".
 ```
 
 ## Background
@@ -24,12 +24,12 @@ intervals.
 
 The most compact format for time series data collected at fixed locations is a
 list including two tables. **MazamaTimeSeries** stores time series measurements in a
-`data` table where each row is a _record_ for a particular UTC timestamp and each 
+`data` table where each row is a _record_ for a particular UTC time stamp and each 
 column contains data measured by a single sensor (aka "device"). Any time invariant 
 metadata associated with a sensor at a known location (aka a "device-deployment")
-is stored in a separate `meta` table. A unique identifier connects the two tables. 
+is stored in a separate `meta` table. A unique `deviceDeploymentID` connects the two tables. 
 In the language of relational databases, this "normalizes" the database and can 
-greatly reduce the memory and disk space needed to store the data
+greatly reduce the disk space and memory needed to store and work with the data.
 
 ### Single Time Series
 
@@ -48,11 +48,19 @@ for **S**ingle**T**ime**S**eries:
 * single sensor only
 * regular or irregular time axes
 * multiple parameters
-* multiple deployments of a single sensor are supported with multiple records in the `meta` dataframe
+
+Raw "engineering data" containing uncalibrated measurements, instrument voltages 
+and QC flags may be stored in this format. This format is also appropriate for 
+processed and QC'ed data whenever mutiple parameters are measured by a single
+device.
+
+_**Note:**_ The `sts` object time axis specified in `data$datetime` reflects device 
+measurement times and is not required to have uniform spacing. (It _may_ be 
+regular but it need not be.)
 
 ### Multiple Time Series
 
-Working with timeseries data from multiple sensors is often challenging
+Working with timeseries data from multiple sensors at once is often challenging
 because of the amount of memory required to store all the data from each 
 sensor. However, a common situation is to have time series that share a 
 common time axis -- _e.g._ hourly measurements. In this case, it is possible to
@@ -80,10 +88,21 @@ identical(names(mts$data), c('datetime', mts$meta$deviceDeploymentID))
 
 * stationary device-deployments only (no "mobile" sensors)
 * multiple sensors
-* regular (shared) time axes only
+* regular (shared) hourly time axes only
 * single parameter only
+
+Each column of `mts$data` represents a timeseries associated with a partricular
+device-deployment while each row represents a _synoptic_ snap shot of all
+measurements made at a particular time. 
+
+In this manner, software can create both timeseries plots and maps from a single
+`mts` object in memory.
+
+_**Note:**_ The `mts` object time axis specified in `data$datetime` is 
+guaranteed to be a regular hourly axis with no gaps.
 
 ----
 
-This project is supported by Mazama Science.
+This R package was created by [Mazama Science](http://mazamascience.com) and is 
+being funded by the USFS [AirFire Research Team](https://airfire.org).
 

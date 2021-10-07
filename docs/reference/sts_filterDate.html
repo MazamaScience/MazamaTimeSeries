@@ -89,7 +89,7 @@ get timezone from sts
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5</span>
       </span>
     </div>
 
@@ -100,6 +100,9 @@ get timezone from sts
     <span class="fas fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/MazamaTimeSeries.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -166,14 +169,15 @@ including either of the following recommended formats:</p>
 
     </div>
 
-    <pre class="usage"><span class='fu'>sts_filterDate</span>(
-  sts = <span class='kw'>NULL</span>,
-  startdate = <span class='kw'>NULL</span>,
-  enddate = <span class='kw'>NULL</span>,
-  days = <span class='fl'>7</span>,
-  weeks = <span class='kw'>NULL</span>,
-  timezone = <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>sts_filterDate</span><span class='op'>(</span>
+  sts <span class='op'>=</span> <span class='cn'>NULL</span>,
+  startdate <span class='op'>=</span> <span class='cn'>NULL</span>,
+  enddate <span class='op'>=</span> <span class='cn'>NULL</span>,
+  timezone <span class='op'>=</span> <span class='cn'>NULL</span>,
+  unit <span class='op'>=</span> <span class='st'>"sec"</span>,
+  ceilingStart <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ceilingEnd <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,16 +195,24 @@ including either of the following recommended formats:</p>
       <td><p>Desired end datetime (ISO 8601).</p></td>
     </tr>
     <tr>
-      <th>days</th>
-      <td><p>Number of days to include in the filterDate interval.</p></td>
-    </tr>
-    <tr>
-      <th>weeks</th>
-      <td><p>Number of weeks to include in the filterDate interval.</p></td>
-    </tr>
-    <tr>
       <th>timezone</th>
       <td><p>Olson timezone used to interpret dates.</p></td>
+    </tr>
+    <tr>
+      <th>unit</th>
+      <td><p>Units used to determine time at end-of-day.</p></td>
+    </tr>
+    <tr>
+      <th>ceilingStart</th>
+      <td><p>Logical instruction to apply
+<code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>ceiling_date</a></code> to the <code>startdate</code> rather than
+<code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></code></p></td>
+    </tr>
+    <tr>
+      <th>ceilingEnd</th>
+      <td><p>Logical instruction to apply
+<code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>ceiling_date</a></code> to the <code>enddate</code> rather than
+<code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></code></p></td>
     </tr>
     </table>
 
@@ -220,26 +232,26 @@ single day is returned.</p>
 <p><a href='sts_filterDatetime.html'>sts_filterDatetime</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/MazamaScience/MazamaLocationUtils'>MazamaTimeSeries</a></span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/MazamaLocationUtils'>MazamaTimeSeries</a></span><span class='op'>)</span>
 
-<span class='kw'>example_sts</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>sts_filterDate</span>(startdate = <span class='fl'>20180808</span>, enddate = <span class='fl'>20180815</span>) <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='sts_extractDataFrame.html'>sts_extractData</a></span>() <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>()
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 19</span><span>
+<span class='va'>example_sts</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>sts_filterDate</span><span class='op'>(</span>startdate <span class='op'>=</span> <span class='fl'>20180808</span>, enddate <span class='op'>=</span> <span class='fl'>20180815</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='sts_extractDataFrame.html'>sts_extractData</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 × 19</span>
 #&gt;   datetime            pm25_A pm25_B temperature humidity pressure pm1_atm_A
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 2018-08-08 </span><span style='color: #555555;'>07:00:00</span><span>  10.2    9             78       41       </span><span style='color: #BB0000;'>NA</span><span>      7.44
-#&gt; </span><span style='color: #555555;'>2</span><span> 2018-08-08 </span><span style='color: #555555;'>07:01:00</span><span>   9.74   9.21          78       41       </span><span style='color: #BB0000;'>NA</span><span>      7.93
-#&gt; </span><span style='color: #555555;'>3</span><span> 2018-08-08 </span><span style='color: #555555;'>07:02:00</span><span>   9.56  </span><span style='color: #BB0000;'>NA</span><span>             78       41       </span><span style='color: #BB0000;'>NA</span><span>      7.33
-#&gt; </span><span style='color: #555555;'>4</span><span> 2018-08-08 </span><span style='color: #555555;'>07:03:00</span><span>  </span><span style='color: #BB0000;'>NA</span><span>      9.14          </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>     </span><span style='color: #BB0000;'>NA</span><span>   
-#&gt; </span><span style='color: #555555;'>5</span><span> 2018-08-08 </span><span style='color: #555555;'>07:04:00</span><span>   9.44   8.55          78       41       </span><span style='color: #BB0000;'>NA</span><span>      7.8 
-#&gt; </span><span style='color: #555555;'>6</span><span> 2018-08-08 </span><span style='color: #555555;'>07:05:00</span><span>  10      9.66          78       41       </span><span style='color: #BB0000;'>NA</span><span>      7.79
-#&gt; </span><span style='color: #555555;'># … with 12 more variables: pm25_atm_A </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, pm10_atm_A </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   pm1_atm_B </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, pm25_atm_B </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, pm10_atm_B </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, uptime </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   rssi </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, memory </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, adc0 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, bsec_iaq </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, datetime_A </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   datetime_B </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span></div><div class='input'>
-</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span>               <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> 2018-08-08 <span style='color: #949494;'>07:00:00</span>  10.2    9             78       41       <span style='color: #BB0000;'>NA</span>      7.44
+#&gt; <span style='color: #BCBCBC;'>2</span> 2018-08-08 <span style='color: #949494;'>07:01:00</span>   9.74   9.21          78       41       <span style='color: #BB0000;'>NA</span>      7.93
+#&gt; <span style='color: #BCBCBC;'>3</span> 2018-08-08 <span style='color: #949494;'>07:02:00</span>   9.56  <span style='color: #BB0000;'>NA</span>             78       41       <span style='color: #BB0000;'>NA</span>      7.33
+#&gt; <span style='color: #BCBCBC;'>4</span> 2018-08-08 <span style='color: #949494;'>07:03:00</span>  <span style='color: #BB0000;'>NA</span>      9.14          <span style='color: #BB0000;'>NA</span>       <span style='color: #BB0000;'>NA</span>       <span style='color: #BB0000;'>NA</span>     <span style='color: #BB0000;'>NA</span>   
+#&gt; <span style='color: #BCBCBC;'>5</span> 2018-08-08 <span style='color: #949494;'>07:04:00</span>   9.44   8.55          78       41       <span style='color: #BB0000;'>NA</span>      7.8 
+#&gt; <span style='color: #BCBCBC;'>6</span> 2018-08-08 <span style='color: #949494;'>07:05:00</span>  10      9.66          78       41       <span style='color: #BB0000;'>NA</span>      7.79
+#&gt; <span style='color: #949494;'># … with 12 more variables: pm25_atm_A &lt;dbl&gt;, pm10_atm_A &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   pm1_atm_B &lt;dbl&gt;, pm25_atm_B &lt;dbl&gt;, pm10_atm_B &lt;dbl&gt;, uptime &lt;dbl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   rssi &lt;dbl&gt;, memory &lt;dbl&gt;, adc0 &lt;dbl&gt;, bsec_iaq &lt;dbl&gt;, datetime_A &lt;dttm&gt;,</span>
+#&gt; <span style='color: #949494;'>#   datetime_B &lt;dttm&gt;</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

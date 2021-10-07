@@ -14,16 +14,19 @@ example_mts
 The \code{example_mts} dataset provides a quickly loadable
 version of a \emph{mts} object for practicing and code examples.
 
-This dataset was was generated on 2021-01-09 by running:
+This dataset was was generated on 2021-10-07 by running:
 
 \preformatted{
 library(AirSensor)
 
-ids <- sample(example_sensor_scaqmd$meta$deviceDeploymentID, 10)
+communities <- c("Alhambra/Monterey Park", "El Monte")
 
 example_mts <-
   example_sensor_scaqmd %>%
-  sensor_filterMeta(deviceDeploymentID %in% ids)
+  sensor_filterMeta(communityRegion %in% communities)
+
+# Add required "locationName"
+example_mts$meta$locationName <- example_mts$meta$siteName
 
 save(example_mts, file = "data/example_mts.rda")
 }
