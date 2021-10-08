@@ -82,7 +82,7 @@ mts_trimDate <- function(
       timezone = timezone,
       unit = "sec",
       ceilingStart = ceilingStart, # date boundary *after* the start
-      ceilingEnd = FALSE   # date boundary *before* the end
+      ceilingEnd = FALSE           # date boundary *before* the end
     )
 
   # ----- Subset the "mts" object ----------------------------------------------

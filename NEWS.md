@@ -1,3 +1,10 @@
+# MazamaTimeSeries 0.0.6
+
+* Added "location" utility functions.
+* Removmed dependency on **MazamaLocationUtils**
+* Fixed bug in `~_filterDate()`.
+* Removed `sts_from~()` functions.
+
 # MazamaTimeSeries 0.0.5
 
 * Added tests for all functions.

@@ -103,7 +103,7 @@ mts_filterDate <- function(
     timezone = timezone,
     unit = "sec",
     ceilingStart = ceilingStart,
-    ceilingEnd = ceilingEnd,
+    ceilingEnd = ceilingEnd
   )
 
   # ----- Subset the 'mts' object ----------------------------------------------
