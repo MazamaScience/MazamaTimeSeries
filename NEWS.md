@@ -1,3 +1,8 @@
+# MazamaTimeSeries 0.0.7
+
+* Added `timeInfo()` and supporting functions.
+* Added `Carmel_Valley` example dataset.
+
 # MazamaTimeSeries 0.0.6
 
 * Added "location" utility functions.
