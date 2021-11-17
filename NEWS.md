@@ -1,6 +1,7 @@
 # MazamaTimeSeries 0.0.8
 
-* Added `monitor_collapse()`, `monitor_distance()` and `monitor_reorder()`.
+* Added `mts_collapse()`, `mts_distance()` and `mts_reorder()`.
+* Renamed `mts_filter()` to `mts_filterData()` to be more explicit
 
 # MazamaTimeSeries 0.0.7
 
@@ -10,7 +11,7 @@
 # MazamaTimeSeries 0.0.6
 
 * Added "location" utility functions.
-* Removmed dependency on **MazamaLocationUtils**
+* Removed dependency on **MazamaLocationUtils**
 * Fixed bug in `~_filterDate()`.
 * Removed `sts_from~()` functions.
 

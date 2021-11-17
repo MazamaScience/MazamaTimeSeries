@@ -17,7 +17,7 @@
 #'
 #' @return A subset of the incoming \code{mts}.
 #'
-#' @seealso \link{mts_filter}
+#' @seealso \link{mts_filterData}
 #' @seealso \link{mts_filterDate}
 #' @seealso \link{mts_filterDatetime}
 #' @examples

@@ -44,7 +44,7 @@
 #'
 #' @return A subset of the given \emph{mts} object.
 #'
-#' @seealso \link{mts_filter}
+#' @seealso \link{mts_filterData}
 #' @seealso \link{mts_filterDatetime}
 #' @seealso \link{mts_filterMeta}
 #'

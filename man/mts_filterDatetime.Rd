@@ -67,7 +67,7 @@ example_mts \%>\%
 
 }
 \seealso{
-\link{mts_filter}
+\link{mts_filterData}
 
 \link{mts_filterDate}
 

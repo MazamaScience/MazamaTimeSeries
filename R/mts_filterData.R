@@ -30,13 +30,13 @@
 #' # Filter for all times where da4cadd2d6ea5302_4686 > 150
 #' very_unhealthy <-
 #'   example_mts %>%
-#'   mts_filter(da4cadd2d6ea5302_4686 > 150)
+#'   mts_filterData(da4cadd2d6ea5302_4686 > 150)
 #'
 #' # Show all data
 #' dplyr::glimpse(very_unhealthy$data)
 #'
 
-mts_filter <- function(
+mts_filterData <- function(
   mts,
   ...
 ) {
