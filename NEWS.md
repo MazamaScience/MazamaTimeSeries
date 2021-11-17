@@ -1,3 +1,7 @@
+# MazamaTimeSeries 0.0.8
+
+* Added `monitor_collapse()`, `monitor_distance()` and `monitor_reorder()`.
+
 # MazamaTimeSeries 0.0.7
 
 * Added `timeInfo()` and supporting functions.

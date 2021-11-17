@@ -31,23 +31,7 @@
 
   } else {
 
-    # Handle multiple timezones in 'any_ts'
-    timezoneCount <- length(unique(any_ts$meta$timezone))
-
-    # Use table(timezone) to find the most common one
-    if ( timezoneCount > 1 ) {
-      timezoneTable <- sort(table(any_ts$meta$timezone), decreasing = TRUE)
-      timezone <- names(timezoneTable)[1]
-      if ( verbose ) {
-        warning(sprintf(
-          "Found %d timezones. Only %s will be used.",
-          timezoneCount,
-          timezone
-        ))
-      }
-    } else {
-      timezone <- any_ts$meta$timezone[1]
-    }
+    timezone <- .mostFrequentValue(any_ts, "timezone", verbose)
 
   }
 
@@ -55,6 +39,42 @@
     stop(sprintf("timezone '%s' is not a valid Olson timezone", timezone))
 
   return(timezone)
+
+}
+
+
+# ----- .mostFrequentValue -----------------------------------------------------
+
+.mostFrequentValue <- function(
+  any_ts = NULL,
+  columnName,
+  verbose = TRUE
+) {
+
+  MazamaCoreUtils::stopIfNull(any_ts)
+  MazamaCoreUtils::stopIfNull(columnName)
+  MazamaCoreUtils::setIfNull(verbose, TRUE)
+
+  # Handle multiple values in 'any_ts'
+  valueCount <- length(unique(any_ts$meta[[columnName]]))
+
+  # Use table(...) to find the most common one
+  if ( valueCount > 1 ) {
+    valueTable <- sort(table(any_ts$meta[[columnName]]), decreasing = TRUE)
+    value <- names(valueTable)[1]
+    if ( verbose ) {
+      warning(sprintf(
+        "Found %d %ss. Only '%s' will be used.",
+        valueCount,
+        columnName,
+        value
+      ))
+    }
+  } else {
+    value <- any_ts$meta[[columnName]][1]
+  }
+
+  return(value)
 
 }
 
