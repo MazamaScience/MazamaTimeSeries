@@ -21,8 +21,10 @@
 #'
 #' @note Data are combined with a "latest is best" sensibility where any
 #' data overlaps exist. Incoming \emph{mts} objects are ordered based on the
-#' time stamp of their last record. Any data records found in a "later" \emph{mts}
-#' will overwrite data associated with an "earlier" \emph{mts}.
+#' time stamp of their last record. Then \code{dplyr::distinct()} is used to
+#' remove records with duplicate \code{datetime} fields. Any data records found
+#' in "later" \emph{mts} objects are preferentially retained before the data
+#' are finally reordered by ascending \code{datetime}.
 #'
 #' @examples
 #' library(MazamaTimeSeries)

@@ -26,10 +26,14 @@
 #' air quality data. US EPA regulations mandate that daily averages be calculated
 #' based on LST.
 #'
-#'
 #' The \code{localStdTime_UTC} column in the returned dataframe is primarily for
 #' internal use and provides an important tool for creating LST daily averages
 #' and LST axis labeling.
+#'
+#' @note
+#' Internal functions used for ephemerides calculations were copied verbatim
+#' from the \url{https://cran.r-project.org/package=maptools} package source
+#' code in an effort to reduce the number of package dependencies.
 #'
 #' @param time POSIXct vector with specified timezone,
 #' @param longitude Longitude of the location of interest.

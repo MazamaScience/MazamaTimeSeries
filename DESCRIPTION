@@ -1,15 +1,13 @@
 Type: Package
 Package: MazamaTimeSeries
-Version: 0.0.6
+Version: 0.0.7
 Title: Core Functionalitiy for Environmental Time Series
 Authors@R: c(
     person("Jonathan", "Callahan", email="jonathan.s.callahan@gmail.com", role=c("aut","cre")),
-    person("Hans", "Martin", email="hans@mazamascience.com", role=c("aut")),
-    person("Eli", "Grosman", email="eligrosman1@gmail.com", role=c("aut"))
-    )
-Author: Jonathan Callahan [aut, cre],
-    Hans Martin [aut]
-    Eli Grosman [aut]
+    person("Hans", "Martin", email="hansmrtn@gmail.com.com", role=c("ctb")),
+    person("Eli", "Grosman", email="eligrosman1@gmail.com", role=c("ctb")),
+    person("Roger", "Bivand", email="roger.bivand@nhh.no", role=c("ctb"))
+)
 Maintainer: Jonathan Callahan <jonathan.s.callahan@gmail.com>
 Description: Utility functions for working with environmental time series data from known 
     locations. The compact data model is structured as a list with two dataframes. A 
