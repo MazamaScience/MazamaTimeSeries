@@ -1,6 +1,6 @@
 # MazamaTimeSeries 0.0.8
 
-* Added `mts_collapse()`, `mts_distance()` and `mts_reorder()`.
+* Added `mts_collapse()`, `mts_distance()` and `mts_select()`.
 * Renamed `mts_filter()` to `mts_filterData()` to be more explicit
 
 # MazamaTimeSeries 0.0.7

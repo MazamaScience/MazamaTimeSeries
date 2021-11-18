@@ -170,6 +170,7 @@ mts_isValid <- function(
 mts_isEmpty <- function(mts) {
 
   MazamaCoreUtils::stopIfNull(mts)
+
   # NOTE:  Use minimal validation for improved speed
   if ( !'data' %in% names(mts) || !'data.frame' %in% class(mts$data) )
     stop("mts is not a valid 'mts' object")

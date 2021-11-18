@@ -3,7 +3,7 @@
 #'
 #' @title Trim a \emph{mts} object to full days
 #'
-#' @param mts \emph{mts} bject.
+#' @param mts \emph{mts} object.
 #' @param timezone Olson timezone used to interpret dates.
 #'
 #' @description Trims the date range of a \emph{mts} object to local time date

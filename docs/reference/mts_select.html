@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General purpose metadata filtering for mts objects — mts_filterMeta • MazamaTimeSeries</title>
+<title>Subset and reorder time series within an mts object — mts_select • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,12 +39,12 @@
 
 
 
-<meta property="og:title" content="General purpose metadata filtering for mts objects — mts_filterMeta" />
-<meta property="og:description" content="A generalized metadata filter for mts objects to
-choose rows/cases where conditions are true.  Multiple conditions are
-combined with &amp;amp; or separated by a comma. Only rows where the condition
-evaluates to TRUE are kept. Rows where the condition evaluates to NA
-are dropped." />
+<meta property="og:title" content="Subset and reorder time series within an mts object — mts_select" />
+<meta property="og:description" content="This function acts similarly to dplyr::select() working on
+mts$data. The returned mts object will contain only those
+time series identified by deviceDeploymentID in the order specified.
+This can be helpful when using faceted plot functions based on ggplot
+such as those found in AirMonitorPlots." />
 
 
 
@@ -130,20 +130,20 @@ are dropped." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General purpose metadata filtering for <em>mts</em> objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaLocationUtils/blob/master/R/mts_filterMeta.R'><code>R/mts_filterMeta.R</code></a></small>
-    <div class="hidden name"><code>mts_filterMeta.Rd</code></div>
+    <h1>Subset and reorder time series within an <em>mts</em> object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaLocationUtils/blob/master/R/mts_select.R'><code>R/mts_select.R</code></a></small>
+    <div class="hidden name"><code>mts_select.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A generalized metadata filter for <em>mts</em> objects to
-choose rows/cases where conditions are true.  Multiple conditions are
-combined with <code>&amp;</code> or separated by a comma. Only rows where the condition
-evaluates to TRUE are kept. Rows where the condition evaluates to <code>NA</code>
-are dropped.</p>
+    <p>This function acts similarly to <code><a href='https://dplyr.tidyverse.org/reference/select.html'>dplyr::select()</a></code> working on
+<code>mts$data</code>. The returned <em>mts</em> object will contain only those
+time series identified by <code>deviceDeploymentID</code> in the order specified.</p>
+<p>This can be helpful when using faceted plot functions based on <span class="pkg">ggplot</span>
+such as those found in <span class="pkg">AirMonitorPlots</span>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mts_filterMeta</span><span class='op'>(</span><span class='va'>mts</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>mts_select</span><span class='op'>(</span>mts <span class='op'>=</span> <span class='cn'>NULL</span>, deviceDeploymentID <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,18 +153,14 @@ are dropped.</p>
       <td><p><em>mts</em> object.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Logical predicates defined in terms of the variables in
-<code>mts$meta</code>.</p></td>
+      <th>deviceDeploymentID</th>
+      <td><p>timeseries unique identifier</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A subset of the incoming <code>mts</code>.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>Filtering is done on variables in <code>mts$meta</code>.</p>
+    <p>A reorderd (subset) of the incoming <code>mts</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='mts_filterData.html'>mts_filterData</a></p>
@@ -175,33 +171,26 @@ are dropped.</p>
     <pre class="examples"><div class='input'>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/MazamaLocationUtils'>MazamaTimeSeries</a></span><span class='op'>)</span>
 
-<span class='co'># Filter for all labels with "SCSH"</span>
-<span class='va'>scap</span> <span class='op'>&lt;-</span>
+<span class='co'># Filter for "El Monte"</span>
+<span class='va'>El_Monte</span> <span class='op'>&lt;-</span>
   <span class='va'>example_mts</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mts_filterMeta</span><span class='op'>(</span><span class='va'>communityRegion</span> <span class='op'>==</span> <span class='st'>"El Monte"</span><span class='op'>)</span>
+  <span class='fu'><a href='mts_filterMeta.html'>mts_filterMeta</a></span><span class='op'>(</span><span class='va'>communityRegion</span> <span class='op'>==</span> <span class='st'>"El Monte"</span><span class='op'>)</span>
 
-<span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>scap</span><span class='op'>$</span><span class='va'>meta</span>, <span class='va'>ID</span>, <span class='va'>label</span>, <span class='va'>longitude</span>, <span class='va'>latitude</span>, <span class='va'>communityRegion</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                         ID   label longitude latitude communityRegion
-#&gt; 36fa039140645de8_2504 2504 SCEM_03 -118.0335 34.06491        El Monte
-#&gt; 173ff64a55da1183_2693 2693 SCEM_04 -118.0114 34.05451        El Monte
-#&gt; 055497925c615bbd_2452 2452 SCEM_05 -118.0023 34.07729        El Monte
-#&gt; 6db0b260ed58bea0_2713 2713 scem_06 -118.0313 34.07163        El Monte
-#&gt; 8d9ad84c05e66fcb_2496 2496 SCEM_07 -118.0717 34.08501        El Monte</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>scap</span><span class='op'>$</span><span class='va'>data</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;              datetime 36fa039140645de8_2504 173ff64a55da1183_2693
-#&gt; 1 2019-07-01 07:00:00              12.89900              12.01483
-#&gt; 2 2019-07-01 08:00:00              13.89150              12.37000
-#&gt; 3 2019-07-01 09:00:00              14.83433              12.48583
-#&gt; 4 2019-07-01 10:00:00              15.84750              13.00417
-#&gt; 5 2019-07-01 11:00:00              16.29417              14.23800
-#&gt; 6 2019-07-01 12:00:00              16.91367              15.00083
-#&gt;   055497925c615bbd_2452 6db0b260ed58bea0_2713 8d9ad84c05e66fcb_2496
-#&gt; 1                    NA              11.94833              15.24183
-#&gt; 2                    NA              13.12333              15.25800
-#&gt; 3                    NA              14.48250              14.16783
-#&gt; 4                    NA              14.91900              13.29867
-#&gt; 5                    NA              15.56867              13.46133
-#&gt; 6                    NA              16.07867              13.63450</div><div class='input'>
+<span class='va'>ids</span> <span class='op'>&lt;-</span> <span class='va'>El_Monte</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>$</span><span class='va'>deviceDeploymentID</span>
+<span class='va'>rev_ids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rev.html'>rev</a></span><span class='op'>(</span><span class='va'>ids</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>ids</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "36fa039140645de8_2504" "173ff64a55da1183_2693" "055497925c615bbd_2452"
+#&gt; [4] "6db0b260ed58bea0_2713" "8d9ad84c05e66fcb_2496"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>rev_ids</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "8d9ad84c05e66fcb_2496" "6db0b260ed58bea0_2713" "055497925c615bbd_2452"
+#&gt; [4] "173ff64a55da1183_2693" "36fa039140645de8_2504"</div><div class='input'>
+<span class='va'>rev_El_Monte</span> <span class='op'>&lt;-</span>
+  <span class='va'>example_mts</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>mts_select</span><span class='op'>(</span><span class='va'>rev_ids</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>rev_El_Monte</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>$</span><span class='va'>deviceDeploymentID</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "8d9ad84c05e66fcb_2496" "6db0b260ed58bea0_2713" "055497925c615bbd_2452"
+#&gt; [4] "173ff64a55da1183_2693" "36fa039140645de8_2504"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

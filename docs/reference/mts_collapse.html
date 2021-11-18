@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General purpose metadata filtering for mts objects — mts_filterMeta • MazamaTimeSeries</title>
+<title>Collapse an mts object into a single time series — mts_collapse • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,12 +39,19 @@
 
 
 
-<meta property="og:title" content="General purpose metadata filtering for mts objects — mts_filterMeta" />
-<meta property="og:description" content="A generalized metadata filter for mts objects to
-choose rows/cases where conditions are true.  Multiple conditions are
-combined with &amp;amp; or separated by a comma. Only rows where the condition
-evaluates to TRUE are kept. Rows where the condition evaluates to NA
-are dropped." />
+<meta property="og:title" content="Collapse an mts object into a single time series — mts_collapse" />
+<meta property="og:description" content="Collapses data from all time series in mts into a
+single-time series mts object using the function provided in the
+FUN argument. The single-time series result will be located at the mean
+longitude and latitude unless longitude and latitude
+parameters are specified.
+Any columns of meta that are constant across all records will be retained in
+the returned mts meta.
+The core metadata associated with this location (e.g.
+countryCode, stateCode, timezone, ...) will be determined from
+the most common (or average) value found in mts$meta. This will be
+a reasonable assumption for the vast majority of intended use cases where
+data from multiple instruments in close proximity are averaged together." />
 
 
 
@@ -130,20 +137,35 @@ are dropped." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General purpose metadata filtering for <em>mts</em> objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaLocationUtils/blob/master/R/mts_filterMeta.R'><code>R/mts_filterMeta.R</code></a></small>
-    <div class="hidden name"><code>mts_filterMeta.Rd</code></div>
+    <h1>Collapse an <code>mts</code> object into a single time series</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaLocationUtils/blob/master/R/mts_collapse.R'><code>R/mts_collapse.R</code></a></small>
+    <div class="hidden name"><code>mts_collapse.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A generalized metadata filter for <em>mts</em> objects to
-choose rows/cases where conditions are true.  Multiple conditions are
-combined with <code>&amp;</code> or separated by a comma. Only rows where the condition
-evaluates to TRUE are kept. Rows where the condition evaluates to <code>NA</code>
-are dropped.</p>
+    <p>Collapses data from all time series in <code>mts</code> into a
+single-time series <em>mts</em> object using the function provided in the
+<code>FUN</code> argument. The single-time series result will be located at the mean
+longitude and latitude unless <code>longitude</code> and <code>latitude</code>
+parameters are specified.</p>
+<p>Any columns of meta that are constant across all records will be retained in
+the returned <em>mts</em> meta.</p>
+<p>The core metadata associated with this location (<em>e.g.</em>
+<code>countryCode, stateCode, timezone, ...</code>) will be determined from
+the most common (or average) value found in <code>mts$meta</code>. This will be
+a reasonable assumption for the vast majority of intended use cases where
+data from multiple instruments in close proximity are averaged together.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mts_filterMeta</span><span class='op'>(</span><span class='va'>mts</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>mts_collapse</span><span class='op'>(</span>
+  <span class='va'>mts</span>,
+  longitude <span class='op'>=</span> <span class='cn'>NULL</span>,
+  latitude <span class='op'>=</span> <span class='cn'>NULL</span>,
+  deviceID <span class='op'>=</span> <span class='st'>"generatedID"</span>,
+  FUN <span class='op'>=</span> <span class='va'>mean</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,56 +175,42 @@ are dropped.</p>
       <td><p><em>mts</em> object.</p></td>
     </tr>
     <tr>
+      <th>longitude</th>
+      <td><p>Longitude of the collapsed time series.</p></td>
+    </tr>
+    <tr>
+      <th>latitude</th>
+      <td><p>Latitude of the collapsed time series.</p></td>
+    </tr>
+    <tr>
+      <th>deviceID</th>
+      <td><p>Device identifier for the collapsed time series.</p></td>
+    </tr>
+    <tr>
+      <th>FUN</th>
+      <td><p>Function used to collapse multiple time series.</p></td>
+    </tr>
+    <tr>
+      <th>na.rm</th>
+      <td><p>Logical specifying whether NA values should be ignored when FUN
+is applied.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>Logical predicates defined in terms of the variables in
-<code>mts$meta</code>.</p></td>
+      <td><p>additional arguments to be passed on to the <code><a href='https://rdrr.io/r/base/apply.html'>apply()</a></code> function.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A subset of the incoming <code>mts</code>.</p>
+    <p>A <em>mts</em> object representingn a single time series</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Filtering is done on variables in <code>mts$meta</code>.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>After <code>FUN</code> is applied, values of <code>+/-Inf</code> and <code>NaN</code> are
+converted to <code>NA</code>. This is a convenience for the common case where
+<code>FUN = min/max</code> or <code>FUN = mean</code> and some of the time steps have all
+missing values. See the R documentation for <code>min</code> for an explanation.</p>
 
-    <div class='dont-index'><p><a href='mts_filterData.html'>mts_filterData</a></p>
-<p><a href='mts_filterDate.html'>mts_filterDate</a></p>
-<p><a href='mts_filterDatetime.html'>mts_filterDatetime</a></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/MazamaLocationUtils'>MazamaTimeSeries</a></span><span class='op'>)</span>
-
-<span class='co'># Filter for all labels with "SCSH"</span>
-<span class='va'>scap</span> <span class='op'>&lt;-</span>
-  <span class='va'>example_mts</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mts_filterMeta</span><span class='op'>(</span><span class='va'>communityRegion</span> <span class='op'>==</span> <span class='st'>"El Monte"</span><span class='op'>)</span>
-
-<span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>scap</span><span class='op'>$</span><span class='va'>meta</span>, <span class='va'>ID</span>, <span class='va'>label</span>, <span class='va'>longitude</span>, <span class='va'>latitude</span>, <span class='va'>communityRegion</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                         ID   label longitude latitude communityRegion
-#&gt; 36fa039140645de8_2504 2504 SCEM_03 -118.0335 34.06491        El Monte
-#&gt; 173ff64a55da1183_2693 2693 SCEM_04 -118.0114 34.05451        El Monte
-#&gt; 055497925c615bbd_2452 2452 SCEM_05 -118.0023 34.07729        El Monte
-#&gt; 6db0b260ed58bea0_2713 2713 scem_06 -118.0313 34.07163        El Monte
-#&gt; 8d9ad84c05e66fcb_2496 2496 SCEM_07 -118.0717 34.08501        El Monte</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>scap</span><span class='op'>$</span><span class='va'>data</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;              datetime 36fa039140645de8_2504 173ff64a55da1183_2693
-#&gt; 1 2019-07-01 07:00:00              12.89900              12.01483
-#&gt; 2 2019-07-01 08:00:00              13.89150              12.37000
-#&gt; 3 2019-07-01 09:00:00              14.83433              12.48583
-#&gt; 4 2019-07-01 10:00:00              15.84750              13.00417
-#&gt; 5 2019-07-01 11:00:00              16.29417              14.23800
-#&gt; 6 2019-07-01 12:00:00              16.91367              15.00083
-#&gt;   055497925c615bbd_2452 6db0b260ed58bea0_2713 8d9ad84c05e66fcb_2496
-#&gt; 1                    NA              11.94833              15.24183
-#&gt; 2                    NA              13.12333              15.25800
-#&gt; 3                    NA              14.48250              14.16783
-#&gt; 4                    NA              14.91900              13.29867
-#&gt; 5                    NA              15.56867              13.46133
-#&gt; 6                    NA              16.07867              13.63450</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -7,7 +7,7 @@
 mts_trimDate(mts = NULL, timezone = NULL)
 }
 \arguments{
-\item{mts}{\emph{mts} bject.}
+\item{mts}{\emph{mts} object.}
 
 \item{timezone}{Olson timezone used to interpret dates.}
 }
