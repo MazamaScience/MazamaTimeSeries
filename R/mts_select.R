@@ -14,7 +14,7 @@
 #' This can be helpful when using faceted plot functions based on \pkg{ggplot}
 #' such as those found in \pkg{AirMonitorPlots}.
 #'
-#' @return A reorderd (subset) of the incoming \code{mts}.
+#' @return A reordered (subset) of the incoming \code{mts}.
 #'
 #' @seealso \link{mts_filterData}
 #' @seealso \link{mts_filterDate}
