@@ -1,3 +1,7 @@
+# MazamaTimeSeries 0.0.9
+
+* Now depending on **MazamaCoreUtils** 0.4.10.
+
 # MazamaTimeSeries 0.0.8
 
 * Added `mts_collapse()`, `mts_distance()` and `mts_select()`.

@@ -12,7 +12,7 @@ mts_select(mts = NULL, deviceDeploymentID = NULL)
 \item{deviceDeploymentID}{timeseries unique identifier}
 }
 \value{
-A reorderd (subset) of the incoming \code{mts}.
+A reordered (subset) of the incoming \code{mts}.
 }
 \description{
 This function acts similarly to \code{dplyr::select()} working on
