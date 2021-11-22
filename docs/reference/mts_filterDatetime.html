@@ -40,14 +40,14 @@
 
 
 <meta property="og:title" content="Datetime filtering for mts objects — mts_filterDatetime" />
-<meta property="og:description" content="Subsets a mts object by datetime. This function
+<meta property="og:description" content="Subsets an mts object by datetime. This function
 allows for sub-day filtering as opposed to mts_filterDate() which
 always filters to day-boundaries.
 Datetimes can be anything that is understood by
 MazamaCoreUtils::parseDatetime(). For non-POSIXct values,
 the recommended format is &quot;YYYY-mm-dd HH:MM:SS&quot;.
 Timezone determination precedence assumes that if you are passing in
-POSIXct values then you know what you are doing.
+POSIXct values then you know what you are doing:
 
 get timezone from startdate if it is POSIXct
 use passed in timezone
@@ -145,14 +145,14 @@ get timezone from mts
     </div>
 
     <div class="ref-description">
-    <p>Subsets a <code>mts</code> object by datetime. This function
+    <p>Subsets an <code>mts</code> object by datetime. This function
 allows for sub-day filtering as opposed to <code><a href='mts_filterDate.html'>mts_filterDate()</a></code> which
 always filters to day-boundaries.</p>
 <p>Datetimes can be anything that is understood by
 <code><a href='https://rdrr.io/pkg/MazamaCoreUtils/man/parseDatetime.html'>MazamaCoreUtils::parseDatetime()</a></code>. For non-<code>POSIXct</code> values,
 the recommended format is <code>"YYYY-mm-dd HH:MM:SS"</code>.</p>
 <p>Timezone determination precedence assumes that if you are passing in
-<code>POSIXct</code> values then you know what you are doing.</p>
+<code>POSIXct</code> values then you know what you are doing:</p>
 <ol>
 <li><p>get timezone from <code>startdate</code> if it is <code>POSIXct</code></p></li>
 <li><p>use passed in <code>timezone</code></p></li>
@@ -198,13 +198,13 @@ the recommended format is <code>"YYYY-mm-dd HH:MM:SS"</code>.</p>
       <th>ceilingStart</th>
       <td><p>Logical instruction to apply
 <code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>ceiling_date</a></code> to the <code>startdate</code> rather than
-<code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></code></p></td>
+<code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></code>.</p></td>
     </tr>
     <tr>
       <th>ceilingEnd</th>
       <td><p>Logical instruction to apply
 <code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>ceiling_date</a></code> to the <code>enddate</code> rather than
-<code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></code></p></td>
+<code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></code>.</p></td>
     </tr>
     </table>
 
@@ -226,98 +226,9 @@ the recommended format is <code>"YYYY-mm-dd HH:MM:SS"</code>.</p>
     enddate <span class='op'>=</span> <span class='st'>"2019-07-06 18:00:00"</span>
   <span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='mts_extractDataFrame.html'>mts_extractData</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;              datetime 4af81ed0f6ec7acd_4734 c3ac53faf335f19f_5030
-#&gt; 1 2019-07-03 13:00:00                    NA                    NA
-#&gt; 2 2019-07-03 14:00:00                    NA                    NA
-#&gt; 3 2019-07-03 15:00:00                    NA                    NA
-#&gt; 4 2019-07-03 16:00:00                    NA                    NA
-#&gt; 5 2019-07-03 17:00:00                    NA                    NA
-#&gt; 6 2019-07-03 18:00:00                    NA                    NA
-#&gt;   776e00b070251a36_23237 ec61b544c1dbfe21_2448 70e599f772b22877_4670
-#&gt; 1                     NA                    NA              16.43216
-#&gt; 2                     NA                    NA              16.99103
-#&gt; 3                     NA                    NA              18.02142
-#&gt; 4                     NA                    NA              22.23488
-#&gt; 5                     NA                    NA              22.53378
-#&gt; 6                     NA                    NA              20.36243
-#&gt;   e0d610f7f219e39f_5080 2ee691d37eaa1aff_3529 ecd1d2c35c1c18cf_3505
-#&gt; 1                    NA                    NA                    NA
-#&gt; 2                    NA                    NA               19.0350
-#&gt; 3                    NA              16.01833                    NA
-#&gt; 4                    NA              17.67000               22.1750
-#&gt; 5                    NA                    NA               20.5625
-#&gt; 6                    NA                    NA               19.5950
-#&gt;   05533d5b998ac7bf_3525 91299b887fface5f_3515 c316bcf7a85c8242_3617
-#&gt; 1                 14.01                    NA              17.92167
-#&gt; 2                    NA                    NA              17.45750
-#&gt; 3                    NA                    NA              18.14200
-#&gt; 4                    NA                    NA              20.92283
-#&gt; 5                    NA                    NA              21.54617
-#&gt; 6                    NA                    NA              18.92250
-#&gt;   a812772f2ef60b6f_3527 70f70265dbeb7f36_3551 f1eb28176ffa3c00_3487
-#&gt; 1                    NA              17.96733              15.98033
-#&gt; 2                    NA              18.64150              26.26917
-#&gt; 3                    NA              19.08800              42.07233
-#&gt; 4                    NA              22.75183              26.72267
-#&gt; 5                    NA              22.48217              27.60900
-#&gt; 6                    NA              17.61683              18.11900
-#&gt;   28a43b2d6854838f_4725 da4cadd2d6ea5302_4686 d68d5d33331df58f_4689
-#&gt; 1              15.66400              15.20800              16.46050
-#&gt; 2              16.44317              15.31517              16.59400
-#&gt; 3              18.46050              16.53950              18.25467
-#&gt; 4              21.60883              19.77033              21.90983
-#&gt; 5              20.88333              19.90950              22.03100
-#&gt; 6              19.74767              15.70217              19.61700
-#&gt;   2de587fc7359dd00_4662 07702ba2209dec22_4702 1fb48f53c052893a_4692
-#&gt; 1                    NA              17.17733              13.97150
-#&gt; 2                    NA              16.96117              14.74617
-#&gt; 3                    NA              18.36667              16.28700
-#&gt; 4                    NA              20.01717              19.08233
-#&gt; 5                    NA              20.55800              20.31867
-#&gt; 6                    NA              20.27717              18.40050
-#&gt;   ada194ce98ce4bed_5184 a3eb0d42e5c78f8b_5228 065b6608aa9e6136_5218
-#&gt; 1              15.97983              13.74600              16.72340
-#&gt; 2              16.32483              14.48517              17.64567
-#&gt; 3              17.92300              14.83550              19.57553
-#&gt; 4              20.41783              18.56383              21.29936
-#&gt; 5              20.55567              18.20517              21.36621
-#&gt; 6              18.18050              15.73217              19.61083
-#&gt;   36fa039140645de8_2504 173ff64a55da1183_2693 055497925c615bbd_2452
-#&gt; 1              18.19183              17.12250                    NA
-#&gt; 2              19.27567              16.42550                    NA
-#&gt; 3              20.27383              18.82750                    NA
-#&gt; 4              22.85050              21.79467                    NA
-#&gt; 5              21.67367              21.99350                    NA
-#&gt; 6              16.72633              16.71567                    NA
-#&gt;   6db0b260ed58bea0_2713 8d9ad84c05e66fcb_2496 30b3a848f934811d_4746
-#&gt; 1              18.69417              16.50050                    NA
-#&gt; 2              19.61257              17.34650                    NA
-#&gt; 3              21.86051              18.33817                    NA
-#&gt; 4              24.81983              19.69000                    NA
-#&gt; 5              25.13117              21.35583                    NA
-#&gt; 6              19.30267              18.84833                    NA
-#&gt;   bf7350cd6c2ec4c1_4727 452fd84452485d47_23233 bde3b79da492ff98_23429
-#&gt; 1                    NA               15.64098               15.78033
-#&gt; 2                    NA               16.59390               17.06417
-#&gt; 3                    NA               16.86138               21.18133
-#&gt; 4                    NA               20.18265               20.25583
-#&gt; 5                    NA               21.81068               20.65433
-#&gt; 6                    NA               20.07750               19.53783
-#&gt;   76a49e0074377eb5_23427 8c345724ee28a6ef_23253 85a2219173d7e0e6_22695
-#&gt; 1               18.56250               15.90333                     NA
-#&gt; 2               21.53800               16.78000                     NA
-#&gt; 3               23.17300               16.71567                     NA
-#&gt; 4               23.81450               20.25250                     NA
-#&gt; 5               24.14933               20.80233                     NA
-#&gt; 6               23.30117               17.40917                     NA
-#&gt;   f4b229bfc8882d90_22687 dfed9bdf5bbdeee0_23093 d76f0e830185fe4c_23291
-#&gt; 1                     NA                     NA                     NA
-#&gt; 2                     NA                     NA                     NA
-#&gt; 3                     NA                     NA                     NA
-#&gt; 4                     NA                     NA                     NA
-#&gt; 5                     NA                     NA                     NA
-#&gt; 6                     NA                     NA                     NA</div><div class='input'>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>datetime</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2019-07-03 13:00:00 UTC" "2019-07-07 00:00:00 UTC"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

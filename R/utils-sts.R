@@ -176,7 +176,7 @@ sts_isEmpty <- function(sts) {
 #'
 #' @param sts \emph{sts} object
 #'
-#' @return A \emph{sts} object with no duplicated data records.
+#' @return An \emph{sts} object with no duplicated data records.
 #'
 #' @description Three successive steps are used to guarantee that the
 #' \code{datetime} axis contains no repeated values:
@@ -222,7 +222,7 @@ sts_distinct <- function(sts) {
 #'
 #' @param sts \emph{sts} object to extract dataframe from.
 #'
-#' @return A dataframe from the given \emph{sts} object
+#' @return A dataframe from the given \emph{sts} object.
 #'
 #' @name sts_extractDataFrame
 #' @aliases sts_extractData sts_extractMeta

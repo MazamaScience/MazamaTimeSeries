@@ -26,7 +26,6 @@ are dropped.
 Filtering is done on variables in \code{mts$meta}.
 }
 \examples{
-
 library(MazamaTimeSeries)
 
 # Filter for all labels with "SCSH"

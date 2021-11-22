@@ -13,11 +13,12 @@ Carmel_Valley
 }
 \description{
 The \code{Carmel_Valley} dataset provides a quickly loadable
-version of a \emph{mts_monitor} object for practicing and code examples.
+version of a single-sensor \emph{mts_monitor} object for practicing and code
+examples.
 }
 \details{
 In August of 2016, the Soberanes fire in California burned along the Big Sur
-coast. It was at the time the most expensive wildifre in US history. This
+coast. It was at the time the most expensive wildfire in US history. This
 dataset contains PM2.5 monitoring data for the monitor in Carmel Valley which
 shows heavy smoke as well as strong diurnal cycles associated with sea
 breezes. Data are stored as an \emph{mts} object and are used in some
@@ -34,8 +35,8 @@ Carmel_Valley <-
     parameterCode = 88101,
     archiveBaseUrl = NULL,
     archiveBaseDir = "~/Data/monitoring"
-  ) %>%
-  monitor_filterMeta(deviceDeploymentID == "a9572a904a4ed46d_060530002_03") %>%
+  ) \%>\%
+  monitor_filterMeta(deviceDeploymentID == "a9572a904a4ed46d_060530002_03") \%>\%
   monitor_filterDate(20160722, 20160815)
 
 save(Carmel_Valley, file = "data/Carmel_Valley.rda")

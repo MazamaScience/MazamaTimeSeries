@@ -7,16 +7,23 @@
 #' @description Checks on the validity of an \emph{mts} object. If any test
 #' fails, this function will stop with a warning message.
 #'
+#' @seealso \link{mts_isValid}
+#'
+#' @examples
 #' library(MazamaTimeSeries)
 #'
 #' sts_check(example_mts)
 #'
-#' # Break the 'mts' object
-#' broken_mts <- example_mts
-#' names(broken_mts) <- c('meta', 'bop')
+#' # This would throw an error
+#' if ( FALSE ) {
 #'
-#' sts_check(broken_mts)
+#'   broken_mts <- example_mts
+#'   names(broken_mts) <- c('meta', 'bop')
+#'   sts_check(broken_mts)
 #'
+#' }
+#'
+
 mts_check <- function(mts) {
   tryCatch(
     mts_isValid(mts, verbose = TRUE),
@@ -58,13 +65,15 @@ mts_check <- function(mts) {
 #'   \item{\code{datetime} -- measurement time (UTC)}
 #' }
 #'
-#' @return \code{TRUE} if \code{mts} has the correct structure,
+#' @return Invisibly returns \code{TRUE} if \code{mts} has the correct structure,
 #' \code{FALSE} otherwise.
+#'
+#' @seealso \link{mts_check}
 #'
 #' @examples
 #' library(MazamaTimeSeries)
 #'
-#' mts_isValid(example_mts)
+#' print(mts_isValid(example_mts))
 #'
 mts_isValid <- function(
   mts = NULL,
@@ -187,9 +196,11 @@ mts_isEmpty <- function(mts) {
 #'
 #' @param mts \emph{mts} object
 #'
-#' @return A \emph{mts} object with no duplicated data records.
+#' @return An \emph{mts} object with no duplicated data records.
 #'
-#' @description Two successive steps are used to guarantee that the
+#' @description This function is primarily for internal use.
+#'
+#' Two successive steps are used to guarantee that the
 #' \code{datetime} axis contains no repeated values:
 #'
 #' \enumerate{
@@ -220,20 +231,16 @@ mts_distinct <- function(mts) {
 #'
 #' @description
 #' These functions are convenient wrappers for extracting the dataframes that
-#' comprise a \emph{mts} object. These functions are designed to be useful when
+#' comprise an \emph{mts} object. These functions are designed to be useful when
 #' manipulating data in a pipeline chain using \code{\%>\%}.
 #'
-#' Below is a table showing equivalent operations for each function.
+#' \code{mts_extractData(mts)} is equivalent to \code{mts$data}.
 #'
-#' \tabular{ll}{
-#'   \strong{Function} \tab \strong{Equivalent Operation}\cr
-#'   \code{mts_extractData(mts)} \tab \code{mts$data}\cr
-#'   \code{mts_extractMeta(mts)} \tab \code{mts$meta}
-#' }
+#' \code{mts_extractMeta(mts)} is equivalent to \code{mts$meta}.
 #'
 #' @param mts \emph{mts} object to extract dataframe from.
 #'
-#' @return A dataframe from the given \emph{mts} object
+#' @return A dataframe from the given \emph{mts} object.
 #'
 #' @name mts_extractDataFrame
 #' @aliases mts_extractData mts_extractMeta

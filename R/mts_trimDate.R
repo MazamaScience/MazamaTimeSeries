@@ -1,18 +1,20 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Trim a \emph{mts} object to full days
+#' @title Trim an \emph{mts} object to full days
 #'
 #' @param mts \emph{mts} object.
 #' @param timezone Olson timezone used to interpret dates.
 #'
-#' @description Trims the date range of a \emph{mts} object to local time date
+#' @description Trims the date range of an \emph{mts} object to local time date
 #' boundaries which are \emph{within} the range of data. This has the effect
 #' of removing partial-day data records at the start and end of the timeseries
 #' and is useful when calculating full-day statistics.
 #'
 #' Day boundaries are calculated using the specified \code{timezone} or, if
-#' \code{NULL}, from \code{mts$meta$timezone}.
+#' \code{NULL},  \code{mts$meta$timezone}. Leaving \code{timezone = NULL}, the
+#' default, results in "local time" date filtering which is the most
+#' common use case.
 #'
 #' @return A subset of the given \emph{mts} object.
 #'
@@ -27,7 +29,7 @@
 #' )
 #'
 #' # UTC day boundaries
-#' head(UTC_week$data)
+#' range(UTC_week$data$datetime)
 #'
 #' # Trim to local time day boundaries
 #' local_week <- mts_trimDate(UTC_week)

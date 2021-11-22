@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_select.R
 \name{mts_select}
 \alias{mts_select}
-\title{Subset and reorder time series within an \emph{mts} object}
+\title{Reorder and subset time series within an \emph{mts} object}
 \usage{
 mts_select(mts = NULL, deviceDeploymentID = NULL)
 }
@@ -19,11 +19,11 @@ This function acts similarly to \code{dplyr::select()} working on
 \code{mts$data}. The returned \emph{mts} object will contain only those
 time series identified by \code{deviceDeploymentID} in the order specified.
 
-This can be helpful when using faceted plot functions based on \pkg{ggplot}
-such as those found in \pkg{AirMonitorPlots}.
+This can be used the specify a preferred order and is helpful when using
+faceted plot functions based on \pkg{ggplot}
+such as those found in the \pkg{AirMonitorPlots} package.
 }
 \examples{
-
 library(MazamaTimeSeries)
 
 # Filter for "El Monte"

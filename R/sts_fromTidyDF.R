@@ -38,8 +38,8 @@
 #' #' For example, to map columns 'lon' and 'lat' in 'tidyDF' to 'longitude' and 'latitude',
 #' #' 'nameMapping' can be defined as nameMapping = list("lon" = "longitude", "lat" = "latitude")
 #' #'
-#' #' @return A \emph{sts} object containing data and metadata from the original
-#' #' tidy dataframe
+#' #' @return An \emph{sts} object containing data and metadata from the original
+#' #' tidy dataframe.
 #' #'
 #' #' @examples
 #' #'

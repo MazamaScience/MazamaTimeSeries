@@ -3,7 +3,7 @@
 #'
 #' @title Combine multiple \code{mts} objects
 #'
-#' @param ... Any number of valid emph{mts} objects.
+#' @param ... Any number of valid \emph{mts} objects.
 #'
 #' @return A combined \code{mts} object.
 #'
@@ -49,6 +49,10 @@
 #'   mts_filterDate(20190705, 20190708)
 #'
 #' mts <- mts_combine(mts1, mts2, mts3)
+#'
+#' # Should have 1:6 + 8:10 = 9 meta records and the full date range
+#' nrow(mts$meta)
+#' range(mts$data$datetime)
 #'
 
 mts_combine <- function(

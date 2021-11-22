@@ -31,27 +31,42 @@ is applied.}
 \item{...}{additional arguments to be passed on to the \code{apply()} function.}
 }
 \value{
-A \emph{mts} object representingn a single time series
+An \emph{mts} object representing a single time series.
 }
 \description{
 Collapses data from all time series in \code{mts} into a
 single-time series \emph{mts} object using the function provided in the
 \code{FUN} argument. The single-time series result will be located at the mean
 longitude and latitude unless \code{longitude} and \code{latitude}
-parameters are specified.
+are specified.
 
-Any columns of meta that are constant across all records will be retained in
-the returned \emph{mts} meta.
+Any columns of \code{mts$meta} that are constant across all records will be
+retained in the returned \code{mts$meta}.
 
 The core metadata associated with this location (\emph{e.g.}
 \code{countryCode, stateCode, timezone, ...}) will be determined from
 the most common (or average) value found in \code{mts$meta}. This will be
 a reasonable assumption for the vast majority of intended use cases where
-data from multiple instruments in close proximity are averaged together.
+data from multiple devices in close proximity are averaged together.
 }
 \note{
 After \code{FUN} is applied, values of \code{+/-Inf} and \code{NaN} are
 converted to \code{NA}. This is a convenience for the common case where
 \code{FUN = min/max} or \code{FUN = mean} and some of the time steps have all
 missing values. See the R documentation for \code{min} for an explanation.
+}
+\examples{
+library(MazamaTimeSeries)
+
+mon <-
+  mts_collapse(
+    mts = example_mts,
+    deviceID = "example_ID"
+  )
+
+# mon$data now only has 2 columns
+names(mon$data)
+
+plot(mon$data, type = 'b', main = mon$meta$deviceID)
+
 }

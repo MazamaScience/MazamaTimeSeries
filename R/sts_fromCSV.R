@@ -31,7 +31,7 @@
 #' #' These columns along with any other numeric columns in the tidy dataframe will be
 #' #' put in the data dataframe of the resulting \emph{sts} object.
 #' #'
-#' #' @return A \emph{sts} object containing data and metadata from the provided CSV
+#' #' @return An \emph{sts} object containing data and metadata from the provided CSV.
 #' #'
 #' #' @examples
 #' #'

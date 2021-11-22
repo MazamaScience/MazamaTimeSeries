@@ -12,14 +12,22 @@ mts_check(mts)
 \description{
 Checks on the validity of an \emph{mts} object. If any test
 fails, this function will stop with a warning message.
-
+}
+\examples{
 library(MazamaTimeSeries)
 
 sts_check(example_mts)
 
-# Break the 'mts' object
-broken_mts <- example_mts
-names(broken_mts) <- c('meta', 'bop')
+# This would throw an error
+if ( FALSE ) {
 
-sts_check(broken_mts)
+  broken_mts <- example_mts
+  names(broken_mts) <- c('meta', 'bop')
+  sts_check(broken_mts)
+
+}
+
+}
+\seealso{
+\link{mts_isValid}
 }

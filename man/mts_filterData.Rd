@@ -17,28 +17,26 @@ A subset of the incoming \code{mts}.
 }
 \description{
 A generalized data filter for \emph{mts} objects to
-choose rows/cases where conditions are true.  Multiple conditions should be
+choose rows/cases where conditions are true.  Multiple conditions may be
 combined with \code{&} or separated by a comma. Only rows where the condition
 evaluates to TRUE are kept. Rows where the condition evaluates to \code{NA}
 are dropped.
 }
 \note{
-Filtering is done on variables in \code{mts$data}.
+Filtering is done on variables in \code{mts$data} and results in an
+\emph{incomplete and irregular time axis}.
 }
 \examples{
-
 library(MazamaTimeSeries)
 
 # Are there any times when data exceeded 150?
 sapply(example_mts$data, function(x) { any(x > 150, na.rm = TRUE) })
 
-# Filter for all times where da4cadd2d6ea5302_4686 > 150
-very_unhealthy <-
-  example_mts \%>\%
-  mts_filterData(da4cadd2d6ea5302_4686 > 150)
-
-# Show all data
-dplyr::glimpse(very_unhealthy$data)
+# Show all times where da4cadd2d6ea5302_4686 > 150
+example_mts \%>\%
+  mts_filterData(da4cadd2d6ea5302_4686 > 150) \%>\%
+  mts_extractData() \%>\%
+  dplyr::pull(datetime)
 
 }
 \seealso{

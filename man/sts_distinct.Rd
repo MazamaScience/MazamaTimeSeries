@@ -10,7 +10,7 @@ sts_distinct(sts)
 \item{sts}{\emph{sts} object}
 }
 \value{
-A \emph{sts} object with no duplicated data records.
+An \emph{sts} object with no duplicated data records.
 }
 \description{
 Three successive steps are used to guarantee that the

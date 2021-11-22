@@ -4,18 +4,18 @@
 #' @title Date filtering for \emph{mts} objects
 #'
 #' @param mts \emph{mts} object.
-#' @param startdate Desired start datetime (ISO 8601).
-#' @param enddate Desired end datetime (ISO 8601).
+#' @param startdate Desired start date (ISO 8601).
+#' @param enddate Desired end date (ISO 8601).
 #' @param timezone Olson timezone used to interpret dates.
 #' @param unit Units used to determine time at end-of-day.
 #' @param ceilingStart Logical instruction to apply
 #'   \code{\link[lubridate]{ceiling_date}} to the \code{startdate} rather than
-#'   \code{\link[lubridate]{floor_date}}
+#'   \code{\link[lubridate]{floor_date}}.
 #' @param ceilingEnd Logical instruction to apply
 #'   \code{\link[lubridate]{ceiling_date}} to the \code{enddate} rather than
-#'   \code{\link[lubridate]{floor_date}}
+#'   \code{\link[lubridate]{floor_date}}.
 #'
-#' @description Subsets a \emph{mts} object by date. This function
+#' @description Subsets an \emph{mts} object by date. This function
 #' always filters to day-boundaries. For sub-day filtering, use
 #' \code{mts_filterDatetime()}.
 #'
@@ -28,7 +28,7 @@
 #' }
 #'
 #' Timezone determination precedence assumes that if you are passing in
-#' \code{POSIXct} values then you know what you are doing.
+#' \code{POSIXct} values then you know what you are doing:
 #'
 #' \enumerate{
 #' \item{get timezone from \code{startdate} if it is \code{POSIXct}}
@@ -42,7 +42,7 @@
 #' \code{enddate} is less than 24 hours after \code{startdate}. In that case, a
 #' single day is returned.
 #'
-#' @return A subset of the given \emph{mts} object.
+#' @return A subset of the incoming \emph{mts} object.
 #'
 #' @seealso \link{mts_filterData}
 #' @seealso \link{mts_filterDatetime}
@@ -52,9 +52,13 @@
 #' library(MazamaTimeSeries)
 #'
 #' example_mts %>%
-#'   mts_filterDate(startdate = 20190703, enddate = 20190706) %>%
+#'   mts_filterDate(
+#'     startdate = 20190703,
+#'     enddate = 20190706
+#'   ) %>%
 #'   mts_extractData() %>%
-#'   head()
+#'   dplyr::pull(datetime) %>%
+#'   range()
 #'
 
 mts_filterDate <- function(

@@ -24,7 +24,8 @@ intervals.
 
 The most compact format for time series data collected at fixed locations is a
 list including two tables. **MazamaTimeSeries** stores time series measurements in a
-`data` table where each row is a _record_ for a particular UTC time stamp and each 
+`data` table where each row is a synoptic record containing all measurements
+associated with a particular UTC time stamp and each 
 column contains data measured by a single sensor (aka "device"). Any time invariant 
 metadata associated with a sensor at a known location (aka a "device-deployment")
 is stored in a separate `meta` table. A unique `deviceDeploymentID` connects the two tables. 
@@ -40,7 +41,7 @@ for **S**ingle**T**ime**S**eries:
 
 `sts$meta` -- 1 row = unique device-deployment; cols = device/location metadata
 
-`sts$data` -- rows = UTC time; cols = measured parameters (plus an additional `datetime` column)
+`sts$data` -- rows = UTC times; cols = measured parameters (plus an additional `datetime` column)
 
 `sts` objects can support the following types of time series data:
 
@@ -49,7 +50,7 @@ for **S**ingle**T**ime**S**eries:
 * regular or irregular time axes
 * multiple parameters
 
-Raw "engineering data" containing uncalibrated measurements, instrument voltages 
+Raw, "engineering data" containing uncalibrated measurements, instrument voltages 
 and QC flags may be stored in this format. This format is also appropriate for 
 processed and QC'ed data whenever mutiple parameters are measured by a single
 device.
@@ -72,9 +73,9 @@ Multi-sensor, single-parameter time series data is
 stored in an R list with two dataframes. The package refers to this structure as 
 an `mts` object for **M**ultiple**T**ime**S**eries:
 
-`mts$meta` -- N rows = unique device-deployments; cols = sensor/location metadata
+`mts$meta` -- N rows = unique device-deployments; cols = device/location metadata
 
-`mts$data` -- rows = UTC time; N cols = device-deployments (plus an additional `datetime` column)
+`mts$data` -- rows = UTC times; N cols = device-deployments (plus an additional `datetime` column)
 
 A key feature of `mts` objects is the use of the `deviceDeploymentID` as a
 "foreign key" that allows sensor `data` columns to be mapped onto the associated

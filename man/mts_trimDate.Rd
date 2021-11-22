@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_trimDate.R
 \name{mts_trimDate}
 \alias{mts_trimDate}
-\title{Trim a \emph{mts} object to full days}
+\title{Trim an \emph{mts} object to full days}
 \usage{
 mts_trimDate(mts = NULL, timezone = NULL)
 }
@@ -15,13 +15,15 @@ mts_trimDate(mts = NULL, timezone = NULL)
 A subset of the given \emph{mts} object.
 }
 \description{
-Trims the date range of a \emph{mts} object to local time date
+Trims the date range of an \emph{mts} object to local time date
 boundaries which are \emph{within} the range of data. This has the effect
 of removing partial-day data records at the start and end of the timeseries
 and is useful when calculating full-day statistics.
 
 Day boundaries are calculated using the specified \code{timezone} or, if
-\code{NULL}, from \code{mts$meta$timezone}.
+\code{NULL},  \code{mts$meta$timezone}. Leaving \code{timezone = NULL}, the
+default, results in "local time" date filtering which is the most
+common use case.
 }
 \examples{
 library(MazamaTimeSeries)
@@ -34,7 +36,7 @@ UTC_week <- mts_filterDate(
 )
 
 # UTC day boundaries
-head(UTC_week$data)
+range(UTC_week$data$datetime)
 
 # Trim to local time day boundaries
 local_week <- mts_trimDate(UTC_week)

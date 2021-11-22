@@ -21,7 +21,6 @@
 #' @seealso \link{mts_filterDate}
 #' @seealso \link{mts_filterDatetime}
 #' @examples
-#'
 #' library(MazamaTimeSeries)
 #'
 #' # Filter for all labels with "SCSH"

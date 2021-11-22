@@ -6,10 +6,11 @@
 #' @param mts \emph{mts} object.
 #' @param longitude Longitude of the location of interest.
 #' @param latitude Latitude of the location of interest.
-#' @param measure One of "haversine" "vincenty", "geodesic", or "cheap"
+#' @param measure One of "geodesic", "haversine", "vincenty" or "cheap"
 #'
 #' @description
-#' This function returns the distances (meters) between \code{mts} locations
+#' This function uses the \pkg{geodist} package to return the distances (meters)
+#' between \code{mts} locations
 #' and a location of interest. These distances can be used to create a
 #' mask identifying monitors within a certain radius of the location of interest.
 #'
@@ -19,6 +20,22 @@
 #' calculated using \code{measure = "geodesic"}.
 #'
 #' @return Vector of of distances (meters) named by \code{deviceDeploymentID}.
+#'
+#' @examples
+#' library(MazamaTimeSeries)
+#'
+#' # Garfield Medical Center in LA
+#' longitude <- -118.12321
+#' latitude <- 34.06775
+#'
+#' distances <- mts_distance(
+#'   mts = example_mts,
+#'   longitude = longitude,
+#'   latitude = latitude
+#' )
+#'
+#' # Which sensors are within 1000 meters of Garfield Med Ctr?
+#' distances[distances <= 1000]
 #'
 
 mts_distance <- function(
@@ -63,28 +80,5 @@ mts_distance <- function(
   # ----- Return ---------------------------------------------------------------
 
   return(distance)
-
-}
-
-# ===== DEBUG ==================================================================
-
-if ( FALSE ) {
-
-  library(MazamaTimeSeries)
-
-  mts <- example_mts
-
-  # Garfield Medical Center in LA
-  longitude <- -118.12321
-  latitude <- 34.06775
-
-  measure <- "geodesic"
-
-  mts_distance(
-    mts = mts,
-    longitude = longitude,
-    latitude = latitude,
-    measure = measure
-  )
 
 }

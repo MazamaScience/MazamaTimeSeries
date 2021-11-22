@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Trim a mts object to full days — mts_trimDate • MazamaTimeSeries</title>
+<title>Trim an mts object to full days — mts_trimDate • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,13 +39,15 @@
 
 
 
-<meta property="og:title" content="Trim a mts object to full days — mts_trimDate" />
-<meta property="og:description" content="Trims the date range of a mts object to local time date
+<meta property="og:title" content="Trim an mts object to full days — mts_trimDate" />
+<meta property="og:description" content="Trims the date range of an mts object to local time date
 boundaries which are within the range of data. This has the effect
 of removing partial-day data records at the start and end of the timeseries
 and is useful when calculating full-day statistics.
 Day boundaries are calculated using the specified timezone or, if
-NULL, from mts$meta$timezone." />
+NULL,  mts$meta$timezone. Leaving timezone = NULL, the
+default, results in &quot;local time&quot; date filtering which is the most
+common use case." />
 
 
 
@@ -131,18 +133,20 @@ NULL, from mts$meta$timezone." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Trim a <em>mts</em> object to full days</h1>
+    <h1>Trim an <em>mts</em> object to full days</h1>
     <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/mts_trimDate.R'><code>R/mts_trimDate.R</code></a></small>
     <div class="hidden name"><code>mts_trimDate.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Trims the date range of a <em>mts</em> object to local time date
+    <p>Trims the date range of an <em>mts</em> object to local time date
 boundaries which are <em>within</em> the range of data. This has the effect
 of removing partial-day data records at the start and end of the timeseries
 and is useful when calculating full-day statistics.</p>
 <p>Day boundaries are calculated using the specified <code>timezone</code> or, if
-<code>NULL</code>, from <code>mts$meta$timezone</code>.</p>
+<code>NULL</code>,  <code>mts$meta$timezone</code>. Leaving <code>timezone = NULL</code>, the
+default, results in "local time" date filtering which is the most
+common use case.</p>
     </div>
 
     <pre class="usage"><span class='fu'>mts_trimDate</span><span class='op'>(</span>mts <span class='op'>=</span> <span class='cn'>NULL</span>, timezone <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
@@ -175,98 +179,8 @@ and is useful when calculating full-day statistics.</p>
 <span class='op'>)</span>
 
 <span class='co'># UTC day boundaries</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>UTC_week</span><span class='op'>$</span><span class='va'>data</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;              datetime 4af81ed0f6ec7acd_4734 c3ac53faf335f19f_5030
-#&gt; 1 2019-07-03 00:00:00                    NA                    NA
-#&gt; 2 2019-07-03 01:00:00                    NA                    NA
-#&gt; 3 2019-07-03 02:00:00                    NA                    NA
-#&gt; 4 2019-07-03 03:00:00                    NA                    NA
-#&gt; 5 2019-07-03 04:00:00                    NA                    NA
-#&gt; 6 2019-07-03 05:00:00                    NA                    NA
-#&gt;   776e00b070251a36_23237 ec61b544c1dbfe21_2448 70e599f772b22877_4670
-#&gt; 1                     NA                    NA              10.36071
-#&gt; 2                     NA                    NA              12.90263
-#&gt; 3                     NA                    NA              13.23564
-#&gt; 4                     NA                    NA              14.73338
-#&gt; 5                     NA                    NA              17.20073
-#&gt; 6                     NA                    NA              16.31388
-#&gt;   e0d610f7f219e39f_5080 2ee691d37eaa1aff_3529 ecd1d2c35c1c18cf_3505
-#&gt; 1                    NA                    NA                  9.74
-#&gt; 2                    NA                    NA                    NA
-#&gt; 3                    NA                    NA                    NA
-#&gt; 4                    NA                    NA                 15.67
-#&gt; 5                    NA                    NA                    NA
-#&gt; 6                    NA                    NA                    NA
-#&gt;   05533d5b998ac7bf_3525 91299b887fface5f_3515 c316bcf7a85c8242_3617
-#&gt; 1                    NA                    NA              11.96583
-#&gt; 2                    NA                    NA              14.38423
-#&gt; 3                    NA                    NA              14.12717
-#&gt; 4                    NA                    NA              15.12417
-#&gt; 5                    NA                    NA              18.52517
-#&gt; 6                    NA                    NA              19.00100
-#&gt;   a812772f2ef60b6f_3527 70f70265dbeb7f36_3551 f1eb28176ffa3c00_3487
-#&gt; 1                    NA              11.61400              11.62467
-#&gt; 2                    NA              14.26317              19.40750
-#&gt; 3                    NA              13.21350              18.49200
-#&gt; 4                    NA              14.96050              24.10283
-#&gt; 5                    NA              18.56333              29.37950
-#&gt; 6                    NA              18.75000              32.41200
-#&gt;   28a43b2d6854838f_4725 da4cadd2d6ea5302_4686 d68d5d33331df58f_4689
-#&gt; 1              12.18183              10.77067              12.25733
-#&gt; 2              14.28650              13.09167              14.05467
-#&gt; 3              14.58433              12.67133              13.81233
-#&gt; 4              15.40667              15.42150              15.67883
-#&gt; 5              18.71117              18.05683              19.50350
-#&gt; 6              17.60817              16.39667              18.41000
-#&gt;   2de587fc7359dd00_4662 07702ba2209dec22_4702 1fb48f53c052893a_4692
-#&gt; 1                    NA              10.47102              11.94550
-#&gt; 2                    NA              12.14505              13.58150
-#&gt; 3                    NA              12.56887              13.35433
-#&gt; 4                    NA              12.44767              14.55167
-#&gt; 5                    NA              14.06900              15.39933
-#&gt; 6                    NA              18.01350              16.10833
-#&gt;   ada194ce98ce4bed_5184 a3eb0d42e5c78f8b_5228 065b6608aa9e6136_5218
-#&gt; 1              11.12867                    NA              11.45163
-#&gt; 2              15.75550              12.37276              13.81267
-#&gt; 3              13.68467              11.60750              13.92200
-#&gt; 4              14.56583              13.56333              14.13319
-#&gt; 5              17.03983              15.59900              18.97776
-#&gt; 6              17.29050              15.59050              18.65800
-#&gt;   36fa039140645de8_2504 173ff64a55da1183_2693 055497925c615bbd_2452
-#&gt; 1              11.88383              11.32267                    NA
-#&gt; 2              14.28700              14.26783                    NA
-#&gt; 3              14.09283              14.20400                    NA
-#&gt; 4              15.51650              14.91783                    NA
-#&gt; 5              20.17733              18.85900                    NA
-#&gt; 6              22.47267              19.98617                    NA
-#&gt;   6db0b260ed58bea0_2713 8d9ad84c05e66fcb_2496 30b3a848f934811d_4746
-#&gt; 1              11.67883              10.43883                    NA
-#&gt; 2              14.14100              13.52117                    NA
-#&gt; 3              13.42950              13.94000                    NA
-#&gt; 4              14.27650              15.88667                    NA
-#&gt; 5              17.91167              18.15117                    NA
-#&gt; 6              20.89783              20.93000                    NA
-#&gt;   bf7350cd6c2ec4c1_4727 452fd84452485d47_23233 bde3b79da492ff98_23429
-#&gt; 1                    NA               11.45023               11.06900
-#&gt; 2                    NA               13.70033               13.25183
-#&gt; 3                    NA               13.37054               12.50633
-#&gt; 4                    NA               15.16981               13.17700
-#&gt; 5                    NA               18.67646               16.59300
-#&gt; 6                    NA               19.43197               17.45900
-#&gt;   76a49e0074377eb5_23427 8c345724ee28a6ef_23253 85a2219173d7e0e6_22695
-#&gt; 1               11.40750               10.72417                     NA
-#&gt; 2               14.57267               13.11833                     NA
-#&gt; 3               14.20967               12.47917                     NA
-#&gt; 4               14.57333               14.56467                     NA
-#&gt; 5               18.73983               17.89950                     NA
-#&gt; 6               21.21217               18.57167                     NA
-#&gt;   f4b229bfc8882d90_22687 dfed9bdf5bbdeee0_23093 d76f0e830185fe4c_23291
-#&gt; 1                     NA                     NA                     NA
-#&gt; 2                     NA                     NA                     NA
-#&gt; 3                     NA                     NA                     NA
-#&gt; 4                     NA                     NA                     NA
-#&gt; 5                     NA                     NA                     NA
-#&gt; 6                     NA                     NA                     NA</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>UTC_week</span><span class='op'>$</span><span class='va'>data</span><span class='op'>$</span><span class='va'>datetime</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2019-07-03 00:00:00 UTC" "2019-07-05 23:00:00 UTC"</div><div class='input'>
 <span class='co'># Trim to local time day boundaries</span>
 <span class='va'>local_week</span> <span class='op'>&lt;-</span> <span class='fu'>mts_trimDate</span><span class='op'>(</span><span class='va'>UTC_week</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>local_week</span><span class='op'>$</span><span class='va'>data</span><span class='op'>$</span><span class='va'>datetime</span><span class='op'>)</span>

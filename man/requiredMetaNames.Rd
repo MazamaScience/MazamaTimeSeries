@@ -13,8 +13,21 @@ requiredMetaNames
 \description{
 The 'meta' dataframe found in \emph{sts} and \emph{mts} objects
 is required to have a minimum set of information for proper functioning of
-the package. The names of those columns are specified in
-\code{requiredMetaNames}.
+the package. The names of these columns are specified in
+\code{requiredMetaNames} and include:
+
+\itemize{
+  \item{\code{deviceDeploymentID} -- unique identifier (see \pkg{MazmaLocationUtils})}
+  \item{\code{deviceID} -- device identifier}
+  \item{\code{locationID} -- location identifier (see \pkg{MazmaLocationUtils})}
+  \item{\code{locationName} -- English language name}
+  \item{\code{longitude} -- decimal degrees E}
+  \item{\code{latitude} -- decimal degrees N}
+  \item{\code{elevation} -- elevation of station in m}
+  \item{\code{countryCode} -- ISO 3166-1 alpha-2}
+  \item{\code{stateCode} -- ISO 3166-2 alpha-2}
+  \item{\code{timezone} -- Olson time zone}
+}
 }
 \details{
 requiredMetaNames

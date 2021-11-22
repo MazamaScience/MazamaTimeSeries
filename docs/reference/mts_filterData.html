@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="General purpose data filtering for mts objects — mts_filterData" />
 <meta property="og:description" content="A generalized data filter for mts objects to
-choose rows/cases where conditions are true.  Multiple conditions should be
+choose rows/cases where conditions are true.  Multiple conditions may be
 combined with &amp;amp; or separated by a comma. Only rows where the condition
 evaluates to TRUE are kept. Rows where the condition evaluates to NA
 are dropped." />
@@ -137,7 +137,7 @@ are dropped." />
 
     <div class="ref-description">
     <p>A generalized data filter for <em>mts</em> objects to
-choose rows/cases where conditions are true.  Multiple conditions should be
+choose rows/cases where conditions are true.  Multiple conditions may be
 combined with <code>&amp;</code> or separated by a comma. Only rows where the condition
 evaluates to TRUE are kept. Rows where the condition evaluates to <code>NA</code>
 are dropped.</p>
@@ -164,7 +164,8 @@ are dropped.</p>
     <p>A subset of the incoming <code>mts</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Filtering is done on variables in <code>mts$data</code>.</p>
+    <p>Filtering is done on variables in <code>mts$data</code> and results in an
+<em>incomplete and irregular time axis</em>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='mts_filterDate.html'>mts_filterDate</a></p>
@@ -172,8 +173,7 @@ are dropped.</p>
 <p><a href='mts_filterMeta.html'>mts_filterMeta</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/MazamaTimeSeries'>MazamaTimeSeries</a></span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/MazamaTimeSeries'>MazamaTimeSeries</a></span><span class='op'>)</span>
 
 <span class='co'># Are there any times when data exceeded 150?</span>
 <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>example_mts</span><span class='op'>$</span><span class='va'>data</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span> <span class='fu'><a href='https://rdrr.io/r/base/any.html'>any</a></span><span class='op'>(</span><span class='va'>x</span> <span class='op'>&gt;</span> <span class='fl'>150</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>}</span><span class='op'>)</span>
@@ -203,54 +203,12 @@ are dropped.</p>
 #&gt;                   TRUE                   TRUE                  FALSE 
 #&gt; f4b229bfc8882d90_22687 dfed9bdf5bbdeee0_23093 d76f0e830185fe4c_23291 
 #&gt;                  FALSE                  FALSE                  FALSE </div><div class='input'>
-<span class='co'># Filter for all times where da4cadd2d6ea5302_4686 &gt; 150</span>
-<span class='va'>very_unhealthy</span> <span class='op'>&lt;-</span>
-  <span class='va'>example_mts</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mts_filterData</span><span class='op'>(</span><span class='va'>da4cadd2d6ea5302_4686</span> <span class='op'>&gt;</span> <span class='fl'>150</span><span class='op'>)</span>
-
-<span class='co'># Show all data</span>
-<span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://pillar.r-lib.org/reference/glimpse.html'>glimpse</a></span><span class='op'>(</span><span class='va'>very_unhealthy</span><span class='op'>$</span><span class='va'>data</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Rows: 2
-#&gt; Columns: 39
-#&gt; $ datetime                 <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span> 2019-07-05 04:00:00, 2019-07-05 05:00:00
-#&gt; $ `4af81ed0f6ec7acd_4734`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ c3ac53faf335f19f_5030    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ `776e00b070251a36_23237` <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ ec61b544c1dbfe21_2448    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ `70e599f772b22877_4670`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 148.8535, 183.8073
-#&gt; $ e0d610f7f219e39f_5080    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ `2ee691d37eaa1aff_3529`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ ecd1d2c35c1c18cf_3505    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ `05533d5b998ac7bf_3525`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ `91299b887fface5f_3515`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ c316bcf7a85c8242_3617    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 126.7995, 186.3358
-#&gt; $ a812772f2ef60b6f_3527    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ `70f70265dbeb7f36_3551`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 119.4782, 175.1087
-#&gt; $ f1eb28176ffa3c00_3487    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 152.6133, 183.1000
-#&gt; $ `28a43b2d6854838f_4725`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 97.1760, 119.9163
-#&gt; $ da4cadd2d6ea5302_4686    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 172.8510, 212.0263
-#&gt; $ d68d5d33331df58f_4689    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 130.5768, 167.7328
-#&gt; $ `2de587fc7359dd00_4662`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ `07702ba2209dec22_4702`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 59.57717, 98.66717
-#&gt; $ `1fb48f53c052893a_4692`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 120.2220, 155.4523
-#&gt; $ ada194ce98ce4bed_5184    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 128.2922, NA
-#&gt; $ a3eb0d42e5c78f8b_5228    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 105.7192, NA
-#&gt; $ `065b6608aa9e6136_5218`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 95.7381, 138.4382
-#&gt; $ `36fa039140645de8_2504`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 104.0478, 202.0847
-#&gt; $ `173ff64a55da1183_2693`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 147.5515, 157.8998
-#&gt; $ `055497925c615bbd_2452`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ `6db0b260ed58bea0_2713`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 87.96833, 176.65567
-#&gt; $ `8d9ad84c05e66fcb_2496`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 81.28483, 108.92633
-#&gt; $ `30b3a848f934811d_4746`  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, 144.8405
-#&gt; $ bf7350cd6c2ec4c1_4727    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ `452fd84452485d47_23233` <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 241.8179, 175.3150
-#&gt; $ bde3b79da492ff98_23429   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 84.70883, 136.29433
-#&gt; $ `76a49e0074377eb5_23427` <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 112.7997, 192.6018
-#&gt; $ `8c345724ee28a6ef_23253` <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> 120.3878, 176.0627
-#&gt; $ `85a2219173d7e0e6_22695` <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ f4b229bfc8882d90_22687   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ dfed9bdf5bbdeee0_23093   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA
-#&gt; $ d76f0e830185fe4c_23291   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> NA, NA</div><div class='input'>
+<span class='co'># Show all times where da4cadd2d6ea5302_4686 &gt; 150</span>
+<span class='va'>example_mts</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>mts_filterData</span><span class='op'>(</span><span class='va'>da4cadd2d6ea5302_4686</span> <span class='op'>&gt;</span> <span class='fl'>150</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='mts_extractDataFrame.html'>mts_extractData</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>datetime</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2019-07-05 04:00:00 UTC" "2019-07-05 05:00:00 UTC"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

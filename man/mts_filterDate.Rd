@@ -17,9 +17,9 @@ mts_filterDate(
 \arguments{
 \item{mts}{\emph{mts} object.}
 
-\item{startdate}{Desired start datetime (ISO 8601).}
+\item{startdate}{Desired start date (ISO 8601).}
 
-\item{enddate}{Desired end datetime (ISO 8601).}
+\item{enddate}{Desired end date (ISO 8601).}
 
 \item{timezone}{Olson timezone used to interpret dates.}
 
@@ -27,17 +27,17 @@ mts_filterDate(
 
 \item{ceilingStart}{Logical instruction to apply
 \code{\link[lubridate]{ceiling_date}} to the \code{startdate} rather than
-\code{\link[lubridate]{floor_date}}}
+\code{\link[lubridate]{floor_date}}.}
 
 \item{ceilingEnd}{Logical instruction to apply
 \code{\link[lubridate]{ceiling_date}} to the \code{enddate} rather than
-\code{\link[lubridate]{floor_date}}}
+\code{\link[lubridate]{floor_date}}.}
 }
 \value{
-A subset of the given \emph{mts} object.
+A subset of the incoming \emph{mts} object.
 }
 \description{
-Subsets a \emph{mts} object by date. This function
+Subsets an \emph{mts} object by date. This function
 always filters to day-boundaries. For sub-day filtering, use
 \code{mts_filterDatetime()}.
 
@@ -50,7 +50,7 @@ including either of the following recommended formats:
 }
 
 Timezone determination precedence assumes that if you are passing in
-\code{POSIXct} values then you know what you are doing.
+\code{POSIXct} values then you know what you are doing:
 
 \enumerate{
 \item{get timezone from \code{startdate} if it is \code{POSIXct}}
@@ -69,9 +69,13 @@ single day is returned.
 library(MazamaTimeSeries)
 
 example_mts \%>\%
-  mts_filterDate(startdate = 20190703, enddate = 20190706) \%>\%
+  mts_filterDate(
+    startdate = 20190703,
+    enddate = 20190706
+  ) \%>\%
   mts_extractData() \%>\%
-  head()
+  dplyr::pull(datetime) \%>\%
+  range()
 
 }
 \seealso{

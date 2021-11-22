@@ -14,18 +14,14 @@ mts_extractMeta(mts)
 \item{mts}{\emph{mts} object to extract dataframe from.}
 }
 \value{
-A dataframe from the given \emph{mts} object
+A dataframe from the given \emph{mts} object.
 }
 \description{
 These functions are convenient wrappers for extracting the dataframes that
-comprise a \emph{mts} object. These functions are designed to be useful when
+comprise an \emph{mts} object. These functions are designed to be useful when
 manipulating data in a pipeline chain using \code{\%>\%}.
 
-Below is a table showing equivalent operations for each function.
+\code{mts_extractData(mts)} is equivalent to \code{mts$data}.
 
-\tabular{ll}{
-  \strong{Function} \tab \strong{Equivalent Operation}\cr
-  \code{mts_extractData(mts)} \tab \code{mts$data}\cr
-  \code{mts_extractMeta(mts)} \tab \code{mts$meta}
-}
+\code{mts_extractMeta(mts)} is equivalent to \code{mts$meta}.
 }

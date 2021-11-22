@@ -22,7 +22,7 @@
 #' @title Example MultipleTimeSeries dataset
 #' @format An \emph{mts} object composed of "meta" and "data" dataframes.
 #' @description The \code{example_mts} dataset provides a quickly loadable
-#' version of a \emph{mts} object for practicing and code examples.
+#' version of an \emph{mts} object for practicing and code examples.
 #'
 #' This dataset was was generated on 2021-10-07 by running:
 #'
@@ -32,8 +32,8 @@
 #' communities <- c("Alhambra/Monterey Park", "El Monte")
 #'
 #' example_mts <-
-#'   example_sensor_scaqmd %>%
-#'   sensor_filterMeta(communityRegion %in% communities)
+#'   example_sensor_scaqmd \%>\%
+#'   sensor_filterMeta(communityRegion \%in\% communities)
 #'
 #' # Add required "locationName"
 #' example_mts$meta$locationName <- example_mts$meta$siteName
@@ -41,6 +41,7 @@
 #' save(example_mts, file = "data/example_mts.rda")
 #' }
 "example_mts"
+
 
 #' @encoding UTF-8
 #' @title Example RAWS dataset
@@ -63,15 +64,17 @@
 #' }
 "example_raws"
 
+
 #' @encoding UTF-8
 #' @title Carmel Valley example dataset
 #' @format An \emph{mts} object with 600 rows and 2 columns of data.
 #' @description The \code{Carmel_Valley} dataset provides a quickly loadable
-#' version of a \emph{mts_monitor} object for practicing and code examples.
+#' version of a single-sensor \emph{mts_monitor} object for practicing and code
+#' examples.
 #'
 #' @details
 #' In August of 2016, the Soberanes fire in California burned along the Big Sur
-#' coast. It was at the time the most expensive wildifre in US history. This
+#' coast. It was at the time the most expensive wildfire in US history. This
 #' dataset contains PM2.5 monitoring data for the monitor in Carmel Valley which
 #' shows heavy smoke as well as strong diurnal cycles associated with sea
 #' breezes. Data are stored as an \emph{mts} object and are used in some
@@ -88,8 +91,8 @@
 #'     parameterCode = 88101,
 #'     archiveBaseUrl = NULL,
 #'     archiveBaseDir = "~/Data/monitoring"
-#'   ) %>%
-#'   monitor_filterMeta(deviceDeploymentID == "a9572a904a4ed46d_060530002_03") %>%
+#'   ) \%>\%
+#'   monitor_filterMeta(deviceDeploymentID == "a9572a904a4ed46d_060530002_03") \%>\%
 #'   monitor_filterDate(20160722, 20160815)
 #'
 #' save(Carmel_Valley, file = "data/Carmel_Valley.rda")

@@ -100,7 +100,7 @@
 <div id="r-style-guide" class="section level1">
 <h1 class="hasAnchor">
 <a href="#r-style-guide" class="anchor"></a>R Style Guide</h1>
-<p>This document describes the coding style used within the package. Having a consistent style enhances the readability and “understandability” of the code and make it easier for users and developers to work with this package and with other, related packages from <a href="http://mazamascience.com">Mazama Science</a>.</p>
+<p>This document describes the coding style used within the package. Having a consistent style enhances the readability and “understandability” of the code and makes it easier for users and developers to work with this package and with other, related packages from <a href="http://mazamascience.com">Mazama Science</a>.</p>
 <div id="naming-objects" class="section level2">
 <h2 class="hasAnchor">
 <a href="#naming-objects" class="anchor"></a>Naming Objects</h2>
@@ -146,7 +146,7 @@ sts_join()
 sts_toTidyDF()
 sts_trimDate()
 ...</a></code></pre>
-<p>All of these functions begin with <code>sts_</code> because they are for creating or working with <code>sts</code> objects. Many of these functions accept a <code>sts</code> object as their first argument and return a modified <code>sts</code>. This means that they can be used with the “pipe” operator and chained together as in:</p>
+<p>All of these functions begin with <code>sts_</code> because they are for creating or working with <code>sts</code> objects. Many of these functions accept a <code>sts</code> object as their first argument and return a modified <code>sts</code>. This means that they can be used with the <code><a href="../reference/%&gt;%.html">%&gt;%</a></code> “pipe” operator and chained together as in:</p>
 <pre><code>example_tidy &lt;-
   example_sts %&gt;%
   sts_filter(

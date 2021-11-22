@@ -10,9 +10,11 @@ mts_distinct(mts)
 \item{mts}{\emph{mts} object}
 }
 \value{
-A \emph{mts} object with no duplicated data records.
+An \emph{mts} object with no duplicated data records.
 }
 \description{
+This function is primarily for internal use.
+
 Two successive steps are used to guarantee that the
 \code{datetime} axis contains no repeated values:
 

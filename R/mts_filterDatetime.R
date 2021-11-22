@@ -10,12 +10,12 @@
 #' @param unit Units used to determine time at end-of-day.
 #' @param ceilingStart Logical instruction to apply
 #'   \code{\link[lubridate]{ceiling_date}} to the \code{startdate} rather than
-#'   \code{\link[lubridate]{floor_date}}
+#'   \code{\link[lubridate]{floor_date}}.
 #' @param ceilingEnd Logical instruction to apply
 #'   \code{\link[lubridate]{ceiling_date}} to the \code{enddate} rather than
-#'   \code{\link[lubridate]{floor_date}}
+#'   \code{\link[lubridate]{floor_date}}.
 #'
-#' @description Subsets a \code{mts} object by datetime. This function
+#' @description Subsets an \code{mts} object by datetime. This function
 #' allows for sub-day filtering as opposed to \code{mts_filterDate()} which
 #' always filters to day-boundaries.
 #'
@@ -24,7 +24,7 @@
 #' the recommended format is \code{"YYYY-mm-dd HH:MM:SS"}.
 #'
 #' Timezone determination precedence assumes that if you are passing in
-#' \code{POSIXct} values then you know what you are doing.
+#' \code{POSIXct} values then you know what you are doing:
 #'
 #' \enumerate{
 #' \item{get timezone from \code{startdate} if it is \code{POSIXct}}
@@ -47,7 +47,8 @@
 #'     enddate = "2019-07-06 18:00:00"
 #'   ) %>%
 #'   mts_extractData() %>%
-#'   head()
+#'   dplyr::pull(datetime) %>%
+#'   range()
 #'
 
 mts_filterDatetime <- function(

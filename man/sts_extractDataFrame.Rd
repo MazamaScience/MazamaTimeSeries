@@ -14,7 +14,7 @@ sts_extractMeta(sts)
 \item{sts}{\emph{sts} object to extract dataframe from.}
 }
 \value{
-A dataframe from the given \emph{sts} object
+A dataframe from the given \emph{sts} object.
 }
 \description{
 These functions are convenient wrappers for extracting the dataframes that

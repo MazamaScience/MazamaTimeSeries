@@ -12,7 +12,7 @@ mts_isValid(mts = NULL, verbose = FALSE)
 \item{verbose}{Logical specifying whether to produce detailed warning messages.}
 }
 \value{
-\code{TRUE} if \code{mts} has the correct structure,
+Invisibly returns \code{TRUE} if \code{mts} has the correct structure,
 \code{FALSE} otherwise.
 }
 \description{
@@ -43,6 +43,9 @@ Core \code{data} columns include:
 \examples{
 library(MazamaTimeSeries)
 
-mts_isValid(example_mts)
+print(mts_isValid(example_mts))
 
+}
+\seealso{
+\link{mts_check}
 }

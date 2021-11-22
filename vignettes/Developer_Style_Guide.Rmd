@@ -13,7 +13,7 @@ vignette: >
 
 This document describes the coding style used within the package.  Having a
 consistent style enhances the readability and "understandability" of the code 
-and make it easier for users and developers to work with this package and
+and makes it easier for users and developers to work with this package and
 with other, related packages from [Mazama Science](http://mazamascience.com).
 
 ## Naming Objects
@@ -78,7 +78,7 @@ sts_trimDate()
 All of these functions begin with `sts_` because they are for creating or working
 with `sts` objects. Many of these functions accept a `sts` object as their first 
 argument and return a modified `sts`. This means that they can be used with the
-"pipe" operator and chained together as in:
+`%>%` "pipe" operator and chained together as in:
 
 ```
 example_tidy <-

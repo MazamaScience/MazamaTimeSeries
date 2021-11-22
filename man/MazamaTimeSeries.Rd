@@ -3,11 +3,11 @@
 \docType{package}
 \name{MazamaTimeSeries}
 \alias{MazamaTimeSeries}
-\title{Core Functionality for Environmental Time Series}
+\title{Core functionality for environmental time series}
 \description{
-Utility functions for working with environmental time
-series data from known locations. The compact data model is structured as a
-list with two dataframes. A 'meta' dataframe contains spatial metadata
-associated with known locations. A 'data' dataframe contains a 'datetime'
-column followed by measurements made at each time.
+Utility functions for working with environmental time series data from known
+locations. The compact data model is structured as a list with two dataframes. A
+meta' dataframe contains spatial and measuring device metadata associated with
+deployments at known locations. A 'data' dataframe contains a 'datetime' column
+followed by columns of measurements associated with each "device-deployment".
 }

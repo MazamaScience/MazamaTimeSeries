@@ -18,13 +18,14 @@ mts_distance(
 
 \item{latitude}{Latitude of the location of interest.}
 
-\item{measure}{One of "haversine" "vincenty", "geodesic", or "cheap"}
+\item{measure}{One of "geodesic", "haversine", "vincenty" or "cheap"}
 }
 \value{
 Vector of of distances (meters) named by \code{deviceDeploymentID}.
 }
 \description{
-This function returns the distances (meters) between \code{mts} locations
+This function uses the \pkg{geodist} package to return the distances (meters)
+between \code{mts} locations
 and a location of interest. These distances can be used to create a
 mask identifying monitors within a certain radius of the location of interest.
 }
@@ -33,4 +34,21 @@ The measure \code{"cheap"} may be used to speed things up depending on
 the spatial scale being considered. Distances calculated with
 \code{measure = "cheap"} will vary by a few meters compared with those
 calculated using \code{measure = "geodesic"}.
+}
+\examples{
+library(MazamaTimeSeries)
+
+# Garfield Medical Center in LA
+longitude <- -118.12321
+latitude <- 34.06775
+
+distances <- mts_distance(
+  mts = example_mts,
+  longitude = longitude,
+  latitude = latitude
+)
+
+# Which sensors are within 1000 meters of Garfield Med Ctr?
+distances[distances <= 1000]
+
 }

@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Subset and reorder time series within an \emph{mts} object
+#' @title Reorder and subset time series within an \emph{mts} object
 #'
 #' @param mts \emph{mts} object.
 #' @param deviceDeploymentID timeseries unique identifier
@@ -11,8 +11,9 @@
 #' \code{mts$data}. The returned \emph{mts} object will contain only those
 #' time series identified by \code{deviceDeploymentID} in the order specified.
 #'
-#' This can be helpful when using faceted plot functions based on \pkg{ggplot}
-#' such as those found in \pkg{AirMonitorPlots}.
+#' This can be used the specify a preferred order and is helpful when using
+#' faceted plot functions based on \pkg{ggplot}
+#' such as those found in the \pkg{AirMonitorPlots} package.
 #'
 #' @return A reordered (subset) of the incoming \code{mts}.
 #'
@@ -20,7 +21,6 @@
 #' @seealso \link{mts_filterDate}
 #' @seealso \link{mts_filterDatetime}
 #' @examples
-#'
 #' library(MazamaTimeSeries)
 #'
 #' # Filter for "El Monte"
