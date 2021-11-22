@@ -1,3 +1,7 @@
+# MazamaTimeSeries 0.1.0
+
+* Full documentation, examples and tests for basic _mts_ functionality.
+
 # MazamaTimeSeries 0.0.9
 
 * Now depending on **MazamaCoreUtils** 0.4.10.
