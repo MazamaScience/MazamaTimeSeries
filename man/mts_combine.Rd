@@ -26,12 +26,19 @@ An error is generated if the incoming \emph{mts} objects have
 non-identical metadata for the same \code{deviceDeploymentID}.
 }
 \note{
-Data are combined with a "latest is best" sensibility where any
-data overlaps exist. Incoming \emph{mts} objects are ordered based on the
+Data for any \code{deviceDeploymentIDs} shared among \emph{mts}
+objects are combined with a "latest is best" sensibility where any
+data overlaps exist. To handle this, incoming \emph{mts} objects are first
+split into "shared" and "unshared" parts.
+
+Any "shared" parts are ordered based on the
 time stamp of their last record. Then \code{dplyr::distinct()} is used to
 remove records with duplicate \code{datetime} fields. Any data records found
-in "later" \emph{mts} objects are preferentially retained before the data
-are finally reordered by ascending \code{datetime}.
+in "later" \emph{mts} objects are preferentially retained before the "hared"
+data are finally reordered by ascending \code{datetime}.
+
+The final step is combining the "shared" and "unshared" parts and placing
+them on a uniform time axis.
 }
 \examples{
 library(MazamaTimeSeries)

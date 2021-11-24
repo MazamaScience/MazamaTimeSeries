@@ -1,3 +1,7 @@
+# MazamaTimeSeries 0.1.1
+
+* Fixed bug in `mts_combine()`.
+
 # MazamaTimeSeries 0.1.0
 
 * Full documentation, examples and tests for basic _mts_ functionality.

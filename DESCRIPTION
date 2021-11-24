@@ -1,10 +1,10 @@
 Type: Package
 Package: MazamaTimeSeries
-Version: 0.1.0
+Version: 0.1.1
 Title: Core Functionalitiy for Environmental Time Series
 Authors@R: c(
     person("Jonathan", "Callahan", email="jonathan.s.callahan@gmail.com", role=c("aut","cre")),
-    person("Hans", "Martin", email="hansmrtn@gmail.com.com", role=c("ctb")),
+    person("Hans", "Martin", email="hansmrtn@gmail.com", role=c("ctb")),
     person("Eli", "Grosman", email="eligrosman1@gmail.com", role=c("ctb")),
     person("Roger", "Bivand", email="roger.bivand@nhh.no", role=c("ctb"))
     )
