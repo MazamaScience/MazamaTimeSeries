@@ -20,7 +20,7 @@
 #' non-identical metadata for the same \code{deviceDeploymentID}.
 #'
 #' @note Data for any \code{deviceDeploymentIDs} shared among \emph{mts}
-#' objects are combined with a "latest is best" sensibility where any
+#' objects are combined with a "later is better" sensibility where any
 #' data overlaps exist. To handle this, incoming \emph{mts} objects are first
 #' split into "shared" and "unshared" parts.
 #'
@@ -107,7 +107,30 @@ mts_combine <- function(
 
   # ----- Combine 'data' -------------------------------------------------------
 
+  # NOTE:  Here we need to proceed carefully to accomplish two goals:
+  # NOTE:   1) combine new time series
+  # NOTE:   2) combine existing time series with "later is better" logic.
+  # NOTE:
+  # NOTE:  To do this, we need to march through the list of mts objects and
+  # NOTE:  apply the following logic to each pair:
+  # NOTE:   1) separate A-only, AB-shared and B-only tibbles
+  # NOTE:   2) combine AB-shared with later-is-better
+  # NOTE:   3) left join ((A, AB), B)
+
   dataList <- lapply(mtsList, `[[`, "data")
+
+  # * Later-is-better order -----
+
+  # NOTE:  To simplify use of our "later is better" approach, we organize our
+  # NOTE:  dataframes in most-recent-first order so that application of
+  # NOTE:  dplyr::distinct(), which preserves the first instance of a duplicate,
+  # NOTE:  will retain the most recent record.
+
+  lastDatetime <-
+    sapply(dataList, function(x) { x$datetime[nrow(x)] } ) %>%
+    as.numeric()
+  dataOrder <- order(lastDatetime, decreasing = TRUE)
+  dataList <- dataList[dataOrder]
 
   # * Regular time axis -----
 
@@ -120,87 +143,60 @@ mts_combine <- function(
   datetime <- seq(min(allTimes), max(allTimes), by = "hours")
   hourlyDF <- data.frame(datetime = datetime)
 
-  # * Split shared/unshared -----
-
-  allIDs <-
-    lapply(dataList, names) %>%
-    unlist()
-
-  sharedIDs <-
-    allIDs[duplicated(allIDs)] %>% setdiff("datetime")
-
-  unsharedIDs <-
-    setdiff(allIDs, sharedIDs) %>% setdiff("datetime")
-
-  sharedList <- list()
-  unsharedList <- list()
+  # ===== BEGIN LOOP ===========================================================
 
   for ( i in seq_along(dataList) ) {
 
     tbl <- dataList[[i]]
 
-    tbl_sharedIDs <- intersect(names(tbl), sharedIDs)
-
-    if ( length(tbl_sharedIDs) > 0 ) {
-      sharedList[[i]] <-
-        dplyr::select(tbl, dplyr::all_of(c("datetime", tbl_sharedIDs)))
+    if ( i == 1 ) {
+      data <- dplyr::left_join(hourlyDF, tbl)
+      next
     }
 
-    tbl_unsharedIDs <- setdiff(names(tbl)[-1], sharedIDs) # omit "datetime"
+    A_names <- c("datetime", setdiff(names(data), names(tbl)))
+    AB_names <- intersect(names(data), names(tbl))
+    B_names <- c("datetime", setdiff(names(tbl), names(data)))
 
-    if ( length(tbl_unsharedIDs) > 0 ) {
-      unsharedList[[i]] <-
-        dplyr::select(tbl, dplyr::all_of(c("datetime", tbl_unsharedIDs)))
-    }
+    # A-only columns
+    A_data <-
+      data %>%
+      dplyr::select(dplyr::all_of(A_names)) %>%
+      dplyr::arrange(.data$datetime)
 
-  }
+    # AB-shared columns with later-is-better logic
+    AB_tbl <- tbl %>% dplyr::select(dplyr::all_of(AB_names))
 
-  # * Combine shared -----
-
-    # NOTE:  Our "latest is best" approach means that we should organize our
-    # NOTE:  dataframes in most-recent-first order so that application of
-    # NOTE:  dplyr::distinct(), which preserves the first instance of a duplicate,
-    # NOTE:  will retain the most recent record.
-
-  if ( length(sharedList) > 1 ) {
-
-    lastDatetime <-
-      sapply(sharedList, function(x) { x$datetime[nrow(x)] } ) %>%
-      as.numeric()
-    dataOrder <- order(lastDatetime, decreasing = TRUE)
-    sharedList <- sharedList[dataOrder]
-
-    # Combine 'data' tibbles
-    shared_data <-
-      dplyr::bind_rows(sharedList) %>%
+    AB_data <-
+      data %>%
+      dplyr::select(dplyr::all_of(AB_names)) %>%
+      dplyr::bind_rows(AB_tbl) %>%
       dplyr::distinct(.data$datetime, .keep_all = TRUE) %>%
       dplyr::arrange(.data$datetime)
 
-  }
+    # B-only columns
+    B_tbl <-
+      tbl %>%
+      dplyr::select(dplyr::all_of(B_names)) %>%
+      dplyr::arrange(.data$datetime)
 
-  # * Combine unshared -----
+    # Start with A_data
+    data <- A_data
 
-  if ( length(unsharedList) > 0 ) {
-
-    unshared_data <- hourlyDF
-
-    for ( tbl in unsharedList ) {
-      unshared_data <- dplyr::full_join(unshared_data, tbl, by = "datetime")
+    # Add AB_data
+    if ( ncol(AB_data) > 1 ) {
+      data <- data %>% dplyr::left_join(AB_data, by = "datetime")
     }
 
+    # Add B_tbl
+    if ( ncol(B_tbl) > 1 ) {
+      data <- data %>% dplyr::left_join(B_tbl, by = "datetime")
+    }
+
+
   }
 
-  # * Combine shared/unshared -----
-
-  data <- hourlyDF
-
-  if ( length(sharedList) > 0 ) {
-    data <- dplyr::full_join(data, shared_data, by = "datetime")
-  }
-
-  if ( length(unsharedList) > 0 ) {
-    data <- dplyr::full_join(data, unshared_data, by = "datetime")
-  }
+  # ===== END LOOP =============================================================
 
   # ----- Create the 'mts' object ----------------------------------------------
 
