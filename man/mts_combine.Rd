@@ -27,14 +27,14 @@ non-identical metadata for the same \code{deviceDeploymentID}.
 }
 \note{
 Data for any \code{deviceDeploymentIDs} shared among \emph{mts}
-objects are combined with a "latest is best" sensibility where any
+objects are combined with a "later is better" sensibility where any
 data overlaps exist. To handle this, incoming \emph{mts} objects are first
 split into "shared" and "unshared" parts.
 
 Any "shared" parts are ordered based on the
 time stamp of their last record. Then \code{dplyr::distinct()} is used to
 remove records with duplicate \code{datetime} fields. Any data records found
-in "later" \emph{mts} objects are preferentially retained before the "hared"
+in "later" \emph{mts} objects are preferentially retained before the "shared"
 data are finally reordered by ascending \code{datetime}.
 
 The final step is combining the "shared" and "unshared" parts and placing

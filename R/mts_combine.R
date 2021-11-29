@@ -27,7 +27,7 @@
 #' Any "shared" parts are ordered based on the
 #' time stamp of their last record. Then \code{dplyr::distinct()} is used to
 #' remove records with duplicate \code{datetime} fields. Any data records found
-#' in "later" \emph{mts} objects are preferentially retained before the "hared"
+#' in "later" \emph{mts} objects are preferentially retained before the "shared"
 #' data are finally reordered by ascending \code{datetime}.
 #'
 #' The final step is combining the "shared" and "unshared" parts and placing
@@ -132,17 +132,6 @@ mts_combine <- function(
   dataOrder <- order(lastDatetime, decreasing = TRUE)
   dataList <- dataList[dataOrder]
 
-  # * Regular time axis -----
-
-  allTimes <-
-    lapply(dataList, `[[`, "datetime") %>%
-    unlist() %>%
-    as.POSIXct(origin = lubridate::origin, tz = "UTC")
-
-  # Create the full time axis
-  datetime <- seq(min(allTimes), max(allTimes), by = "hours")
-  hourlyDF <- data.frame(datetime = datetime)
-
   # ===== BEGIN LOOP ===========================================================
 
   for ( i in seq_along(dataList) ) {
@@ -150,7 +139,8 @@ mts_combine <- function(
     tbl <- dataList[[i]]
 
     if ( i == 1 ) {
-      data <- dplyr::left_join(hourlyDF, tbl)
+      ###data <- dplyr::left_join(hourlyDF, tbl, by = "datetime")
+      data <- tbl
       next
     }
 
@@ -185,18 +175,43 @@ mts_combine <- function(
 
     # Add AB_data
     if ( ncol(AB_data) > 1 ) {
-      data <- data %>% dplyr::left_join(AB_data, by = "datetime")
+      data <-
+        data %>%
+        dplyr::full_join(AB_data, by = "datetime") %>%
+        dplyr::arrange(.data$datetime)
     }
 
     # Add B_tbl
     if ( ncol(B_tbl) > 1 ) {
-      data <- data %>% dplyr::left_join(B_tbl, by = "datetime")
+      data <-
+        data %>%
+        dplyr::full_join(B_tbl, by = "datetime") %>%
+        dplyr::arrange(.data$datetime)
     }
 
+
+    # * clean up -----
+
+    rm(list = c("tbl", "A_data", "AB_tbl", "AB_data", "B_tbl"))
 
   }
 
   # ===== END LOOP =============================================================
+
+  # ----- Regular time axis ----------------------------------------------------
+
+  allTimes <-
+    lapply(dataList, `[[`, "datetime") %>%
+    unlist() %>%
+    as.POSIXct(origin = lubridate::origin, tz = "UTC")
+
+  # Create the full time axis
+  datetime <- seq(min(allTimes), max(allTimes), by = "hours")
+  hourlyDF <- data.frame(datetime = datetime)
+
+  data <-
+    hourlyDF %>%
+    dplyr::left_join(data, by = "datetime")
 
   # ----- Create the 'mts' object ----------------------------------------------
 

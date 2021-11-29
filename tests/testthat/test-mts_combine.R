@@ -73,6 +73,51 @@ test_that("gaps and overlaps are supported", {
     example_mts %>% mts_extractData() %>% dplyr::pull(.data$datetime)
   )
 
+})
+
+test_that("later-is-better is supported", {
+
+  # overlap
+  mts_1 <- mts_filterDate(example_mts, 20190701, 20190706)
+  mts_2 <- mts_filterDate(example_mts, 20190703, 20190708)
+
+  # new values in mts_2
+  id <- names(mts_2$data[6])
+  mts_2$data[[id]] <- 9999
+
+  # first 48 hours from mts_1, all other data from mts_2
+  mts <- mts_combine(mts_1, mts_2)
+  expect_identical(
+    mts$data[,id],
+    c(mts_1$data[1:48,id], mts_2$data[,id])
+  )
+
+  # order of incoming mts objects shouldn't matter
+  mts <- mts_combine(mts_2, mts_1)
+  expect_identical(
+    mts$data[,id],
+    c(mts_1$data[1:48,id], mts_2$data[,id])
+  )
 
 })
 
+test_that("new columns can be added", {
+
+  ids <- example_mts$meta$deviceDeploymentID
+
+  # overlap
+  mts_1 <- mts_select(example_mts, ids[1:10])
+  mts_2 <- mts_select(example_mts, ids[11:length(ids)])
+  mts <- mts_combine(mts_1, mts_2)
+
+  expect_identical(
+    mts %>% mts_extractMeta(),
+    example_mts %>% mts_extractMeta()
+  )
+
+  expect_identical(
+    mts %>% mts_extractData(),
+    example_mts %>% mts_extractData()
+  )
+
+})

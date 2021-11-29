@@ -4,7 +4,7 @@
 #' @title Reorder and subset time series within an \emph{mts} object
 #'
 #' @param mts \emph{mts} object.
-#' @param deviceDeploymentID timeseries unique identifier
+#' @param deviceDeploymentID Vector of timeseries unique identifiers.
 #'
 #' @description
 #' This function acts similarly to \code{dplyr::select()} working on

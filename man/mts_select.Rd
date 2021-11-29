@@ -9,7 +9,7 @@ mts_select(mts = NULL, deviceDeploymentID = NULL)
 \arguments{
 \item{mts}{\emph{mts} object.}
 
-\item{deviceDeploymentID}{timeseries unique identifier}
+\item{deviceDeploymentID}{Vector of timeseries unique identifiers.}
 }
 \value{
 A reordered (subset) of the incoming \code{mts}.

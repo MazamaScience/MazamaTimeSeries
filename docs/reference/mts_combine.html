@@ -168,13 +168,13 @@ non-identical metadata for the same <code>deviceDeploymentID</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Data for any <code>deviceDeploymentIDs</code> shared among <em>mts</em>
-objects are combined with a "latest is best" sensibility where any
+objects are combined with a "later is better" sensibility where any
 data overlaps exist. To handle this, incoming <em>mts</em> objects are first
 split into "shared" and "unshared" parts.</p>
 <p>Any "shared" parts are ordered based on the
 time stamp of their last record. Then <code><a href='https://dplyr.tidyverse.org/reference/distinct.html'>dplyr::distinct()</a></code> is used to
 remove records with duplicate <code>datetime</code> fields. Any data records found
-in "later" <em>mts</em> objects are preferentially retained before the "hared"
+in "later" <em>mts</em> objects are preferentially retained before the "shared"
 data are finally reordered by ascending <code>datetime</code>.</p>
 <p>The final step is combining the "shared" and "unshared" parts and placing
 them on a uniform time axis.</p>
