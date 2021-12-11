@@ -77,7 +77,7 @@ mts_filterDate <- function(
 
   result <- try({
     if ( !mts_isValid(mts) )
-      stop("First argument is not a valid 'mts' object.")
+      stop("first argument is not a valid 'mts' object")
   }, silent = TRUE)
 
   if ( class(result) %in% "try-error" ) {
@@ -88,13 +88,13 @@ mts_filterDate <- function(
   }
 
   if ( mts_isEmpty(mts) )
-    stop("Parameter 'mts' has no data.")
+    stop("'mts' has no data")
 
   # Remove any duplicate data records
   mts <- mts_distinct(mts)
 
   if ( is.null(startdate) && !is.null(enddate) )
-    stop("At least one of 'startdate' or 'enddate' must be specified")
+    stop("at least one of 'startdate' or 'enddate' must be specified")
 
   # Use internal function to determine the timezone to use
   timezone <- .determineTimezone(mts, startdate, timezone, verbose = TRUE)

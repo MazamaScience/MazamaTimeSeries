@@ -44,10 +44,10 @@ sts_trimDate <- function(
   MazamaCoreUtils::stopIfNull(sts)
 
   if ( !sts_isValid(sts) )
-    stop("Parameter 'sts' is not a valid 'sts' object.")
+    stop("'sts' is not a valid 'sts' object")
 
   if ( sts_isEmpty(sts) )
-    stop("Parameter 'sts' has no data.")
+    stop("'sts' has no data")
 
   # Remove any duplicate data records
   sts <- sts_distinct(sts)

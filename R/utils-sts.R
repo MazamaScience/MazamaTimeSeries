@@ -2,7 +2,7 @@
 #'
 #' @title Check an \emph{sts} object for validity.
 #'
-#' @param sts \emph{sts} objet.
+#' @param sts \emph{sts} object.
 #'
 #' @description Checks on the validity of an \emph{sts} object. If any test
 #' fails, this function will stop with a warning message.

@@ -2,7 +2,7 @@
 #'
 #' @title Check an \emph{mts} object for validity.
 #'
-#' @param mts \emph{mts} objet.
+#' @param mts \emph{mts} object.
 #'
 #' @description Checks on the validity of an \emph{mts} object. If any test
 #' fails, this function will stop with a warning message.

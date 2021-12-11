@@ -7,7 +7,7 @@
 sts_check(sts)
 }
 \arguments{
-\item{sts}{\emph{sts} objet.}
+\item{sts}{\emph{sts} object.}
 }
 \description{
 Checks on the validity of an \emph{sts} object. If any test

@@ -48,7 +48,7 @@ mts_distance <- function(
   # ----- Validate parameters --------------------------------------------------
 
   if ( mts_isEmpty(mts) )
-    stop("Parameter 'mts' has no data.")
+    stop("'mts' has no data")
 
   MazamaCoreUtils::validateLonLat(longitude, latitude)
 

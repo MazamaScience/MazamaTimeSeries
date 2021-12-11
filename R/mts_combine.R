@@ -222,7 +222,7 @@ mts_combine <- function(
     dplyr::select(data, dplyr::all_of(colNames))
 
   mts <- list(meta = meta, data = data)
-  class(mts) <- c("mts", class(mts))
+  class(mts) <- union("mts", class(mts))
 
   # ----- Return ---------------------------------------------------------------
 

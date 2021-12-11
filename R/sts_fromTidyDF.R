@@ -59,7 +59,7 @@
 #'                       'stateCode', 'timezone', 'datetime')
 #'
 #'   if( !is.null(nameMapping) && typeof(nameMapping) != "list")
-#'     stop("Parameter 'nameMapping' must be a list.")
+#'     stop("'nameMapping' must be a list")
 #'
 #'   for( name in names(nameMapping) ) {
 #'     # Each element must be a single character

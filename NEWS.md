@@ -1,3 +1,7 @@
+# MazamaTimeSeries 0.1.2
+
+* Added `mts_summarize()`.
+
 # MazamaTimeSeries 0.1.1
 
 * Fixed bug in `mts_combine()`.

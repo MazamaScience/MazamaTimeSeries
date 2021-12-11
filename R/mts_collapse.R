@@ -76,7 +76,7 @@ mts_collapse <- function(
   }
 
   if ( mts_isEmpty(mts) )
-    stop("Parameter 'mts' has no data.")
+    stop("'mts' has no data")
 
   # ----- Collapse data --------------------------------------------------------
 
@@ -147,7 +147,7 @@ mts_collapse <- function(
   # ----- Create the 'mts' object ----------------------------------------------
 
   mts <- list(meta = newMeta, data = newData)
-  class(mts) <- c("mts", class(mts))
+  class(mts) <- union("mts", class(mts))
 
   # ----- Return ---------------------------------------------------------------
 

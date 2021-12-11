@@ -7,7 +7,7 @@
 mts_check(mts)
 }
 \arguments{
-\item{mts}{\emph{mts} objet.}
+\item{mts}{\emph{mts} object.}
 }
 \description{
 Checks on the validity of an \emph{mts} object. If any test

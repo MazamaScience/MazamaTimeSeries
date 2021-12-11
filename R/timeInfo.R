@@ -90,7 +90,7 @@ timeInfo <- function(
   MazamaCoreUtils::stopIfNull(timezone)
 
   if ( !lubridate::is.POSIXct(time) )
-    stop(sprintf("time' must be of class POSIXct"))
+    stop(sprintf("'time' must be of class POSIXct"))
 
   if ( !is.numeric(longitude) )
     stop(sprintf("'longitude' must be of class numeric"))
@@ -99,7 +99,7 @@ timeInfo <- function(
     stop(sprintf("'latitude' must be of class numeric"))
 
   if ( !(timezone %in% base::OlsonNames()) )
-    stop(sprintf("timezone = '%s' is not found in base::OlsonNames()", timezone))
+    stop(sprintf("timezone '%s' is not a valid Oson timezone", timezone))
 
   # ----- Solar times ----------------------------------------------------------
 

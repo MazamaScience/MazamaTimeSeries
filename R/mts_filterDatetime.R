@@ -68,10 +68,10 @@ mts_filterDatetime <- function(
   MazamaCoreUtils::stopIfNull(enddate)
 
   if ( !mts_isValid(mts) )
-    stop("Parameter 'mts' is not a valid 'mts' object.")
+    stop("'mts' is not a valid 'mts' object")
 
   if ( mts_isEmpty(mts) )
-    stop("Parameter 'mts' has no data.")
+    stop("'mts' has no data")
 
   # Remove any duplicate data records
   mts <- mts_distinct(mts)
