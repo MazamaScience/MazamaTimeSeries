@@ -93,21 +93,21 @@ mts_summarize <- function(
 
     mts$data %>%
 
-    # Create 'day' in the desired timezone as a grouping variable
+    # Create 'timeUnit' in the desired timezone as a grouping variable
     dplyr::mutate(
-      day = lubridate::floor_date(lubridate::with_tz(.data$datetime, tz = timezone), unit)
+      timeUnit = lubridate::floor_date(lubridate::with_tz(.data$datetime, tz = timezone), unit)
     ) %>%
     dplyr::select(-.data$datetime) %>%
-    dplyr::group_by(.data$day) %>%
+    dplyr::group_by(.data$timeUnit) %>%
 
-    # Summarize using FUN (will ignore 'day' column)
+    # Summarize using FUN (will ignore 'timeUnit' column)
     dplyr::summarize(across(everything(), customFUN, ...)) %>%
 
     # Replace +/-Inf and NaN with NA
     dplyr::mutate(across(everything(), function(x) { x[!is.finite(x)] <- NA; return(x) })) %>%
 
     # New, daily 'datetime'
-    dplyr::rename(datetime = .data$day)
+    dplyr::rename(datetime = .data$timeUnit)
 
 
   # ----- Create the 'mts' object ----------------------------------------------
