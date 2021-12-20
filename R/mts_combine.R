@@ -4,6 +4,8 @@
 #' @title Combine multiple \code{mts} objects
 #'
 #' @param ... Any number of valid \emph{mts} objects.
+#' @param replaceMeta Logical specifying whether to allow replacement of
+#' metadata associated with \code{deviceDeploymentIDs}.
 #'
 #' @return A combined \code{mts} object.
 #'
@@ -17,7 +19,8 @@
 #' have gaps filled with \code{NA} values.
 #'
 #' An error is generated if the incoming \emph{mts} objects have
-#' non-identical metadata for the same \code{deviceDeploymentID}.
+#' non-identical metadata for the same \code{deviceDeploymentID} unless
+#' \code{replaceMeta = TRUE}.
 #'
 #' @note Data for any \code{deviceDeploymentIDs} shared among \emph{mts}
 #' objects are combined with a "later is better" sensibility where any
@@ -63,7 +66,8 @@
 #'
 
 mts_combine <- function(
-  ...
+  ...,
+  replaceMeta = FALSE
 ) {
 
   # Accept any number of mts objects
@@ -85,24 +89,54 @@ mts_combine <- function(
     result <- mts_check(mts)
   }
 
+  # ----- Later is better order ------------------------------------------------
+
+  dataList <- lapply(mtsList, `[[`, "data")
+
+  # NOTE:  To simplify use of our "later is better" approach, we organize our
+  # NOTE:  dataframes in most-recent-first order so that application of
+  # NOTE:  dplyr::distinct(), which preserves the first instance of a duplicate,
+  # NOTE:  will retain the most recent record.
+
+  lastDatetime <-
+    sapply(dataList, function(x) { x$datetime[nrow(x)] } ) %>%
+    as.numeric()
+  dataOrder <- order(lastDatetime, decreasing = TRUE)
+
+  dataList <- dataList[dataOrder]
+
+
   # ----- Combine 'meta' -------------------------------------------------------
 
   metaList <- lapply(mtsList, `[[`, "meta")
 
-  # Combine 'meta' tibbles
-  meta <-
-    dplyr::bind_rows(metaList) %>%
-    dplyr::distinct()
+  metaList <- metaList[dataOrder]
 
-  # NOTE:  We should stop if any 'deviceDeploymentIDs' have non-identical
-  # NOTE:  metadata.
+  if ( replaceMeta ) {
 
-  duplicatedMask <- duplicated(meta$deviceDeploymentID)
-  if ( sum(duplicatedMask) > 0 ) {
-    stop(sprintf(
-      "The following ids have non-identical metadata: %s",
-      paste0(meta$deviceDeploymentID[duplicatedMask], collapse = ", ")
-    ))
+    # Combine 'meta' tibbles using later-is-better replacement
+    meta <-
+      dplyr::bind_rows(metaList) %>%
+      dplyr::distinct(.data$deviceDeploymentID, .keep_all = TRUE)
+
+  } else {
+
+    # Combine 'meta' tibbles without replacement
+    meta <-
+      dplyr::bind_rows(metaList) %>%
+      dplyr::distinct()
+
+    # NOTE:  We should stop if any 'deviceDeploymentIDs' have non-identical
+    # NOTE:  metadata.
+
+    duplicatedMask <- duplicated(meta$deviceDeploymentID)
+    if ( sum(duplicatedMask) > 0 ) {
+      stop(sprintf(
+        "The following ids have non-identical metadata: %s",
+        paste0(meta$deviceDeploymentID[duplicatedMask], collapse = ", ")
+      ))
+    }
+
   }
 
   # ----- Combine 'data' -------------------------------------------------------
@@ -116,21 +150,6 @@ mts_combine <- function(
   # NOTE:   1) separate A-only, AB-shared and B-only tibbles
   # NOTE:   2) combine AB-shared with later-is-better
   # NOTE:   3) left join ((A, AB), B)
-
-  dataList <- lapply(mtsList, `[[`, "data")
-
-  # * Later-is-better order -----
-
-  # NOTE:  To simplify use of our "later is better" approach, we organize our
-  # NOTE:  dataframes in most-recent-first order so that application of
-  # NOTE:  dplyr::distinct(), which preserves the first instance of a duplicate,
-  # NOTE:  will retain the most recent record.
-
-  lastDatetime <-
-    sapply(dataList, function(x) { x$datetime[nrow(x)] } ) %>%
-    as.numeric()
-  dataOrder <- order(lastDatetime, decreasing = TRUE)
-  dataList <- dataList[dataOrder]
 
   # ===== BEGIN LOOP ===========================================================
 

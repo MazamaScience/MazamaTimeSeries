@@ -4,10 +4,13 @@
 \alias{mts_combine}
 \title{Combine multiple \code{mts} objects}
 \usage{
-mts_combine(...)
+mts_combine(..., replaceMeta = FALSE)
 }
 \arguments{
 \item{...}{Any number of valid \emph{mts} objects.}
+
+\item{replaceMeta}{Logical specifying whether to allow replacement of
+metadata associated with \code{deviceDeploymentIDs}.}
 }
 \value{
 A combined \code{mts} object.
@@ -23,7 +26,8 @@ If incoming time ranges are non-contiguous, the resulting \emph{mts} will
 have gaps filled with \code{NA} values.
 
 An error is generated if the incoming \emph{mts} objects have
-non-identical metadata for the same \code{deviceDeploymentID}.
+non-identical metadata for the same \code{deviceDeploymentID} unless
+\code{replaceMeta = TRUE}.
 }
 \note{
 Data for any \code{deviceDeploymentIDs} shared among \emph{mts}

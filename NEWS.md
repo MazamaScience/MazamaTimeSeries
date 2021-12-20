@@ -1,3 +1,7 @@
+# MazamaTimeSeries 0.1.3
+
+* Added `replaceMeta` argument to `mts_combine()`.
+
 # MazamaTimeSeries 0.1.2
 
 * Added `mts_summarize()`.
