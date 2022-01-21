@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Collapse an mts object into a single time series — mts_collapse • MazamaTimeSeries</title>
+<title>Calculate distances from mts locations to a location of interest — mts_getDistance • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,19 +39,11 @@
 
 
 
-<meta property="og:title" content="Collapse an mts object into a single time series — mts_collapse" />
-<meta property="og:description" content="Collapses data from all time series in mts into a
-single-time series mts object using the function provided in the
-FUN argument. The single-time series result will be located at the mean
-longitude and latitude unless longitude and latitude
-are specified.
-Any columns of mts$meta that are constant across all records will be
-retained in the returned mts$meta.
-The core metadata associated with this location (e.g.
-countryCode, stateCode, timezone, ...) will be determined from
-the most common (or average) value found in mts$meta. This will be
-a reasonable assumption for the vast majority of intended use cases where
-data from multiple devices in close proximity are averaged together." />
+<meta property="og:title" content="Calculate distances from mts locations to a location of interest — mts_getDistance" />
+<meta property="og:description" content="This function uses the geodist package to return the distances (meters)
+between mts locations
+and a location of interest. These distances can be used to create a
+mask identifying monitors within a certain radius of the location of interest." />
 
 
 
@@ -137,34 +129,23 @@ data from multiple devices in close proximity are averaged together." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Collapse an <code>mts</code> object into a single time series</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/mts_collapse.R'><code>R/mts_collapse.R</code></a></small>
-    <div class="hidden name"><code>mts_collapse.Rd</code></div>
+    <h1>Calculate distances from <em>mts</em> locations to a location of interest</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/mts_getDistance.R'><code>R/mts_getDistance.R</code></a></small>
+    <div class="hidden name"><code>mts_getDistance.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Collapses data from all time series in <code>mts</code> into a
-single-time series <em>mts</em> object using the function provided in the
-<code>FUN</code> argument. The single-time series result will be located at the mean
-longitude and latitude unless <code>longitude</code> and <code>latitude</code>
-are specified.</p>
-<p>Any columns of <code>mts$meta</code> that are constant across all records will be
-retained in the returned <code>mts$meta</code>.</p>
-<p>The core metadata associated with this location (<em>e.g.</em>
-<code>countryCode, stateCode, timezone, ...</code>) will be determined from
-the most common (or average) value found in <code>mts$meta</code>. This will be
-a reasonable assumption for the vast majority of intended use cases where
-data from multiple devices in close proximity are averaged together.</p>
+    <p>This function uses the <span class="pkg">geodist</span> package to return the distances (meters)
+between <code>mts</code> locations
+and a location of interest. These distances can be used to create a
+mask identifying monitors within a certain radius of the location of interest.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mts_collapse</span><span class='op'>(</span>
-  <span class='va'>mts</span>,
+    <pre class="usage"><span class='fu'>mts_getDistance</span><span class='op'>(</span>
+  mts <span class='op'>=</span> <span class='cn'>NULL</span>,
   longitude <span class='op'>=</span> <span class='cn'>NULL</span>,
   latitude <span class='op'>=</span> <span class='cn'>NULL</span>,
-  deviceID <span class='op'>=</span> <span class='st'>"generatedID"</span>,
-  FUN <span class='op'>=</span> <span class='va'>mean</span>,
-  na.rm <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>...</span>
+  measure <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"geodesic"</span>, <span class='st'>"haversine"</span>, <span class='st'>"vincenty"</span>, <span class='st'>"cheap"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -176,55 +157,47 @@ data from multiple devices in close proximity are averaged together.</p>
     </tr>
     <tr>
       <th>longitude</th>
-      <td><p>Longitude of the collapsed time series.</p></td>
+      <td><p>Longitude of the location of interest.</p></td>
     </tr>
     <tr>
       <th>latitude</th>
-      <td><p>Latitude of the collapsed time series.</p></td>
+      <td><p>Latitude of the location of interest.</p></td>
     </tr>
     <tr>
-      <th>deviceID</th>
-      <td><p>Device identifier for the collapsed time series.</p></td>
-    </tr>
-    <tr>
-      <th>FUN</th>
-      <td><p>Function used to collapse multiple time series.</p></td>
-    </tr>
-    <tr>
-      <th>na.rm</th>
-      <td><p>Logical specifying whether NA values should be ignored when FUN
-is applied.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>additional arguments to be passed on to the <code><a href='https://rdrr.io/r/base/apply.html'>apply()</a></code> function.</p></td>
+      <th>measure</th>
+      <td><p>One of "geodesic", "haversine", "vincenty" or "cheap"</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <em>mts</em> object representing a single time series.</p>
+    <p>Vector of of distances (meters) named by <code>deviceDeploymentID</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>After <code>FUN</code> is applied, values of <code>+/-Inf</code> and <code>NaN</code> are
-converted to <code>NA</code>. This is a convenience for the common case where
-<code>FUN = min/max</code> or <code>FUN = mean</code> and some of the time steps have all
-missing values. See the R documentation for <code>min</code> for an explanation.</p>
+    <p>The measure <code>"cheap"</code> may be used to speed things up depending on
+the spatial scale being considered. Distances calculated with
+<code>measure = "cheap"</code> will vary by a few meters compared with those
+calculated using <code>measure = "geodesic"</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/MazamaTimeSeries'>MazamaTimeSeries</a></span><span class='op'>)</span>
 
-<span class='va'>mon</span> <span class='op'>&lt;-</span>
-  <span class='fu'>mts_collapse</span><span class='op'>(</span>
-    mts <span class='op'>=</span> <span class='va'>example_mts</span>,
-    deviceID <span class='op'>=</span> <span class='st'>"example_ID"</span>
-  <span class='op'>)</span>
+<span class='co'># Garfield Medical Center in LA</span>
+<span class='va'>longitude</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>118.12321</span>
+<span class='va'>latitude</span> <span class='op'>&lt;-</span> <span class='fl'>34.06775</span>
 
-<span class='co'># mon$data now only has 2 columns</span>
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>mon</span><span class='op'>$</span><span class='va'>data</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "datetime"   "example_ID"</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mon</span><span class='op'>$</span><span class='va'>data</span>, type <span class='op'>=</span> <span class='st'>'b'</span>, main <span class='op'>=</span> <span class='va'>mon</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>$</span><span class='va'>deviceID</span><span class='op'>)</span>
-</div><div class='img'><img src='mts_collapse-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>distances</span> <span class='op'>&lt;-</span> <span class='fu'>mts_getDistance</span><span class='op'>(</span>
+  mts <span class='op'>=</span> <span class='va'>example_mts</span>,
+  longitude <span class='op'>=</span> <span class='va'>longitude</span>,
+  latitude <span class='op'>=</span> <span class='va'>latitude</span>
+<span class='op'>)</span>
+
+<span class='co'># Which sensors are within 1000 meters of Garfield Med Ctr?</span>
+<span class='va'>distances</span><span class='op'>[</span><span class='va'>distances</span> <span class='op'>&lt;=</span> <span class='fl'>1000</span><span class='op'>]</span>
+</div><div class='output co'>#&gt;  ec61b544c1dbfe21_2448  2ee691d37eaa1aff_3529  ecd1d2c35c1c18cf_3505 
+#&gt;               761.2503               844.0852               743.9420 
+#&gt;  05533d5b998ac7bf_3525 8c345724ee28a6ef_23253 
+#&gt;               765.9372               950.1779 </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

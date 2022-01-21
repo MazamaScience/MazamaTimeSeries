@@ -1,3 +1,8 @@
+# MazamaTimeSeries 0.1.4
+
+* Renamed `mts_distance()` to `mts_getDistance()`.
+* Fixed bugs related to leftover `monitorID` references.
+
 # MazamaTimeSeries 0.1.3
 
 * Added `replaceMeta` argument to `mts_combine()`.

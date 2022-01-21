@@ -28,7 +28,7 @@
 #' longitude <- -118.12321
 #' latitude <- 34.06775
 #'
-#' distances <- mts_distance(
+#' distances <- mts_getDistance(
 #'   mts = example_mts,
 #'   longitude = longitude,
 #'   latitude = latitude
@@ -38,7 +38,7 @@
 #' distances[distances <= 1000]
 #'
 
-mts_distance <- function(
+mts_getDistance <- function(
   mts = NULL,
   longitude = NULL,
   latitude = NULL,
@@ -75,7 +75,7 @@ mts_distance <- function(
   # NOTE:  distanceMatrix is nrow(mts$meta) X 1
 
   distance <- distanceMatrix[,1]
-  names(distance) <- mts$meta$monitorID
+  names(distance) <- mts$meta$deviceDeploymentID
 
   # ----- Return ---------------------------------------------------------------
 

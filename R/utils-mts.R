@@ -152,7 +152,7 @@ mts_isValid <- function(
   if ( !identical(names(mts$data), c('datetime', mts$meta$deviceDeploymentID)) ) {
     msg(sprintf(
       "%s\n%s",
-      "mismatch between mts$meta$monitorID and names(mts$data)",
+      "mismatch between mts$meta$deviceDeploymentID and names(mts$data)",
       "Columns in 'data' must be in the same order as rows in 'meta'."
     ))
   }

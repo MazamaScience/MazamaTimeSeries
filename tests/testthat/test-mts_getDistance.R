@@ -2,11 +2,11 @@
 test_that("input is validated", {
 
   expect_error(
-    mts_distance()
+    mts_getDistance()
   )
 
   expect_error(
-    mts_distance(
+    mts_getDistance(
       example_mts,
       longitude = -122.234,
       latitude = "bop"
@@ -14,7 +14,7 @@ test_that("input is validated", {
   )
 
   expect_error(
-    mts_distance(
+    mts_getDistance(
       example_mts,
       longitude = -122.234,
       latitude = 120.0
@@ -22,7 +22,7 @@ test_that("input is validated", {
   )
 
   expect_error(
-    mts_distance(
+    mts_getDistance(
       example_mts,
       longitude = -122.234,
       latitude = 47.234,
@@ -38,7 +38,7 @@ test_that("simple distance works", {
   longitude <- -118.12321
   latitude <- 34.06775
 
-  distances <- mts_distance(
+  distances <- mts_getDistance(
     mts = example_mts,
     longitude = longitude,
     latitude = latitude
