@@ -1,3 +1,8 @@
+# MazamaTimeSeries 0.1.5
+
+* Fixed bug in `mts_collapse()`.
+* Additional consistency checks in `monitor_isValid()`.
+
 # MazamaTimeSeries 0.1.4
 
 * Renamed `mts_distance()` to `mts_getDistance()`.

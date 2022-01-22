@@ -49,6 +49,8 @@ test_that("simple collapse works", {
 
   mon1 <- mts_collapse(example_mts)
 
+  expect_true(mts_isValid(mon1))
+
   expect_identical(
     mon1$meta$longitude,
     mean(example_mts$meta$longitude)
@@ -83,6 +85,8 @@ test_that("advanced collapse works", {
     latitude = latitude,
     deviceID = "Special ID"
   )
+
+  expect_true(mts_isValid(mon2))
 
   expect_identical(
     mon2$meta$longitude,

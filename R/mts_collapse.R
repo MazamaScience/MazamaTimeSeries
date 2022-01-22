@@ -78,24 +78,6 @@ mts_collapse <- function(
   if ( mts_isEmpty(mts) )
     stop("'mts' has no data")
 
-  # ----- Collapse data --------------------------------------------------------
-
-  data <- as.matrix(mts$data[,-1])
-
-  collapsedData <- suppressWarnings({
-    apply(data, MARGIN = 1, FUN = FUN, na.rm = na.rm, ...)
-  })
-
-  # Special handling for min/max/mean which return +/-Inf and NaN when any row has all NAs
-  collapsedData[!is.finite(collapsedData)] <- NA
-
-  newData <-
-    dplyr::tibble(
-      datetime = mts$data$datetime,
-      dummyName = collapsedData
-    )
-  colnames(newData) <- c('datetime', deviceID)
-
   # ----- Generate meta --------------------------------------------------------
 
   meta <- mts$meta
@@ -143,6 +125,26 @@ mts_collapse <- function(
   newMeta <-
     newMeta %>%
     dplyr::select(dplyr::all_of(c(requiredMetaNames, extraColumns)))
+
+  # ----- Collapse data --------------------------------------------------------
+
+  data <- as.matrix(mts$data[,-1])
+
+  collapsedData <- suppressWarnings({
+    apply(data, MARGIN = 1, FUN = FUN, na.rm = na.rm, ...)
+  })
+
+  # Special handling for min/max/mean which return +/-Inf and NaN when any row has all NAs
+  collapsedData[!is.finite(collapsedData)] <- NA
+
+  newData <-
+    dplyr::tibble(
+      datetime = mts$data$datetime,
+      dummyName = collapsedData
+    )
+
+  # Update newData with deviceDeploymentID
+  colnames(newData) <- c('datetime', deviceDeploymentID)
 
   # ----- Create the 'mts' object ----------------------------------------------
 

@@ -145,6 +145,7 @@ mts_isValid <- function(
       "mts$meta must contain columns for '%s'",
       paste(missingColumns, collapse = ", ")
     ))
+    return(invisible(FALSE))
   }
 
   # Guarantee that 'data' columns exactly match meta$deviceDeploymentID
@@ -155,6 +156,7 @@ mts_isValid <- function(
       "mismatch between mts$meta$deviceDeploymentID and names(mts$data)",
       "Columns in 'data' must be in the same order as rows in 'meta'."
     ))
+    return(invisible(FALSE))
   }
 
   # Nothing failed so return TRUE
