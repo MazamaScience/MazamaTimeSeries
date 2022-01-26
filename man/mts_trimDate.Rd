@@ -4,21 +4,29 @@
 \alias{mts_trimDate}
 \title{Trim an \emph{mts} object to full days}
 \usage{
-mts_trimDate(mts = NULL, timezone = NULL)
+mts_trimDate(mts = NULL, timezone = NULL, trimEmptyDays = TRUE)
 }
 \arguments{
 \item{mts}{\emph{mts} object.}
 
 \item{timezone}{Olson timezone used to interpret dates.}
+
+\item{trimEmptyDays}{Logical specifying whether to remove days with no data
+at the beginning and end of the time range.}
 }
 \value{
 A subset of the given \emph{mts} object.
 }
 \description{
 Trims the date range of an \emph{mts} object to local time date
-boundaries which are \emph{within} the range of data. This has the effect
-of removing partial-day data records at the start and end of the timeseries
-and is useful when calculating full-day statistics.
+boundaries which are within the time range of the \emph{mts} object.
+This has the effect of removing partial-day data records at the start and
+end of the timeseries and is useful when calculating full-day statistics.
+
+By default, multi-day periods of all-missing data at the beginning and end
+of the timeseries are removed before trimming to date boundaries. If
+\code{trimEmptyDays = FALSE} all records are retained except for partial days
+beyond the first and after the last date boundary.
 
 Day boundaries are calculated using the specified \code{timezone} or, if
 \code{NULL},  \code{mts$meta$timezone}. Leaving \code{timezone = NULL}, the

@@ -1,6 +1,6 @@
 # NOTE:  mts objects have an hourly time axis
 
-test_that("tidy dataframes", {
+test_that("basic trimming works", {
 
   startdate <- 20190702
   enddate <- 20190706
@@ -27,5 +27,39 @@ test_that("tidy dataframes", {
     max(local_days$data$datetime),
     lubridate::parse_date_time(enddate, orders = "ymd", tz = "UTC") - lubridate::hours(24-7) - lubridate::hours(1)
   )
+
+})
+
+test_that("trimEmptyDays works", {
+
+  my_mts <- example_mts
+
+  trim_EDT <- mts_trimDate(my_mts, timezone = "America/New_York")
+
+  expect_equal(
+    min(trim_EDT$data$datetime),
+    ISOdatetime(2019, 07, 02, 04, 00, 00, tz = "UTC")
+  )
+
+  expect_equal(
+    max(trim_EDT$data$datetime),
+    ISOdatetime(2019, 07, 08, 03, 00, 00, tz = "UTC")
+  )
+
+  my_mts$data[1:50,-1] <- as.numeric(NA)
+
+  trim_EDT <- mts_trimDate(my_mts, timezone = "America/New_York")
+
+  expect_equal(
+    min(trim_EDT$data$datetime),
+    ISOdatetime(2019, 07, 04, 04, 00, 00, tz = "UTC")
+  )
+
+  expect_equal(
+    max(trim_EDT$data$datetime),
+    ISOdatetime(2019, 07, 08, 03, 00, 00, tz = "UTC")
+  )
+
+
 
 })

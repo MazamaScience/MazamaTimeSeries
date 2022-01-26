@@ -53,7 +53,6 @@
 
   MazamaCoreUtils::stopIfNull(any_ts)
   MazamaCoreUtils::stopIfNull(columnName)
-  MazamaCoreUtils::setIfNull(verbose, TRUE)
 
   # Handle multiple values in 'any_ts'
   valueCount <- length(unique(any_ts$meta[[columnName]]))

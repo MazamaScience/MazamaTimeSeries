@@ -5,11 +5,18 @@
 #'
 #' @param mts \emph{mts} object.
 #' @param timezone Olson timezone used to interpret dates.
+#' @param trimEmptyDays Logical specifying whether to remove days with no data
+#' at the beginning and end of the time range.
 #'
 #' @description Trims the date range of an \emph{mts} object to local time date
-#' boundaries which are \emph{within} the range of data. This has the effect
-#' of removing partial-day data records at the start and end of the timeseries
-#' and is useful when calculating full-day statistics.
+#' boundaries which are within the time range of the \emph{mts} object.
+#' This has the effect of removing partial-day data records at the start and
+#' end of the timeseries and is useful when calculating full-day statistics.
+#'
+#' By default, multi-day periods of all-missing data at the beginning and end
+#' of the timeseries are removed before trimming to date boundaries. If
+#' \code{trimEmptyDays = FALSE} all records are retained except for partial days
+#' beyond the first and after the last date boundary.
 #'
 #' Day boundaries are calculated using the specified \code{timezone} or, if
 #' \code{NULL},  \code{mts$meta$timezone}. Leaving \code{timezone = NULL}, the
@@ -38,7 +45,8 @@
 
 mts_trimDate <- function(
   mts = NULL,
-  timezone = NULL
+  timezone = NULL,
+  trimEmptyDays = TRUE
 ) {
 
   # ----- Validate parameters --------------------------------------------------
@@ -56,6 +64,18 @@ mts_trimDate <- function(
 
   # Use internal function to determine the timezone to use
   timezone <- .determineTimezone(mts, NULL, timezone, verbose = TRUE)
+
+  # ----- Trim empty days ------------------------------------------------------
+
+  if ( trimEmptyDays ) {
+
+    # Find records with any non-missing data values
+    hasData <- apply(mts$data[,-1], 1, function(x) { !all(is.na(x)) })
+    firstIndex <- min(which(hasData))
+    lastIndex <- max(which(hasData))
+    mts$data <- dplyr::slice(mts$data, firstIndex:lastIndex)
+
+  }
 
   # ----- Get the start and end times ------------------------------------------
 

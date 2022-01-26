@@ -65,9 +65,9 @@ mts_collapse <- function(
   # ----- Validate parameters --------------------------------------------------
 
   MazamaCoreUtils::stopIfNull(mts)
-  MazamaCoreUtils::setIfNull(deviceID, "generatedID")
+  deviceID <- MazamaCoreUtils::setIfNull(deviceID, "generatedID")
   MazamaCoreUtils::stopIfNull(FUN)
-  MazamaCoreUtils::setIfNull(na.rm, TRUE)
+  na.rm <- MazamaCoreUtils::setIfNull(na.rm, TRUE)
 
   if ( !is.null(longitude) && !is.null(latitude) ) {
     MazamaCoreUtils::validateLonLat(longitude, latitude)

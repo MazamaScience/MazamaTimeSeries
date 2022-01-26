@@ -1,3 +1,8 @@
+# MazamaTimeSeries 0.1.6
+
+* Improved default parameter settings in `mts_collapse()`.
+* Added `trimEmptyDays` argument to `mts_trimDate()`.
+
 # MazamaTimeSeries 0.1.5
 
 * Fixed bug in `mts_collapse()`.
