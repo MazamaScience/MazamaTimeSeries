@@ -30,6 +30,20 @@ test_that("basic trimming works", {
 
 })
 
+test_that("single-monitor objects are handled", {
+
+  my_mts <- mts_select(example_mts, "e0d610f7f219e39f_5080")
+
+  # Failure would happen here
+  trim_EDT <- mts_trimDate(my_mts, timezone = "America/New_York")
+
+  expect_equal(
+    ncol(my_mts$data),
+    ncol(trim_EDT$data)
+  )
+
+})
+
 test_that("trimEmptyDays works", {
 
   my_mts <- example_mts
@@ -59,7 +73,5 @@ test_that("trimEmptyDays works", {
     max(trim_EDT$data$datetime),
     ISOdatetime(2019, 07, 08, 03, 00, 00, tz = "UTC")
   )
-
-
 
 })

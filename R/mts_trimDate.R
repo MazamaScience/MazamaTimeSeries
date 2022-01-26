@@ -69,8 +69,13 @@ mts_trimDate <- function(
 
   if ( trimEmptyDays ) {
 
+    # NOTE:  Use dplyr::select to ensure that single-time series objects remain
+    # NOTE:  as tibbles and don't get converted to vectors.
+
+    dataBrick <- dplyr::select(mts$data, -1)
+
     # Find records with any non-missing data values
-    hasData <- apply(mts$data[,-1], 1, function(x) { !all(is.na(x)) })
+    hasData <- apply(dataBrick, 1, function(x) { !all(is.na(x)) })
     firstIndex <- min(which(hasData))
     lastIndex <- max(which(hasData))
     mts$data <- dplyr::slice(mts$data, firstIndex:lastIndex)
