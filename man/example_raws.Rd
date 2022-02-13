@@ -24,7 +24,7 @@ library(RAWSmet)
 
 setRawsDataDir("~/Data/RAWS")
 
-example_raws <- fw13_load(nwsID = "452701")
+example_raws <- cefa_load(nwsID = "452701")
 
 save(example_raws, file = "data/example_raws.rda")
 }

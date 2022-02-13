@@ -12,6 +12,7 @@
 #' sts_check(example_sts)
 #'
 #' # Break the 'sts' object
+#'
 #' broken_sts <- example_sts
 #' names(broken_sts) <- c('meta', 'bop')
 #'
