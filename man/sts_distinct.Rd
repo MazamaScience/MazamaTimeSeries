@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-sts.R
 \name{sts_distinct}
 \alias{sts_distinct}
-\title{Retain only distinct data records in sts$data}
+\title{Retain only distinct data records in \code{sts$data}}
 \usage{
 sts_distinct(sts)
 }

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Datetime filtering for mts objects — mts_filterDatetime • MazamaTimeSeries</title>
+<title>Combine multiple sts objects — sts_combine • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,21 +39,12 @@
 
 
 
-<meta property="og:title" content="Datetime filtering for mts objects — mts_filterDatetime" />
-<meta property="og:description" content="Subsets an mts object by datetime. This function
-allows for sub-day filtering as opposed to mts_filterDate() which
-always filters to day-boundaries.
-Datetimes can be anything that is understood by
-MazamaCoreUtils::parseDatetime(). For non-POSIXct values,
-the recommended format is &quot;YYYY-mm-dd HH:MM:SS&quot;.
-Timezone determination precedence assumes that if you are passing in
-POSIXct values then you know what you are doing:
-
-get timezone from startdate if it is POSIXct
-use passed in timezone
-get timezone from mts
-
-" />
+<meta property="og:title" content="Combine multiple sts objects — sts_combine" />
+<meta property="og:description" content="Create a merged timeseries using of any number of sts
+objects for a single sensor. If sts objects are non-contiguous, the
+resulting sts will have gaps.
+An error is generated if the incoming sts objects have
+non-identical deviceDeploymentIDs." />
 
 
 
@@ -139,97 +130,66 @@ get timezone from mts
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Datetime filtering for <em>mts</em> objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/mts_filterDatetime.R'><code>R/mts_filterDatetime.R</code></a></small>
-    <div class="hidden name"><code>mts_filterDatetime.Rd</code></div>
+    <h1>Combine multiple <em>sts</em> objects</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/sts_combine.R'><code>R/sts_combine.R</code></a></small>
+    <div class="hidden name"><code>sts_combine.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Subsets an <code>mts</code> object by datetime. This function
-allows for sub-day filtering as opposed to <code><a href='mts_filterDate.html'>mts_filterDate()</a></code> which
-always filters to day-boundaries.</p>
-<p>Datetimes can be anything that is understood by
-<code><a href='https://rdrr.io/pkg/MazamaCoreUtils/man/parseDatetime.html'>MazamaCoreUtils::parseDatetime()</a></code>. For non-<code>POSIXct</code> values,
-the recommended format is <code>"YYYY-mm-dd HH:MM:SS"</code>.</p>
-<p>Timezone determination precedence assumes that if you are passing in
-<code>POSIXct</code> values then you know what you are doing:</p>
-<ol>
-<li><p>get timezone from <code>startdate</code> if it is <code>POSIXct</code></p></li>
-<li><p>use passed in <code>timezone</code></p></li>
-<li><p>get timezone from <code>mts</code></p></li>
-</ol>
-
+    <p>Create a merged timeseries using of any number of <em>sts</em>
+objects for a single sensor. If <em>sts</em> objects are non-contiguous, the
+resulting <em>sts</em> will have gaps.</p>
+<p>An error is generated if the incoming <em>sts</em> objects have
+non-identical <code>deviceDeploymentIDs</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mts_filterDatetime</span><span class='op'>(</span>
-  mts <span class='op'>=</span> <span class='cn'>NULL</span>,
-  startdate <span class='op'>=</span> <span class='cn'>NULL</span>,
-  enddate <span class='op'>=</span> <span class='cn'>NULL</span>,
-  timezone <span class='op'>=</span> <span class='cn'>NULL</span>,
-  unit <span class='op'>=</span> <span class='st'>"sec"</span>,
-  ceilingStart <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  ceilingEnd <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>sts_combine</span><span class='op'>(</span><span class='va'>...</span>, replaceMeta <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mts</th>
-      <td><p><em>mts</em> object.</p></td>
+      <th>...</th>
+      <td><p>Any number of valid SingleTimeSeries <em>sts</em> objects associated
+with a single <code>deviceDeploymentID</code>.</p></td>
     </tr>
     <tr>
-      <th>startdate</th>
-      <td><p>Desired start datetime (ISO 8601).</p></td>
-    </tr>
-    <tr>
-      <th>enddate</th>
-      <td><p>Desired end datetime (ISO 8601).</p></td>
-    </tr>
-    <tr>
-      <th>timezone</th>
-      <td><p>Olson timezone used to interpret dates.</p></td>
-    </tr>
-    <tr>
-      <th>unit</th>
-      <td><p>Units used to determine time at end-of-day.</p></td>
-    </tr>
-    <tr>
-      <th>ceilingStart</th>
-      <td><p>Logical instruction to apply
-<code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>ceiling_date</a></code> to the <code>startdate</code> rather than
-<code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>ceilingEnd</th>
-      <td><p>Logical instruction to apply
-<code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>ceiling_date</a></code> to the <code>enddate</code> rather than
-<code><a href='https://lubridate.tidyverse.org/reference/round_date.html'>floor_date</a></code>.</p></td>
+      <th>replaceMeta</th>
+      <td><p>Logical specifying whether to allow replacement of
+metadata.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A subset of the given <em>mts</em> object.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>A SingleTimeSeries <em>sts</em> object.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <div class='dont-index'><p><a href='mts_filterData.html'>mts_filterData</a></p>
-<p><a href='mts_filterDate.html'>mts_filterDate</a></p>
-<p><a href='mts_filterMeta.html'>mts_filterMeta</a></p></div>
+    <p>Data are combined with a "later is better" sensibility where any
+data overlaps exist. To handle this, incoming <em>sts</em> objects are first
+split into "shared" and "unshared" parts.</p>
+<p>Any "shared" parts are ordered based on the
+time stamp of their last record. Then <code><a href='https://dplyr.tidyverse.org/reference/distinct.html'>dplyr::distinct()</a></code> is used to
+remove records with duplicate <code>datetime</code> fields. Any data records found
+in "later" <em>sts</em> objects are preferentially retained before the "shared"
+data are finally reordered by ascending <code>datetime</code>.</p>
+<p>The final step is combining the "shared" and "unshared" parts.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/MazamaTimeSeries'>MazamaTimeSeries</a></span><span class='op'>)</span>
 
-<span class='va'>example_mts</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>mts_filterDatetime</span><span class='op'>(</span>
-    startdate <span class='op'>=</span> <span class='st'>"2019-07-03 06:00:00"</span>,
-    enddate <span class='op'>=</span> <span class='st'>"2019-07-06 18:00:00"</span>
-  <span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='mts_extractDataFrame.html'>mts_extractData</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>datetime</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2019-07-03 13:00:00 UTC" "2019-07-07 00:00:00 UTC"</div><div class='input'>
-</div></pre>
+<span class='va'>aug01_08</span> <span class='op'>&lt;-</span>
+  <span class='va'>example_sts</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='sts_filterDate.html'>sts_filterDate</a></span><span class='op'>(</span><span class='fl'>20180801</span>, <span class='fl'>20180808</span><span class='op'>)</span>
+
+<span class='va'>aug15_22</span> <span class='op'>&lt;-</span>
+  <span class='va'>example_sts</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='sts_filterDate.html'>sts_filterDate</a></span><span class='op'>(</span><span class='fl'>20180815</span>, <span class='fl'>20180822</span><span class='op'>)</span>
+
+<span class='va'>aug01_22</span> <span class='op'>&lt;-</span> <span class='fu'>sts_combine</span><span class='op'>(</span><span class='va'>aug01_08</span>, <span class='va'>aug15_22</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>aug01_22</span><span class='op'>$</span><span class='va'>data</span><span class='op'>$</span><span class='va'>datetime</span><span class='op'>)</span>
+</div><div class='img'><img src='sts_combine-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

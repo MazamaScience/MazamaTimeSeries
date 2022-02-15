@@ -1,6 +1,6 @@
 #' @export
 #'
-#' @title Check an \emph{sts} object for validity.
+#' @title Check \emph{sts} object for validity
 #'
 #' @param sts \emph{sts} object.
 #'
@@ -147,7 +147,7 @@ sts_isValid <- function(
 
 #' @export
 #'
-#' @title Test for an empty \emph{sts} object
+#' @title Test for empty \emph{sts} object
 #'
 #' @param sts \emph{sts} object
 #' @return \code{TRUE} if no data exist in \code{sts}, \code{FALSE} otherwise.
@@ -173,7 +173,7 @@ sts_isEmpty <- function(sts) {
 #' @importFrom rlang .data
 #' @export
 #'
-#' @title Retain only distinct data records in sts$data
+#' @title Retain only distinct data records in \code{sts$data}
 #'
 #' @param sts \emph{sts} object
 #'

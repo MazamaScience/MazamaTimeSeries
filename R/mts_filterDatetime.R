@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Datetime filtering for \code{mts} objects
+#' @title Datetime filtering for \emph{mts} objects
 #'
 #' @param mts \emph{mts} object.
 #' @param startdate Desired start datetime (ISO 8601).

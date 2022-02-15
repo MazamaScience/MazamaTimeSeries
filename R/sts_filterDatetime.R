@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Datetime filtering for MazamaSingleTimeseries objects
+#' @title Datetime filtering for \emph{sts} objects
 #'
 #' @param sts MazamaSingleTimeseries \emph{sts} object.
 #' @param startdate Desired start datetime (ISO 8601).

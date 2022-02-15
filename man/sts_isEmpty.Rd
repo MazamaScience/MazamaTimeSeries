@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-sts.R
 \name{sts_isEmpty}
 \alias{sts_isEmpty}
-\title{Test for an empty \emph{sts} object}
+\title{Test for empty \emph{sts} object}
 \usage{
 sts_isEmpty(sts)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/sts_filterDate.R
 \name{sts_filterDate}
 \alias{sts_filterDate}
-\title{Date filtering for MazamaSingleTimeseries objects}
+\title{Date filtering for \emph{sts} objects}
 \usage{
 sts_filterDate(
   sts = NULL,

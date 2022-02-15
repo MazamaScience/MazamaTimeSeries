@@ -4,7 +4,7 @@
 \encoding{UTF-8}
 \name{example_sts}
 \alias{example_sts}
-\title{Example SingleTimeSeries dataset}
+\title{Example \emph{sts} dataset}
 \format{
 An \emph{sts} object composed of "meta" and "data" dataframes.
 }

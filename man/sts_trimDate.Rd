@@ -2,7 +2,7 @@
 % Please edit documentation in R/sts_trimDate.R
 \name{sts_trimDate}
 \alias{sts_trimDate}
-\title{Trim a SingleTimeSeries object to full days}
+\title{Trim \emph{sts} object to full days}
 \usage{
 sts_trimDate(sts = NULL, timezone = NULL)
 }

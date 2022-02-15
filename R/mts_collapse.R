@@ -2,7 +2,7 @@
 #' @importFrom rlang .data
 #' @importFrom methods as
 #'
-#' @title Collapse an \code{mts} object into a single time series
+#' @title Collapse \emph{mts} object into a single time series
 #'
 #' @param mts \emph{mts} object.
 #' @param longitude Longitude of the collapsed time series.

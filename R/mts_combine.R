@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Combine multiple \code{mts} objects
+#' @title Combine multiple \emph{mts} objects
 #'
 #' @param ... Any number of valid \emph{mts} objects.
 #' @param replaceMeta Logical specifying whether to allow replacement of

@@ -5,9 +5,9 @@ test_that("input is validated", {
     sts_combine()
   )
 
-  # expect_error(
-  #   sts_combine(example_sts, list("not", "an", "mts"))
-  # )
+  expect_error(
+    sts_combine(example_sts, list("not", "an", "mts"))
+  )
 
   raws_sts <- example_raws
 

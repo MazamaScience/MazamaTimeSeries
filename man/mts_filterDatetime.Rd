@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_filterDatetime.R
 \name{mts_filterDatetime}
 \alias{mts_filterDatetime}
-\title{Datetime filtering for \code{mts} objects}
+\title{Datetime filtering for \emph{mts} objects}
 \usage{
 mts_filterDatetime(
   mts = NULL,

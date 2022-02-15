@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Trim an \emph{mts} object to full days
+#' @title Trim \emph{mts} object to full days
 #'
 #' @param mts \emph{mts} object.
 #' @param timezone Olson timezone used to interpret dates.

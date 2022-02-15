@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Combine multiple \code{sts} objects
+#' @title Combine multiple \emph{sts} objects
 #'
 #' @param ... Any number of valid SingleTimeSeries \emph{sts} objects associated
 #' with a single \code{deviceDeploymentID}.
@@ -68,11 +68,10 @@ sts_combine <- function(
     return(invisible(stsList[[1]]))
 
   # NOTE:  This loop will stop() if there are any problems.
-  ###for ( sts in stsList ) {
-    ###result <- try({ sts_check(sts) })
-    ###MazamaCoreUtils::stopOnError(result)
-  ###}
-  lapply(stsList, sts_check)
+  for ( sts in stsList ) {
+    if ( !sts_isValid(sts) )
+      stop("invalid 'sts' object")
+  }
 
   # TODO: Sort out why the above doesn't work in test-sts_combine.R
 

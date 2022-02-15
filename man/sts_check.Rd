@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-sts.R
 \name{sts_check}
 \alias{sts_check}
-\title{Check an \emph{sts} object for validity.}
+\title{Check \emph{sts} object for validity}
 \usage{
 sts_check(sts)
 }

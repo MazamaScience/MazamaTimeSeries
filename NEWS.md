@@ -1,3 +1,9 @@
+# MazamaTimeSeries 0.2.0
+
+Version 0.2 of the pakcage is ready for operational use.
+
+* Replaced `sts_join()` with`sts_combine()`.
+
 # MazamaTimeSeries 0.1.6
 
 * Improved default parameter settings in `mts_collapse()`.

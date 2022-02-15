@@ -2,7 +2,7 @@
 % Please edit documentation in R/sts_combine.R
 \name{sts_combine}
 \alias{sts_combine}
-\title{Combine multiple \code{sts} objects}
+\title{Combine multiple \emph{sts} objects}
 \usage{
 sts_combine(..., replaceMeta = FALSE)
 }

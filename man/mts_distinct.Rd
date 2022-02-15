@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-mts.R
 \name{mts_distinct}
 \alias{mts_distinct}
-\title{Retain only distinct data records in mts$data}
+\title{Retain only distinct data records in \code{mts$data}}
 \usage{
 mts_distinct(mts)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-mts.R
 \name{mts_check}
 \alias{mts_check}
-\title{Check an \emph{mts} object for validity.}
+\title{Check \emph{mts} object for validity}
 \usage{
 mts_check(mts)
 }

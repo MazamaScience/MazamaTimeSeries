@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_trimDate.R
 \name{mts_trimDate}
 \alias{mts_trimDate}
-\title{Trim an \emph{mts} object to full days}
+\title{Trim \emph{mts} object to full days}
 \usage{
 mts_trimDate(mts = NULL, timezone = NULL, trimEmptyDays = TRUE)
 }

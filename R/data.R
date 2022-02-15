@@ -1,5 +1,5 @@
 #' @encoding UTF-8
-#' @title Example SingleTimeSeries dataset
+#' @title Example \emph{sts} dataset
 #' @format An \emph{sts} object composed of "meta" and "data" dataframes.
 #' @description The \code{example_sts} dataset provides a quickly loadable
 #' version of an \emph{sts} object for practicing and code examples.
@@ -19,7 +19,7 @@
 
 
 #' @encoding UTF-8
-#' @title Example MultipleTimeSeries dataset
+#' @title Example \emph{mts} dataset
 #' @format An \emph{mts} object composed of "meta" and "data" dataframes.
 #' @description The \code{example_mts} dataset provides a quickly loadable
 #' version of an \emph{mts} object for practicing and code examples.

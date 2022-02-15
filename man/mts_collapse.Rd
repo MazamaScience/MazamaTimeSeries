@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_collapse.R
 \name{mts_collapse}
 \alias{mts_collapse}
-\title{Collapse an \code{mts} object into a single time series}
+\title{Collapse \emph{mts} object into a single time series}
 \usage{
 mts_collapse(
   mts,

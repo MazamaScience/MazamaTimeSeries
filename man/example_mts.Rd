@@ -4,7 +4,7 @@
 \encoding{UTF-8}
 \name{example_mts}
 \alias{example_mts}
-\title{Example MultipleTimeSeries dataset}
+\title{Example \emph{mts} dataset}
 \format{
 An \emph{mts} object composed of "meta" and "data" dataframes.
 }

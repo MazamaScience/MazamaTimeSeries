@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_summarize.R
 \name{mts_summarize}
 \alias{mts_summarize}
-\title{Create summary time series for an \code{mts} object}
+\title{Create summary time series for an \emph{mts} object}
 \usage{
 mts_summarize(
   mts,

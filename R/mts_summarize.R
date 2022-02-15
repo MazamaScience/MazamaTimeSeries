@@ -2,7 +2,7 @@
 #' @importFrom rlang .data
 #' @importFrom dplyr across everything
 #'
-#' @title Create summary time series for an \code{mts} object
+#' @title Create summary time series for an \emph{mts} object
 #'
 #' @param mts \emph{mts} object.
 #' @param timezone Olson timezone used to interpret dates.

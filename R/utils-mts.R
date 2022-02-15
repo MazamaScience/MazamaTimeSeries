@@ -1,6 +1,6 @@
 #' @export
 #'
-#' @title Check an \emph{mts} object for validity.
+#' @title Check \emph{mts} object for validity
 #'
 #' @param mts \emph{mts} object.
 #'
@@ -194,7 +194,7 @@ mts_isEmpty <- function(mts) {
 #' @importFrom rlang .data
 #' @export
 #'
-#' @title Retain only distinct data records in mts$data
+#' @title Retain only distinct data records in \code{mts$data}
 #'
 #' @param mts \emph{mts} object
 #'

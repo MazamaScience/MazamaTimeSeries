@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_combine.R
 \name{mts_combine}
 \alias{mts_combine}
-\title{Combine multiple \code{mts} objects}
+\title{Combine multiple \emph{mts} objects}
 \usage{
 mts_combine(..., replaceMeta = FALSE)
 }

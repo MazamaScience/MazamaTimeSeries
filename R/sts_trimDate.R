@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Trim a SingleTimeSeries object to full days
+#' @title Trim \emph{sts} object to full days
 #'
 #' @param sts SingleTimeSeries \emph{sts} object.
 #' @param timezone Olson timezone used to interpret dates.
