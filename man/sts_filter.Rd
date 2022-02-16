@@ -2,7 +2,7 @@
 % Please edit documentation in R/sts_filter.R
 \name{sts_filter}
 \alias{sts_filter}
-\title{General purpose data filtering for \emph{sts} objects}
+\title{General purpose data filtering for \emph{sts} time series objects}
 \usage{
 sts_filter(sts, ...)
 }
@@ -13,7 +13,8 @@ sts_filter(sts, ...)
 \code{sts$data}.}
 }
 \value{
-A subset of the incoming \code{sts}.
+A subset of the incoming \code{sts} time series object.
+(A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
 A generalized data filter for \emph{sts} objects to

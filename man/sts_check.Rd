@@ -9,18 +9,28 @@ sts_check(sts)
 \arguments{
 \item{sts}{\emph{sts} object.}
 }
+\value{
+Returns \code{TRUE} invisibly if the \emph{sts} object is valid.
+}
 \description{
 Checks on the validity of an \emph{sts} object. If any test
 fails, this function will stop with a warning message.
-
+}
+\examples{
 library(MazamaTimeSeries)
 
 sts_check(example_sts)
 
-# Break the 'sts' object
+# This would throw an error
+if ( FALSE ) {
 
-broken_sts <- example_sts
-names(broken_sts) <- c('meta', 'bop')
+  broken_sts <- example_sts
+  names(broken_sts) <- c('meta', 'bop')
+  sts_check(broken_sts)
 
-sts_check(broken_sts)
+}
+
+}
+\seealso{
+\link{sts_isValid}
 }

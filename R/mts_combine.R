@@ -1,13 +1,15 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Combine multiple \emph{mts} objects
+#' @title Combine multiple \emph{mts} time series objects
 #'
 #' @param ... Any number of valid \emph{mts} objects.
 #' @param replaceMeta Logical specifying whether to allow replacement of
 #' metadata associated with \code{deviceDeploymentIDs}.
 #'
-#' @return A combined \code{mts} object.
+#' @return An \code{mts} time series object containing all time series found
+#' in the incoming \code{mts} objects.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @description Create a combined \emph{mts} from any number of \emph{mts}
 #' objects or from a list of \emph{mts} objects. The resulting \emph{mts}

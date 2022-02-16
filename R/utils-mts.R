@@ -7,6 +7,8 @@
 #' @description Checks on the validity of an \emph{mts} object. If any test
 #' fails, this function will stop with a warning message.
 #'
+#' @return Returns \code{TRUE} invisibly if the \emph{mts} object is valid.
+#'
 #' @seealso \link{mts_isValid}
 #'
 #' @examples
@@ -170,9 +172,12 @@ mts_isValid <- function(
 #' @title Test for an empty \emph{mts} object
 #'
 #' @param mts \emph{mts} object
+#'
 #' @return \code{TRUE} if no data exist in \code{mts}, \code{FALSE} otherwise.
+#'
 #' @description Convenience function for \code{nrow(mts$data) == 0}.
 #' This makes for more readable code in functions that need to test for this.
+#'
 #' @examples
 #' library(MazamaTimeSeries)
 #'
@@ -198,7 +203,9 @@ mts_isEmpty <- function(mts) {
 #'
 #' @param mts \emph{mts} object
 #'
-#' @return An \emph{mts} object with no duplicated data records.
+#' @return An \emph{mts} object where each record is associated with a unique
+#' time.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @description This function is primarily for internal use.
 #'
@@ -242,7 +249,7 @@ mts_distinct <- function(mts) {
 #'
 #' @param mts \emph{mts} object to extract dataframe from.
 #'
-#' @return A dataframe from the given \emph{mts} object.
+#' @return A dataframe from the \emph{mts} object.
 #'
 #' @name mts_extractDataFrame
 #' @aliases mts_extractData mts_extractMeta

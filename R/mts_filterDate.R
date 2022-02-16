@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Date filtering for \emph{mts} objects
+#' @title Date filtering for \emph{mts} time series objects
 #'
 #' @param mts \emph{mts} object.
 #' @param startdate Desired start date (ISO 8601).
@@ -42,7 +42,8 @@
 #' \code{enddate} is less than 24 hours after \code{startdate}. In that case, a
 #' single day is returned.
 #'
-#' @return A subset of the incoming \emph{mts} object.
+#' @return A subset of the incoming \emph{mts} time series object.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @seealso \link{mts_filterData}
 #' @seealso \link{mts_filterDatetime}

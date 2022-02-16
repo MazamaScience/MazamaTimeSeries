@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Combine multiple sts objects — sts_combine • MazamaTimeSeries</title>
+<title>Combine multiple sts time series objects — sts_combine • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Combine multiple sts objects — sts_combine" />
+<meta property="og:title" content="Combine multiple sts time series objects — sts_combine" />
 <meta property="og:description" content="Create a merged timeseries using of any number of sts
 objects for a single sensor. If sts objects are non-contiguous, the
 resulting sts will have gaps.
@@ -76,7 +76,7 @@ non-identical deviceDeploymentIDs." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -130,7 +130,7 @@ non-identical deviceDeploymentIDs." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Combine multiple <em>sts</em> objects</h1>
+    <h1>Combine multiple <em>sts</em> time series objects</h1>
     <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/sts_combine.R'><code>R/sts_combine.R</code></a></small>
     <div class="hidden name"><code>sts_combine.Rd</code></div>
     </div>
@@ -162,7 +162,9 @@ metadata.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A SingleTimeSeries <em>sts</em> object.</p>
+    <p>A SingleTimeSeries <em>sts</em> time series object containing
+records from all incoming <code>sts</code> time series objects.
+(A list with <code>meta</code> and <code>data</code> dataframes.)</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Data are combined with a "later is better" sensibility where any

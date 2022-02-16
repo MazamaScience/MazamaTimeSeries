@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_collapse.R
 \name{mts_collapse}
 \alias{mts_collapse}
-\title{Collapse \emph{mts} object into a single time series}
+\title{Collapse an \emph{mts} time series object into a single time series}
 \usage{
 mts_collapse(
   mts,
@@ -31,7 +31,8 @@ is applied.}
 \item{...}{additional arguments to be passed on to the \code{apply()} function.}
 }
 \value{
-An \emph{mts} object representing a single time series.
+An \emph{mts} time series object representing a single time series.
+(A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
 Collapses data from all time series in \code{mts} into a

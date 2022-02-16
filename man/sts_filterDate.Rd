@@ -2,7 +2,7 @@
 % Please edit documentation in R/sts_filterDate.R
 \name{sts_filterDate}
 \alias{sts_filterDate}
-\title{Date filtering for \emph{sts} objects}
+\title{Date filtering for \emph{sts} time series objects}
 \usage{
 sts_filterDate(
   sts = NULL,
@@ -34,7 +34,8 @@ sts_filterDate(
 \code{\link[lubridate]{floor_date}}}
 }
 \value{
-A subset of the given \emph{sts} object.
+A subset of the incoming \emph{sts} time series object.
+(A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
 Subsets a MazamaSingleTimeseries object by date. This function

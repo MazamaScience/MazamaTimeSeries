@@ -14,18 +14,16 @@ sts_extractMeta(sts)
 \item{sts}{\emph{sts} object to extract dataframe from.}
 }
 \value{
-A dataframe from the given \emph{sts} object.
+A dataframe from the \emph{sts} object.
 }
 \description{
 These functions are convenient wrappers for extracting the dataframes that
 comprise a \emph{sts} object. These functions are designed to be useful when
-manipulating data in a pipeline chain using \code{\%>\%}.
+manipulating data in a pipeline using \code{\%>\%}.
 
 Below is a table showing equivalent operations for each function.
 
-\tabular{ll}{
-  \strong{Function} \tab \strong{Equivalent Operation}\cr
-  \code{sts_extractData(sts)} \tab \code{sts$data}\cr
-  \code{sts_extractMeta(sts)} \tab \code{sts$meta}
-}
+\code{sts_extractData(sts)} is equivalent to \code{sts$data}.
+
+\code{sts_extractMeta(sts)} is equivalent to \code{sts$meta}.
 }

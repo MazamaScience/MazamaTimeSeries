@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Combine multiple mts objects — mts_combine • MazamaTimeSeries</title>
+<title>Combine multiple mts time series objects — mts_combine • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Combine multiple mts objects — mts_combine" />
+<meta property="og:title" content="Combine multiple mts time series objects — mts_combine" />
 <meta property="og:description" content="Create a combined mts from any number of mts
 objects or from a list of mts objects. The resulting mts
 object with contain all deviceDeploymentIDs found in any incoming
@@ -81,7 +81,7 @@ replaceMeta = TRUE." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -135,7 +135,7 @@ replaceMeta = TRUE." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Combine multiple <em>mts</em> objects</h1>
+    <h1>Combine multiple <em>mts</em> time series objects</h1>
     <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/mts_combine.R'><code>R/mts_combine.R</code></a></small>
     <div class="hidden name"><code>mts_combine.Rd</code></div>
     </div>
@@ -171,7 +171,9 @@ metadata associated with <code>deviceDeploymentIDs</code>.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A combined <code>mts</code> object.</p>
+    <p>An <code>mts</code> time series object containing all time series found
+in the incoming <code>mts</code> objects.
+(A list with <code>meta</code> and <code>data</code> dataframes.)</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Data for any <code>deviceDeploymentIDs</code> shared among <em>mts</em>

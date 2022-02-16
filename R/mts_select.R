@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Reorder and subset time series within an \emph{mts} object
+#' @title Reorder and subset time series within an \emph{mts} time series object
 #'
 #' @param mts \emph{mts} object.
 #' @param deviceDeploymentID Vector of timeseries unique identifiers.
@@ -15,7 +15,8 @@
 #' faceted plot functions based on \pkg{ggplot}
 #' such as those found in the \pkg{AirMonitorPlots} package.
 #'
-#' @return A reordered (subset) of the incoming \code{mts}.
+#' @return A reordered (subset) of the incoming \emph{mts} time series object.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @seealso \link{mts_filterData}
 #' @seealso \link{mts_filterDate}

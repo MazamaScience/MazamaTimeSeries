@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Datetime filtering for \emph{mts} objects
+#' @title Datetime filtering for \emph{mts} time series objects
 #'
 #' @param mts \emph{mts} object.
 #' @param startdate Desired start datetime (ISO 8601).
@@ -32,7 +32,8 @@
 #' \item{get timezone from \code{mts}}
 #' }
 #'
-#' @return A subset of the given \emph{mts} object.
+#' @return A subset of the incoming \emph{mts} time series object.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @seealso \link{mts_filterData}
 #' @seealso \link{mts_filterDate}

@@ -1,14 +1,16 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Combine multiple \emph{sts} objects
+#' @title Combine multiple \emph{sts} time series objects
 #'
 #' @param ... Any number of valid SingleTimeSeries \emph{sts} objects associated
 #' with a single \code{deviceDeploymentID}.
 #' @param replaceMeta Logical specifying whether to allow replacement of
 #' metadata.
 #'
-#' @return A SingleTimeSeries \emph{sts} object.
+#' @return A SingleTimeSeries \emph{sts} time series object containing
+#' records from all incoming \code{sts} time series objects.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @description Create a merged timeseries using of any number of \emph{sts}
 #' objects for a single sensor. If \emph{sts} objects are non-contiguous, the

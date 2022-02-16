@@ -2,7 +2,7 @@
 #' @importFrom rlang .data
 #' @importFrom methods as
 #'
-#' @title Collapse \emph{mts} object into a single time series
+#' @title Collapse an \emph{mts} time series object into a single time series
 #'
 #' @param mts \emph{mts} object.
 #' @param longitude Longitude of the collapsed time series.
@@ -13,7 +13,8 @@
 #' is applied.
 #' @param ... additional arguments to be passed on to the \code{apply()} function.
 #'
-#' @return An \emph{mts} object representing a single time series.
+#' @return An \emph{mts} time series object representing a single time series.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @description
 #' Collapses data from all time series in \code{mts} into a

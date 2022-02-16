@@ -14,7 +14,7 @@ mts_extractMeta(mts)
 \item{mts}{\emph{mts} object to extract dataframe from.}
 }
 \value{
-A dataframe from the given \emph{mts} object.
+A dataframe from the \emph{mts} object.
 }
 \description{
 These functions are convenient wrappers for extracting the dataframes that

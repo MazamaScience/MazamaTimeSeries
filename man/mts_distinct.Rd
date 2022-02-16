@@ -10,7 +10,9 @@ mts_distinct(mts)
 \item{mts}{\emph{mts} object}
 }
 \value{
-An \emph{mts} object with no duplicated data records.
+An \emph{mts} object where each record is associated with a unique
+time.
+(A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
 This function is primarily for internal use.

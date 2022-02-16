@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_filterDate.R
 \name{mts_filterDate}
 \alias{mts_filterDate}
-\title{Date filtering for \emph{mts} objects}
+\title{Date filtering for \emph{mts} time series objects}
 \usage{
 mts_filterDate(
   mts = NULL,
@@ -34,7 +34,8 @@ mts_filterDate(
 \code{\link[lubridate]{floor_date}}.}
 }
 \value{
-A subset of the incoming \emph{mts} object.
+A subset of the incoming \emph{mts} time series object.
+(A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
 Subsets an \emph{mts} object by date. This function

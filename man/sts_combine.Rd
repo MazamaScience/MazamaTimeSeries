@@ -2,7 +2,7 @@
 % Please edit documentation in R/sts_combine.R
 \name{sts_combine}
 \alias{sts_combine}
-\title{Combine multiple \emph{sts} objects}
+\title{Combine multiple \emph{sts} time series objects}
 \usage{
 sts_combine(..., replaceMeta = FALSE)
 }
@@ -14,7 +14,9 @@ with a single \code{deviceDeploymentID}.}
 metadata.}
 }
 \value{
-A SingleTimeSeries \emph{sts} object.
+A SingleTimeSeries \emph{sts} time series object containing
+records from all incoming \code{sts} time series objects.
+(A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
 Create a merged timeseries using of any number of \emph{sts}

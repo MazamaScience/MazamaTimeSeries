@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom geodist geodist
 #'
-#' @title Calculate distances from \emph{mts} locations to a location of interest
+#' @title Calculate distances from \emph{mts} time series locations to a location of interest
 #'
 #' @param mts \emph{mts} object.
 #' @param longitude Longitude of the location of interest.

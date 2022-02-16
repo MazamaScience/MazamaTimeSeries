@@ -39,21 +39,61 @@ UTC \code{time} vector and will contain the following columns:
 }
 }
 \details{
-While the \pkg{lubridate} package makes it easy to work in local timezones,
-there is no easy way in R to work in "Local Standard Time" (LST) (\emph{i.e.
-never shifting to daylight savings}) as is often required when working with
-air quality data. US EPA regulations mandate that daily averages be calculated
-based on LST.
+NOAA used the reference below to develop their Sunrise/Sunset
+
+\url{https://gml.noaa.gov/grad/solcalc/sunrise.html} and Solar
+Position
+
+\url{https://gml.noaa.gov/grad/solcalc/azel.html}
+Calculators.  The algorithms include corrections for atmospheric
+refraction effects.
+
+Input can consist of one location and at least one POSIXct times, or one
+POSIXct time and at least one location.  \var{solarDep} is recycled as
+needed.
+
+Do not use the daylight savings time zone string for supplying
+\var{dateTime}, as many OS will not be able to properly set it to
+standard time when needed.
 
 The \code{localStdTime_UTC} column in the returned dataframe is primarily for
 internal use and provides an important tool for creating LST daily averages
 and LST axis labeling.
 }
 \note{
+NOAA notes that “for latitudes greater than 72 degrees N and S,
+calculations are accurate to within 10 minutes. For latitudes less than +/-
+72 degrees accuracy is approximately one minute.”
+}
+\section{Attribution}{
+
 Internal functions used for ephemerides calculations were copied verbatim
 from the \url{https://cran.r-project.org/package=maptools} package source
 code in an effort to reduce the number of package dependencies.
 }
+
+\section{Warning}{
+
+Compared to NOAA's original Javascript code, the sunrise and sunset estimates
+from this translation may differ by +/- 1 minute, based on tests using
+selected locations spanning the globe. This translation does not include
+calculation of prior or next sunrises/sunsets for locations above the Arctic
+Circle or below the Antarctic Circle.
+}
+
+\section{Local Standard Time}{
+
+US EPA regulations mandate that daily averages be calculated
+based on "Local Standard Time" (LST) (\emph{i.e. never shifting to daylight
+savings}). To ease work in a regulatory context, LST times are included in the
+returned dataframe.
+}
+
+\section{References}{
+
+Meeus, J. (1991) Astronomical Algorithms. Willmann-Bell, Inc.
+}
+
 \examples{
 library(MazamaTimeSeries)
 
@@ -82,4 +122,14 @@ Carmel_night <- list(meta = Carmel$meta, data = data_night)
 # Plot them
 plot(Carmel_day$data, pch = 8, col = 'goldenrod')
 points(Carmel_night$data, pch = 16, col = 'darkblue')
+}
+\author{
+Sebastian P. Luque \email{spluque@gmail.com}, translated from
+Greg Pelletier's \email{gpel461@ecy.wa.gov} VBA code (available from
+\url{https://ecology.wa.gov/Research-Data/Data-resources/Models-spreadsheets/Modeling-the-environment/Models-tools-for-TMDLs}), who in turn
+translated it from original Javascript code by NOAA (see Details).
+Roger Bivand \email{roger.bivand@nhh.no} adapted the code to work with
+\pkg{sp} classes. Jonathan Callahan \email{jonathan.callahan@gmail.com}
+adapted the source code from the \pkg{maptools} package to work with
+\pkg{MazamaTimeSeries} classes.
 }

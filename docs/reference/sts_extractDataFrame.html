@@ -42,15 +42,10 @@
 <meta property="og:title" content="Extract dataframes from sts objects — sts_extractDataFrame" />
 <meta property="og:description" content="These functions are convenient wrappers for extracting the dataframes that
 comprise a sts object. These functions are designed to be useful when
-manipulating data in a pipeline chain using %&amp;gt;%.
+manipulating data in a pipeline using %&amp;gt;%.
 Below is a table showing equivalent operations for each function.
-
-FunctionEquivalent Operation
-sts_extractData(sts)sts$data
-sts_extractMeta(sts)sts$meta
-
-
-" />
+sts_extractData(sts) is equivalent to sts$data.
+sts_extractMeta(sts) is equivalent to sts$meta." />
 
 
 
@@ -82,7 +77,7 @@ sts_extractMeta(sts)sts$meta
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -144,15 +139,10 @@ sts_extractMeta(sts)sts$meta
     <div class="ref-description">
     <p>These functions are convenient wrappers for extracting the dataframes that
 comprise a <em>sts</em> object. These functions are designed to be useful when
-manipulating data in a pipeline chain using <code>%&gt;%</code>.</p>
+manipulating data in a pipeline using <code>%&gt;%</code>.</p>
 <p>Below is a table showing equivalent operations for each function.</p>
-<table class='table'>
-<tr><td><strong>Function</strong></td><td><strong>Equivalent Operation</strong></td></tr>
-<tr><td><code>sts_extractData(sts)</code></td><td><code>sts$data</code></td></tr>
-<tr><td><code>sts_extractMeta(sts)</code></td><td><code>sts$meta</code></td></tr>
-</table>
-
-
+<p><code>sts_extractData(sts)</code> is equivalent to <code>sts$data</code>.</p>
+<p><code>sts_extractMeta(sts)</code> is equivalent to <code>sts$meta</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sts_extractData</span><span class='op'>(</span><span class='va'>sts</span><span class='op'>)</span>
@@ -170,7 +160,7 @@ manipulating data in a pipeline chain using <code>%&gt;%</code>.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dataframe from the given <em>sts</em> object.</p>
+    <p>A dataframe from the <em>sts</em> object.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

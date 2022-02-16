@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Trim sts object to full days — sts_trimDate • MazamaTimeSeries</title>
+<title>Trim sts time series object to full days — sts_trimDate • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Trim sts object to full days — sts_trimDate" />
+<meta property="og:title" content="Trim sts time series object to full days — sts_trimDate" />
 <meta property="og:description" content="Trims the date range of a sts object to local time date
 boundaries which are within the range of data. This has the effect
 of removing partial-day data records at the start and end of the timeseries
@@ -77,7 +77,7 @@ NULL, from sts$meta$timezone." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -131,7 +131,7 @@ NULL, from sts$meta$timezone." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Trim <em>sts</em> object to full days</h1>
+    <h1>Trim <em>sts</em> time series object to full days</h1>
     <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/sts_trimDate.R'><code>R/sts_trimDate.R</code></a></small>
     <div class="hidden name"><code>sts_trimDate.Rd</code></div>
     </div>
@@ -162,7 +162,8 @@ and is useful when calculating full-day statistics.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A subset of the given <em>sts</em> object.</p>
+    <p>A subset of the incoming <em>sts</em> time series object.
+(A list with <code>meta</code> and <code>data</code> dataframes.)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/MazamaTimeSeries'>MazamaTimeSeries</a></span><span class='op'>)</span>

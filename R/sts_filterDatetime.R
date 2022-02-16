@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Datetime filtering for \emph{sts} objects
+#' @title Datetime filtering for \emph{sts} time series objects
 #'
 #' @param sts MazamaSingleTimeseries \emph{sts} object.
 #' @param startdate Desired start datetime (ISO 8601).
@@ -32,7 +32,8 @@
 #' \item{get timezone from \code{sts}}
 #' }
 #'
-#' @return A subset of the given \emph{sts} object.
+#' @return A subset of the incoming \emph{sts} time series object.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @seealso \link{sts_filter}
 #' @seealso \link{sts_filterDate}

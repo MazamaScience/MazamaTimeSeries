@@ -9,6 +9,9 @@ mts_check(mts)
 \arguments{
 \item{mts}{\emph{mts} object.}
 }
+\value{
+Returns \code{TRUE} invisibly if the \emph{mts} object is valid.
+}
 \description{
 Checks on the validity of an \emph{mts} object. If any test
 fails, this function will stop with a warning message.

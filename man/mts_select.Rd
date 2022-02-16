@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_select.R
 \name{mts_select}
 \alias{mts_select}
-\title{Reorder and subset time series within an \emph{mts} object}
+\title{Reorder and subset time series within an \emph{mts} time series object}
 \usage{
 mts_select(mts = NULL, deviceDeploymentID = NULL)
 }
@@ -12,7 +12,8 @@ mts_select(mts = NULL, deviceDeploymentID = NULL)
 \item{deviceDeploymentID}{Vector of timeseries unique identifiers.}
 }
 \value{
-A reordered (subset) of the incoming \code{mts}.
+A reordered (subset) of the incoming \emph{mts} time series object.
+(A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
 This function acts similarly to \code{dplyr::select()} working on

@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title General purpose data filtering for \emph{sts} objects
+#' @title General purpose data filtering for \emph{sts} time series objects
 #'
 #' @param sts \emph{sts} object.
 #' @param ... Logical predicates defined in terms of the variables in
@@ -15,7 +15,8 @@
 #'
 #' @note Filtering is done on values in \code{sts$data}.
 #'
-#' @return A subset of the incoming \code{sts}.
+#' @return A subset of the incoming \code{sts} time series object.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @seealso \link{sts_filterDate}
 #' @seealso \link{sts_filterDatetime}

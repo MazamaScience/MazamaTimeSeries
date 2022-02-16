@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title General purpose data filtering for \emph{mts} objects
+#' @title General purpose data filtering for \emph{mts} time series objects
 #'
 #' @param mts \emph{mts} object.
 #' @param ... Logical predicates defined in terms of the variables in
@@ -16,7 +16,8 @@
 #' @note Filtering is done on variables in \code{mts$data} and results in an
 #' \emph{incomplete and irregular time axis}.
 #'
-#' @return A subset of the incoming \code{mts}.
+#' @return A subset of the incoming \emph{mts} time series object.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @seealso \link{mts_filterDate}
 #' @seealso \link{mts_filterDatetime}

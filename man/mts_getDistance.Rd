@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_getDistance.R
 \name{mts_getDistance}
 \alias{mts_getDistance}
-\title{Calculate distances from \emph{mts} locations to a location of interest}
+\title{Calculate distances from \emph{mts} time series locations to a location of interest}
 \usage{
 mts_getDistance(
   mts = NULL,

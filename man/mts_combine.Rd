@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_combine.R
 \name{mts_combine}
 \alias{mts_combine}
-\title{Combine multiple \emph{mts} objects}
+\title{Combine multiple \emph{mts} time series objects}
 \usage{
 mts_combine(..., replaceMeta = FALSE)
 }
@@ -13,7 +13,9 @@ mts_combine(..., replaceMeta = FALSE)
 metadata associated with \code{deviceDeploymentIDs}.}
 }
 \value{
-A combined \code{mts} object.
+An \code{mts} time series object containing all time series found
+in the incoming \code{mts} objects.
+(A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
 Create a combined \emph{mts} from any number of \emph{mts}

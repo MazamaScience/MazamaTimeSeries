@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_trimDate.R
 \name{mts_trimDate}
 \alias{mts_trimDate}
-\title{Trim \emph{mts} object to full days}
+\title{Trim \emph{mts} time series object to full days}
 \usage{
 mts_trimDate(mts = NULL, timezone = NULL, trimEmptyDays = TRUE)
 }
@@ -15,7 +15,8 @@ mts_trimDate(mts = NULL, timezone = NULL, trimEmptyDays = TRUE)
 at the beginning and end of the time range.}
 }
 \value{
-A subset of the given \emph{mts} object.
+A subset of the incoming \emph{mts} time series object.
+(A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
 Trims the date range of an \emph{mts} object to local time date

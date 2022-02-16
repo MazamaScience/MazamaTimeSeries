@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_summarize.R
 \name{mts_summarize}
 \alias{mts_summarize}
-\title{Create summary time series for an \emph{mts} object}
+\title{Create summary time series for an \emph{mts} time series object}
 \usage{
 mts_summarize(
   mts,
@@ -29,7 +29,9 @@ mts_summarize(
 summaries. Time periods with fewer valid records will be assigned \code{NA}.}
 }
 \value{
-An \emph{mts} object containing daily (or other) statistical summaries.
+An \emph{mts} time series object containing daily (or other)
+statistical summaries.
+(A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
 Individual time series in \code{mts$data} are grouped by \code{unit} and then

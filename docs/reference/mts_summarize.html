@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create summary time series for an mts object — mts_summarize • MazamaTimeSeries</title>
+<title>Create summary time series for an mts time series object — mts_summarize • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Create summary time series for an mts object — mts_summarize" />
+<meta property="og:title" content="Create summary time series for an mts time series object — mts_summarize" />
 <meta property="og:description" content="Individual time series in mts$data are grouped by unit and then
 summarized using FUN.
 The most typical use case is creating daily averages where each day begins at
@@ -80,7 +80,7 @@ results in &quot;local time&quot; date filtering which is the most common use ca
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -134,7 +134,7 @@ results in &quot;local time&quot; date filtering which is the most common use ca
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create summary time series for an <em>mts</em> object</h1>
+    <h1>Create summary time series for an <em>mts</em> time series object</h1>
     <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/mts_summarize.R'><code>R/mts_summarize.R</code></a></small>
     <div class="hidden name"><code>mts_summarize.Rd</code></div>
     </div>
@@ -193,7 +193,9 @@ summaries. Time periods with fewer valid records will be assigned <code>NA</code
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <em>mts</em> object containing daily (or other) statistical summaries.</p>
+    <p>An <em>mts</em> time series object containing daily (or other)
+statistical summaries.
+(A list with <code>meta</code> and <code>data</code> dataframes.)</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Because the returned <em>mts</em> object is defined on a daily axis in a

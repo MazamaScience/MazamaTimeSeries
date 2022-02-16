@@ -1,3 +1,11 @@
+# MazamaTimeSeries 0.2.2
+
+* Documentation fixes requested by CRAN.
+
+# MazamaTimeSeries 0.2.1
+
+* Fixed urls and typos during CRAN preparation.
+
 # MazamaTimeSeries 0.2.0
 
 Version 0.2 of the pakcage is ready for operational use.

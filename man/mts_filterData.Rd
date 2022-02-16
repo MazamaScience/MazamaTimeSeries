@@ -2,7 +2,7 @@
 % Please edit documentation in R/mts_filterData.R
 \name{mts_filterData}
 \alias{mts_filterData}
-\title{General purpose data filtering for \emph{mts} objects}
+\title{General purpose data filtering for \emph{mts} time series objects}
 \usage{
 mts_filterData(mts, ...)
 }
@@ -13,7 +13,8 @@ mts_filterData(mts, ...)
 \code{mts$data}.}
 }
 \value{
-A subset of the incoming \code{mts}.
+A subset of the incoming \emph{mts} time series object.
+(A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
 A generalized data filter for \emph{mts} objects to

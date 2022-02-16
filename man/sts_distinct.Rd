@@ -10,7 +10,9 @@ sts_distinct(sts)
 \item{sts}{\emph{sts} object}
 }
 \value{
-An \emph{sts} object with no duplicated data records.
+An \emph{sts} object where each record is associated with a unique
+time.
+(A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
 Three successive steps are used to guarantee that the

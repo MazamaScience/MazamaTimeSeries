@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Date filtering for \emph{sts} objects
+#' @title Date filtering for \emph{sts} time series objects
 #'
 #' @param sts MazamaSingleTimeseries \emph{sts} object.
 #' @param startdate Desired start datetime (ISO 8601).
@@ -42,7 +42,8 @@
 #' \code{enddate} is less than 24 hours after \code{startdate}. In that case, a
 #' single day is returned.
 #'
-#' @return A subset of the given \emph{sts} object.
+#' @return A subset of the incoming \emph{sts} time series object.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @seealso \link{sts_filter}
 #' @seealso \link{sts_filterDatetime}

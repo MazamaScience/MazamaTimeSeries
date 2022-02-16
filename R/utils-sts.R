@@ -7,17 +7,25 @@
 #' @description Checks on the validity of an \emph{sts} object. If any test
 #' fails, this function will stop with a warning message.
 #'
+#' @return Returns \code{TRUE} invisibly if the \emph{sts} object is valid.
+#'
+#' @seealso \link{sts_isValid}
+#'
+#' @examples
 #' library(MazamaTimeSeries)
 #'
 #' sts_check(example_sts)
 #'
-#' # Break the 'sts' object
+#' # This would throw an error
+#' if ( FALSE ) {
 #'
-#' broken_sts <- example_sts
-#' names(broken_sts) <- c('meta', 'bop')
+#'   broken_sts <- example_sts
+#'   names(broken_sts) <- c('meta', 'bop')
+#'   sts_check(broken_sts)
 #'
-#' sts_check(broken_sts)
+#' }
 #'
+
 sts_check <- function(sts) {
   tryCatch(
     sts_isValid(sts, verbose = TRUE),
@@ -150,9 +158,12 @@ sts_isValid <- function(
 #' @title Test for empty \emph{sts} object
 #'
 #' @param sts \emph{sts} object
+#'
 #' @return \code{TRUE} if no data exist in \code{sts}, \code{FALSE} otherwise.
+#'
 #' @description Convenience function for \code{nrow(sts$data) == 0}.
 #' This makes for more readable code in functions that need to test for this.
+#'
 #' @examples
 #' library(MazamaTimeSeries)
 #'
@@ -177,7 +188,9 @@ sts_isEmpty <- function(sts) {
 #'
 #' @param sts \emph{sts} object
 #'
-#' @return An \emph{sts} object with no duplicated data records.
+#' @return An \emph{sts} object where each record is associated with a unique
+#' time.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @description Three successive steps are used to guarantee that the
 #' \code{datetime} axis contains no repeated values:
@@ -211,19 +224,17 @@ sts_distinct <- function(sts) {
 #' @description
 #' These functions are convenient wrappers for extracting the dataframes that
 #' comprise a \emph{sts} object. These functions are designed to be useful when
-#' manipulating data in a pipeline chain using \code{\%>\%}.
+#' manipulating data in a pipeline using \code{\%>\%}.
 #'
 #' Below is a table showing equivalent operations for each function.
 #'
-#' \tabular{ll}{
-#'   \strong{Function} \tab \strong{Equivalent Operation}\cr
-#'   \code{sts_extractData(sts)} \tab \code{sts$data}\cr
-#'   \code{sts_extractMeta(sts)} \tab \code{sts$meta}
-#' }
+#' \code{sts_extractData(sts)} is equivalent to \code{sts$data}.
+#'
+#' \code{sts_extractMeta(sts)} is equivalent to \code{sts$meta}.
 #'
 #' @param sts \emph{sts} object to extract dataframe from.
 #'
-#' @return A dataframe from the given \emph{sts} object.
+#' @return A dataframe from the \emph{sts} object.
 #'
 #' @name sts_extractDataFrame
 #' @aliases sts_extractData sts_extractMeta

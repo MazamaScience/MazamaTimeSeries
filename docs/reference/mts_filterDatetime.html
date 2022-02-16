@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Datetime filtering for mts objects — mts_filterDatetime • MazamaTimeSeries</title>
+<title>Datetime filtering for mts time series objects — mts_filterDatetime • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Datetime filtering for mts objects — mts_filterDatetime" />
+<meta property="og:title" content="Datetime filtering for mts time series objects — mts_filterDatetime" />
 <meta property="og:description" content="Subsets an mts object by datetime. This function
 allows for sub-day filtering as opposed to mts_filterDate() which
 always filters to day-boundaries.
@@ -85,7 +85,7 @@ get timezone from mts
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -139,7 +139,7 @@ get timezone from mts
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Datetime filtering for <em>mts</em> objects</h1>
+    <h1>Datetime filtering for <em>mts</em> time series objects</h1>
     <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/mts_filterDatetime.R'><code>R/mts_filterDatetime.R</code></a></small>
     <div class="hidden name"><code>mts_filterDatetime.Rd</code></div>
     </div>
@@ -210,7 +210,8 @@ the recommended format is <code>"YYYY-mm-dd HH:MM:SS"</code>.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A subset of the given <em>mts</em> object.</p>
+    <p>A subset of the incoming <em>mts</em> time series object.
+(A list with <code>meta</code> and <code>data</code> dataframes.)</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='mts_filterData.html'>mts_filterData</a></p>

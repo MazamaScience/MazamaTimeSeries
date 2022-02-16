@@ -2,7 +2,7 @@
 % Please edit documentation in R/sts_trimDate.R
 \name{sts_trimDate}
 \alias{sts_trimDate}
-\title{Trim \emph{sts} object to full days}
+\title{Trim \emph{sts} time series object to full days}
 \usage{
 sts_trimDate(sts = NULL, timezone = NULL)
 }
@@ -12,7 +12,8 @@ sts_trimDate(sts = NULL, timezone = NULL)
 \item{timezone}{Olson timezone used to interpret dates.}
 }
 \value{
-A subset of the given \emph{sts} object.
+A subset of the incoming \emph{sts} time series object.
+(A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
 Trims the date range of a \emph{sts} object to local time date

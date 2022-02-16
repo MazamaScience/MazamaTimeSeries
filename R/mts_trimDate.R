@@ -1,7 +1,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @title Trim \emph{mts} object to full days
+#' @title Trim \emph{mts} time series object to full days
 #'
 #' @param mts \emph{mts} object.
 #' @param timezone Olson timezone used to interpret dates.
@@ -23,7 +23,8 @@
 #' default, results in "local time" date filtering which is the most
 #' common use case.
 #'
-#' @return A subset of the given \emph{mts} object.
+#' @return A subset of the incoming \emph{mts} time series object.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @examples
 #' library(MazamaTimeSeries)

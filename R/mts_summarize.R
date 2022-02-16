@@ -2,7 +2,7 @@
 #' @importFrom rlang .data
 #' @importFrom dplyr across everything
 #'
-#' @title Create summary time series for an \emph{mts} object
+#' @title Create summary time series for an \emph{mts} time series object
 #'
 #' @param mts \emph{mts} object.
 #' @param timezone Olson timezone used to interpret dates.
@@ -13,7 +13,9 @@
 #' @param minCount Minimum number of valid data records required to calculate
 #' summaries. Time periods with fewer valid records will be assigned \code{NA}.
 #'
-#' @return An \emph{mts} object containing daily (or other) statistical summaries.
+#' @return An \emph{mts} time series object containing daily (or other)
+#' statistical summaries.
+#' (A list with \code{meta} and \code{data} dataframes.)
 #'
 #' @description
 #' Individual time series in \code{mts$data} are grouped by \code{unit} and then

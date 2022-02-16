@@ -52,7 +52,7 @@ for **S**ingle**T**ime**S**eries:
 
 Raw, "engineering data" containing uncalibrated measurements, instrument voltages 
 and QC flags may be stored in this format. This format is also appropriate for 
-processed and QC'ed data whenever mutiple parameters are measured by a single
+processed and QC'ed data whenever multiple parameters are measured by a single
 device.
 
 _**Note:**_ The `sts` object time axis specified in `data$datetime` reflects device 
@@ -92,7 +92,7 @@ identical(names(mts$data), c('datetime', mts$meta$deviceDeploymentID))
 * regular (shared) hourly time axes only
 * single parameter only
 
-Each column of `mts$data` represents a timeseries associated with a partricular
+Each column of `mts$data` represents a timeseries associated with a particular
 device-deployment while each row represents a _synoptic_ snap shot of all
 measurements made at a particular time. 
 
