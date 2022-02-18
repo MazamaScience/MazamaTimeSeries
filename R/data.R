@@ -51,14 +51,16 @@
 #' \code{sts} object containing hourly measurements from a RAWS weather station
 #' in Saddle Mountain, WA, between July 2002 and December 2017.
 #'
-#' This dataset was was generated on 2021-02-25 by running:
+#' This dataset was was generated on 2022-02-17 by running:
 #'
 #' \preformatted{
 #' library(RAWSmet)
 #'
 #' setRawsDataDir("~/Data/RAWS")
 #'
-#' example_raws <- cefa_load(nwsID = "452701")
+#' example_raws <-
+#'   cefa_load(nwsID = "452701") %>%
+#'   raws_filterDate(20160701, 20161001)
 #'
 #' save(example_raws, file = "data/example_raws.rda")
 #' }

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Test mts object for correct structure — mts_isValid • MazamaTimeSeries</title>
+<title>Create summary time series for an sts time series object — sts_summarize • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,28 +39,17 @@
 
 
 
-<meta property="og:title" content="Test mts object for correct structure — mts_isValid" />
-<meta property="og:description" content="The mts is checked for the presence of core
-meta and data columns.
-Core meta columns include:
-
-deviceDeploymentID -- unique identifier (see MazmaLocationUtils)
-deviceID -- device identifier
-locationID -- location identifier (see MazmaLocationUtils)
-locationName -- English language name
-longitude -- decimal degrees E
-latitude -- decimal degrees N
-elevation -- elevation of station in m
-countryCode -- ISO 3166-1 alpha-2
-stateCode -- ISO 3166-2 alpha-2
-timezone -- Olson time zone
-
-
-Core data columns include:
-
-datetime -- measurement time (UTC)
-
-" />
+<meta property="og:title" content="Create summary time series for an sts time series object — sts_summarize" />
+<meta property="og:description" content="Columns of numeric data in sts$data are grouped by unit and then
+summarized using FUN.
+Columns with non-numeric data are summarized by just picking the first
+occurrence in each unit. This preserves the utility of columns
+containing repeated metadata.
+The most typical use case is creating daily averages where each day begins at
+midnight. Day boundaries are calculated using the specified timezone
+or, if NULL, the time zone found in sts$meta$timezone[1].
+Leaving timezone = NULL, the default, results in &quot;local time&quot; date
+filtering which is the most common use case." />
 
 
 
@@ -146,64 +135,70 @@ datetime -- measurement time (UTC)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Test <em>mts</em> object for correct structure</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/utils-mts.R'><code>R/utils-mts.R</code></a></small>
-    <div class="hidden name"><code>mts_isValid.Rd</code></div>
+    <h1>Create summary time series for an <em>sts</em> time series object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/sts_summarize.R'><code>R/sts_summarize.R</code></a></small>
+    <div class="hidden name"><code>sts_summarize.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <code>mts</code> is checked for the presence of core
-<code>meta</code> and <code>data</code> columns.</p>
-<p>Core <code>meta</code> columns include:</p>
-<ul>
-<li><p><code>deviceDeploymentID</code> -- unique identifier (see <span class="pkg">MazmaLocationUtils</span>)</p></li>
-<li><p><code>deviceID</code> -- device identifier</p></li>
-<li><p><code>locationID</code> -- location identifier (see <span class="pkg">MazmaLocationUtils</span>)</p></li>
-<li><p><code>locationName</code> -- English language name</p></li>
-<li><p><code>longitude</code> -- decimal degrees E</p></li>
-<li><p><code>latitude</code> -- decimal degrees N</p></li>
-<li><p><code>elevation</code> -- elevation of station in m</p></li>
-<li><p><code>countryCode</code> -- ISO 3166-1 alpha-2</p></li>
-<li><p><code>stateCode</code> -- ISO 3166-2 alpha-2</p></li>
-<li><p><code>timezone</code> -- Olson time zone</p></li>
-</ul>
-
-<p>Core <code>data</code> columns include:</p>
-<ul>
-<li><p><code>datetime</code> -- measurement time (UTC)</p></li>
-</ul>
-
+    <p>Columns of numeric data in <code>sts$data</code> are grouped by <code>unit</code> and then
+summarized using <code>FUN</code>.</p>
+<p>Columns with non-numeric data are summarized by just picking the first
+occurrence in each <code>unit</code>. This preserves the utility of columns
+containing repeated metadata.</p>
+<p>The most typical use case is creating daily averages where each day begins at
+midnight. Day boundaries are calculated using the specified <code>timezone</code>
+or, if <code>NULL</code>, the time zone found in <code>sts$meta$timezone[1]</code>.
+Leaving <code>timezone = NULL</code>, the default, results in "local time" date
+filtering which is the most common use case.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mts_isValid</span><span class='op'>(</span>mts <span class='op'>=</span> <span class='cn'>NULL</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>sts_summarize</span><span class='op'>(</span>
+  <span class='va'>sts</span>,
+  timezone <span class='op'>=</span> <span class='cn'>NULL</span>,
+  unit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"day"</span>, <span class='st'>"week"</span>, <span class='st'>"month"</span>, <span class='st'>"year"</span><span class='op'>)</span>,
+  FUN <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>,
+  minCount <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mts</th>
-      <td><p><em>mts</em> object</p></td>
+      <th>sts</th>
+      <td><p><em>sts</em> object.</p></td>
     </tr>
     <tr>
-      <th>verbose</th>
-      <td><p>Logical specifying whether to produce detailed warning messages.</p></td>
+      <th>timezone</th>
+      <td><p>Olson timezone used to interpret dates.</p></td>
+    </tr>
+    <tr>
+      <th>unit</th>
+      <td><p>Unit used to summarize by (<em>e.g.</em> "day").</p></td>
+    </tr>
+    <tr>
+      <th>FUN</th>
+      <td><p>Function used to summarize time series.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments to be passed to <code>FUN</code>
+(_e.g._ <code>na.rm = TRUE</code>).</p></td>
+    </tr>
+    <tr>
+      <th>minCount</th>
+      <td><p>Minimum number of valid data records required to calculate
+summaries. Time periods with fewer valid records will be assigned <code>NA</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Invisibly returns <code>TRUE</code> if <code>mts</code> has the correct structure,
-<code>FALSE</code> otherwise.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>An <em>sts</em> time series object containing daily (or other)
+statistical summaries.
+(A list with <code>meta</code> and <code>data</code> dataframes.)</p>
 
-    <div class='dont-index'><p><a href='mts_check.html'>mts_check</a></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/MazamaTimeSeries'>MazamaTimeSeries</a></span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>mts_isValid</span><span class='op'>(</span><span class='va'>example_mts</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

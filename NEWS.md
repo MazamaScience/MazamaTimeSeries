@@ -1,3 +1,8 @@
+# MazamaTimeSeries 0.2.3
+
+* Added `sts_summarize()`.
+* Udated `example_raws` dataset.
+
 # MazamaTimeSeries 0.2.2
 
 * Documentation fixes requested by CRAN.
