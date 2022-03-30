@@ -1,3 +1,7 @@
+# MazamaTimeSeries 0.2.4
+
+* Updated to add a Zenodo DOI bdage.
+
 # MazamaTimeSeries 0.2.3
 
 * Added `sts_summarize()`.
