@@ -1,6 +1,6 @@
 Type: Package
 Package: MazamaTimeSeries
-Version: 0.2.4
+Version: 0.2.5
 Title: Core Functionality for Environmental Time Series
 Authors@R: c(
     person("Jonathan", "Callahan", email="jonathan.s.callahan@gmail.com", role=c("aut","cre")),
@@ -29,7 +29,6 @@ Imports:
     magrittr,
     methods,
     MazamaCoreUtils (>= 0.4.10),
-    readr,
     rlang,
     stringr
 Suggests:

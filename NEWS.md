@@ -1,3 +1,7 @@
+# MazamaTimeSeries 0.2.5
+
+* Removed **readr** package from dependencies.
+
 # MazamaTimeSeries 0.2.4
 
 * Updated to add a Zenodo DOI bdage.
