@@ -82,7 +82,7 @@ mts_combine <- function(
 
   # NOTE:  If the first element is just a plain "list" of length 1, assume we are
   # NOTE:  being handed a list of mts objects rather than separate mts objects.
-  if ( length(class(mtsList[[1]])) == 1 && class(mtsList[[1]]) == "list" ) {
+  if ( length(class(mtsList[[1]])) == 1 && inherits(mtsList[[1]], "list") ) {
     mtsList <- mtsList[[1]]
   }
 

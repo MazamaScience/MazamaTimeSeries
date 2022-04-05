@@ -1,6 +1,7 @@
 # MazamaTimeSeries 0.2.5
 
 * Removed **readr** package from dependencies.
+* Addressed CRAN check issues.
 
 # MazamaTimeSeries 0.2.4
 

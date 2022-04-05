@@ -61,7 +61,7 @@ sts_combine <- function(
 
   # NOTE:  If the first element is just a plain "list" of length 1, assume we are
   # NOTE:  being handed a list of sts objects rather than separate sts objects.
-  if ( length(class(stsList[[1]])) == 1 && class(stsList[[1]]) == "list" ) {
+  if ( length(class(stsList[[1]])) == 1 && inherits(stsList[[1]], "list") ) {
     stsList <- stsList[[1]]
   }
 
