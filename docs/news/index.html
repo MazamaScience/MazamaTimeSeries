@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
       </span>
     </div>
 
@@ -90,7 +90,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -129,9 +129,21 @@
       <small>Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="mazamatimeseries-026" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.6">
+<a href="#mazamatimeseries-026" class="anchor"></a>MazamaTimeSeries 0.2.6<small> Unreleased </small>
+</h1>
+<ul>
+<li>Added dependency on <strong>MazamaRollUtils</strong>
+</li>
+<li>Added internal functions: <code><a href="../reference/.sample.html">.sample()</a></code>,
+<code>.findOutliers()</code>.</li>
+<li>Added <code><a href="../reference/mts_sample.html">mts_sample()</a></code>.</li>
+</ul>
+</div>
     <div id="mazamatimeseries-025" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.5">
-<a href="#mazamatimeseries-025" class="anchor"></a>MazamaTimeSeries 0.2.5<small> Unreleased </small>
+<a href="#mazamatimeseries-025" class="anchor"></a>MazamaTimeSeries 0.2.5<small> 2022-04-05 </small>
 </h1>
 <ul>
 <li>Removed <strong>readr</strong> package from dependencies.</li>
@@ -177,7 +189,8 @@
 </h1>
 <p>Version 0.2 of the pakcage is ready for operational use.</p>
 <ul>
-<li>Replaced <code>sts_join()</code> with<code><a href="../reference/sts_combine.html">sts_combine()</a></code>.</li>
+<li>Replaced <code>sts_join()</code>
+with<code><a href="../reference/sts_combine.html">sts_combine()</a></code>.</li>
 </ul>
 </div>
     <div id="mazamatimeseries-016" class="section level1">
@@ -185,8 +198,10 @@
 <a href="#mazamatimeseries-016" class="anchor"></a>MazamaTimeSeries 0.1.6<small> Unreleased </small>
 </h1>
 <ul>
-<li>Improved default parameter settings in <code><a href="../reference/mts_collapse.html">mts_collapse()</a></code>.</li>
-<li>Added <code>trimEmptyDays</code> argument to <code><a href="../reference/mts_trimDate.html">mts_trimDate()</a></code>.</li>
+<li>Improved default parameter settings in
+<code><a href="../reference/mts_collapse.html">mts_collapse()</a></code>.</li>
+<li>Added <code>trimEmptyDays</code> argument to
+<code><a href="../reference/mts_trimDate.html">mts_trimDate()</a></code>.</li>
 </ul>
 </div>
     <div id="mazamatimeseries-015" class="section level1">
@@ -195,7 +210,8 @@
 </h1>
 <ul>
 <li>Fixed bug in <code><a href="../reference/mts_collapse.html">mts_collapse()</a></code>.</li>
-<li>Additional consistency checks in <code>monitor_isValid()</code>.</li>
+<li>Additional consistency checks in
+<code><a href="https://rdrr.io/pkg/AirMonitor/man/monitor_isValid.html">monitor_isValid()</a></code>.</li>
 </ul>
 </div>
     <div id="mazamatimeseries-014" class="section level1">
@@ -203,8 +219,10 @@
 <a href="#mazamatimeseries-014" class="anchor"></a>MazamaTimeSeries 0.1.4<small> Unreleased </small>
 </h1>
 <ul>
-<li>Renamed <code>mts_distance()</code> to <code><a href="../reference/mts_getDistance.html">mts_getDistance()</a></code>.</li>
-<li>Fixed bugs related to leftover <code>monitorID</code> references.</li>
+<li>Renamed <code>mts_distance()</code> to
+<code><a href="../reference/mts_getDistance.html">mts_getDistance()</a></code>.</li>
+<li>Fixed bugs related to leftover <code>monitorID</code>
+references.</li>
 </ul>
 </div>
     <div id="mazamatimeseries-013" class="section level1">
@@ -212,7 +230,8 @@
 <a href="#mazamatimeseries-013" class="anchor"></a>MazamaTimeSeries 0.1.3<small> Unreleased </small>
 </h1>
 <ul>
-<li>Added <code>replaceMeta</code> argument to <code><a href="../reference/mts_combine.html">mts_combine()</a></code>.</li>
+<li>Added <code>replaceMeta</code> argument to
+<code><a href="../reference/mts_combine.html">mts_combine()</a></code>.</li>
 </ul>
 </div>
     <div id="mazamatimeseries-012" class="section level1">
@@ -236,7 +255,8 @@
 <a href="#mazamatimeseries-010" class="anchor"></a>MazamaTimeSeries 0.1.0<small> Unreleased </small>
 </h1>
 <ul>
-<li>Full documentation, examples and tests for basic <em>mts</em> functionality.</li>
+<li>Full documentation, examples and tests for basic <em>mts</em>
+functionality.</li>
 </ul>
 </div>
     <div id="mazamatimeseries-009" class="section level1">
@@ -252,8 +272,10 @@
 <a href="#mazamatimeseries-008" class="anchor"></a>MazamaTimeSeries 0.0.8<small> Unreleased </small>
 </h1>
 <ul>
-<li>Added <code><a href="../reference/mts_collapse.html">mts_collapse()</a></code>, <code>mts_distance()</code> and <code><a href="../reference/mts_select.html">mts_select()</a></code>.</li>
-<li>Renamed <code>mts_filter()</code> to <code><a href="../reference/mts_filterData.html">mts_filterData()</a></code> to be more explicit</li>
+<li>Added <code><a href="../reference/mts_collapse.html">mts_collapse()</a></code>, <code>mts_distance()</code> and
+<code><a href="../reference/mts_select.html">mts_select()</a></code>.</li>
+<li>Renamed <code>mts_filter()</code> to <code><a href="../reference/mts_filterData.html">mts_filterData()</a></code>
+to be more explicit</li>
 </ul>
 </div>
     <div id="mazamatimeseries-007" class="section level1">
@@ -284,8 +306,10 @@
 <ul>
 <li>Added tests for all functions.</li>
 <li>Added <code><a href="../reference/mts_combine.html">mts_combine()</a></code>.</li>
-<li>Adding <code>mts_filter~()</code> equivalents to <code>sts_filter~()</code> functions.</li>
-<li>Improved warning messages in <code><a href="../reference/sts_isValid.html">sts_isValid()</a></code> and <code><a href="../reference/mts_isValid.html">mts_isValid()</a></code>.</li>
+<li>Adding <code>mts_filter~()</code> equivalents to
+<code>sts_filter~()</code> functions.</li>
+<li>Improved warning messages in <code><a href="../reference/sts_isValid.html">sts_isValid()</a></code> and
+<code><a href="../reference/mts_isValid.html">mts_isValid()</a></code>.</li>
 </ul>
 </div>
     <div id="mazamatimeseries-004" class="section level1">
@@ -315,7 +339,8 @@
 <a href="#mazamatimeseries-002" class="anchor"></a>MazamaTimeSeries 0.0.2<small> Unreleased </small>
 </h1>
 <ul>
-<li>Added basic utility functions for <code>sts</code> and <code>mts</code> objects.</li>
+<li>Added basic utility functions for <code>sts</code> and
+<code>mts</code> objects.</li>
 <li>Added the following <code>sts</code> functions:
 <ul>
 <li><code><a href="../reference/sts_filter.html">sts_filter()</a></code></li>

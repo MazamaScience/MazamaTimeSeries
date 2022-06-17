@@ -1,3 +1,9 @@
+# MazamaTimeSeries 0.2.6
+
+* Added dependency on **MazamaRollUtils**
+* Added internal functions: `.sample()`, `.findOutliers()`.
+* Added `mts_sample()`.
+
 # MazamaTimeSeries 0.2.5
 
 * Removed **readr** package from dependencies.

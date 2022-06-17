@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
       </span>
     </div>
 
@@ -50,7 +50,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -82,7 +82,7 @@
 
       
 
-      </header><script src="MazamaTimeSeries_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
+      </header><script src="MazamaTimeSeries_files/header-attrs-2.14/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to MazamaTimeSeries</h1>
@@ -100,47 +100,97 @@
 <div id="background" class="section level2">
 <h2 class="hasAnchor">
 <a href="#background" class="anchor"></a>Background</h2>
-<p>This package supports data management activities associated with environmental time series collected at fixed locations in space. The motivating fields include both air and water quality monitoring where fixed sensors report at regular time intervals.</p>
+<p>This package supports data management activities associated with
+environmental time series collected at fixed locations in space. The
+motivating fields include both air and water quality monitoring where
+fixed sensors report at regular time intervals.</p>
 </div>
 <div id="data-model" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-model" class="anchor"></a>Data Model</h2>
-<p>The most compact format for time series data collected at fixed locations is a list including two tables. <strong>MazamaTimeSeries</strong> stores time series measurements in a <code>data</code> table where each row is a synoptic record containing all measurements associated with a particular UTC time stamp and each column contains data measured by a single sensor (aka “device”). Any time invariant metadata associated with a sensor at a known location (aka a “device-deployment”) is stored in a separate <code>meta</code> table. A unique <code>deviceDeploymentID</code> connects the two tables. In the language of relational databases, this “normalizes” the database and can greatly reduce the disk space and memory needed to store and work with the data.</p>
+<p>The most compact format for time series data collected at fixed
+locations is a list including two tables.
+<strong>MazamaTimeSeries</strong> stores time series measurements in a
+<code>data</code> table where each row is a synoptic record containing
+all measurements associated with a particular UTC time stamp and each
+column contains data measured by a single sensor (aka “device”). Any
+time invariant metadata associated with a sensor at a known location
+(aka a “device-deployment”) is stored in a separate <code>meta</code>
+table. A unique <code>deviceDeploymentID</code> connects the two tables.
+In the language of relational databases, this “normalizes” the database
+and can greatly reduce the disk space and memory needed to store and
+work with the data.</p>
 <div id="single-time-series" class="section level3">
 <h3 class="hasAnchor">
 <a href="#single-time-series" class="anchor"></a>Single Time Series</h3>
-<p>Time series data from a single environmental sensor typically consists of multiple parameters measured at successive times. This data is stored in an R list containing two dataframes. The package refers to this structure as an <code>sts</code> object for <strong>S</strong>ingle<strong>T</strong>ime<strong>S</strong>eries:</p>
-<p><code>sts$meta</code> – 1 row = unique device-deployment; cols = device/location metadata</p>
-<p><code>sts$data</code> – rows = UTC times; cols = measured parameters (plus an additional <code>datetime</code> column)</p>
-<p><code>sts</code> objects can support the following types of time series data:</p>
+<p>Time series data from a single environmental sensor typically
+consists of multiple parameters measured at successive times. This data
+is stored in an R list containing two dataframes. The package refers to
+this structure as an <code>sts</code> object for
+<strong>S</strong>ingle<strong>T</strong>ime<strong>S</strong>eries:</p>
+<p><code>sts$meta</code> – 1 row = unique device-deployment; cols =
+device/location metadata</p>
+<p><code>sts$data</code> – rows = UTC times; cols = measured parameters
+(plus an additional <code>datetime</code> column)</p>
+<p><code>sts</code> objects can support the following types of time
+series data:</p>
 <ul>
 <li>stationary device-deployments only (no “mobile” sensors)</li>
 <li>single sensor only</li>
 <li>regular or irregular time axes</li>
 <li>multiple parameters</li>
 </ul>
-<p>Raw, “engineering data” containing uncalibrated measurements, instrument voltages and QC flags may be stored in this format. This format is also appropriate for processed and QC’ed data whenever multiple parameters are measured by a single device.</p>
-<p><em><strong>Note:</strong></em> The <code>sts</code> object time axis specified in <code>data$datetime</code> reflects device measurement times and is not required to have uniform spacing. (It <em>may</em> be regular but it need not be.)</p>
+<p>Raw, “engineering data” containing uncalibrated measurements,
+instrument voltages and QC flags may be stored in this format. This
+format is also appropriate for processed and QC’ed data whenever
+multiple parameters are measured by a single device.</p>
+<p><em><strong>Note:</strong></em> The <code>sts</code> object time axis
+specified in <code>data$datetime</code> reflects device measurement
+times and is not required to have uniform spacing. (It <em>may</em> be
+regular but it need not be.)</p>
 </div>
 <div id="multiple-time-series" class="section level3">
 <h3 class="hasAnchor">
 <a href="#multiple-time-series" class="anchor"></a>Multiple Time Series</h3>
-<p>Working with timeseries data from multiple sensors at once is often challenging because of the amount of memory required to store all the data from each sensor. However, a common situation is to have time series that share a common time axis – <em>e.g.</em> hourly measurements. In this case, it is possible to create single-parameter <code>data</code> dataframes that contain all data for all sensors for a single parameter of interest. In air quality applications, common parameters of interest include PM2.5 and Ozone.</p>
-<p>Multi-sensor, single-parameter time series data is stored in an R list with two dataframes. The package refers to this structure as an <code>mts</code> object for <strong>M</strong>ultiple<strong>T</strong>ime<strong>S</strong>eries:</p>
-<p><code>mts$meta</code> – N rows = unique device-deployments; cols = device/location metadata</p>
-<p><code>mts$data</code> – rows = UTC times; N cols = device-deployments (plus an additional <code>datetime</code> column)</p>
-<p>A key feature of <code>mts</code> objects is the use of the <code>deviceDeploymentID</code> as a “foreign key” that allows sensor <code>data</code> columns to be mapped onto the associated spatial and sensor metadata in a <code>meta</code> row. The following will always be true:</p>
+<p>Working with timeseries data from multiple sensors at once is often
+challenging because of the amount of memory required to store all the
+data from each sensor. However, a common situation is to have time
+series that share a common time axis – <em>e.g.</em> hourly
+measurements. In this case, it is possible to create single-parameter
+<code>data</code> dataframes that contain all data for all sensors for a
+single parameter of interest. In air quality applications, common
+parameters of interest include PM2.5 and Ozone.</p>
+<p>Multi-sensor, single-parameter time series data is stored in an R
+list with two dataframes. The package refers to this structure as an
+<code>mts</code> object for
+<strong>M</strong>ultiple<strong>T</strong>ime<strong>S</strong>eries:</p>
+<p><code>mts$meta</code> – N rows = unique device-deployments; cols =
+device/location metadata</p>
+<p><code>mts$data</code> – rows = UTC times; N cols = device-deployments
+(plus an additional <code>datetime</code> column)</p>
+<p>A key feature of <code>mts</code> objects is the use of the
+<code>deviceDeploymentID</code> as a “foreign key” that allows sensor
+<code>data</code> columns to be mapped onto the associated spatial and
+sensor metadata in a <code>meta</code> row. The following will always be
+true:</p>
 <pre><code><a href="https://rdrr.io/r/base/identical.html">identical(names(mts$data), c('datetime', mts$meta$deviceDeploymentID))</a></code></pre>
-<p><code>mts</code> objects can support the following types of time series data:</p>
+<p><code>mts</code> objects can support the following types of time
+series data:</p>
 <ul>
 <li>stationary device-deployments only (no “mobile” sensors)</li>
 <li>multiple sensors</li>
 <li>regular (shared) hourly time axes only</li>
 <li>single parameter only</li>
 </ul>
-<p>Each column of <code>mts$data</code> represents a timeseries associated with a particular device-deployment while each row represents a <em>synoptic</em> snap shot of all measurements made at a particular time.</p>
-<p>In this manner, software can create both timeseries plots and maps from a single <code>mts</code> object in memory.</p>
-<p><em><strong>Note:</strong></em> The <code>mts</code> object time axis specified in <code>data$datetime</code> is guaranteed to be a regular hourly axis with no gaps.</p>
+<p>Each column of <code>mts$data</code> represents a timeseries
+associated with a particular device-deployment while each row represents
+a <em>synoptic</em> snap shot of all measurements made at a particular
+time.</p>
+<p>In this manner, software can create both timeseries plots and maps
+from a single <code>mts</code> object in memory.</p>
+<p><em><strong>Note:</strong></em> The <code>mts</code> object time axis
+specified in <code>data$datetime</code> is guaranteed to be a regular
+hourly axis with no gaps.</p>
 </div>
 </div>
 <div id="example-usage" class="section level2">
@@ -148,7 +198,8 @@
 <a href="#example-usage" class="anchor"></a>Example Usage</h2>
 <p><em>See usage examples in the function documentation.</em></p>
 <hr>
-<p>Best wishes for efficient and productive analysis of time series data!</p>
+<p>Best wishes for efficient and productive analysis of time series
+data!</p>
 <hr>
 <p>This R package was created with funding from the USFS <a href="https://www.airfire.org">AirFire Research Team</a>.</p>
 </div>

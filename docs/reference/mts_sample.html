@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Test mts object for correct structure — mts_isValid • MazamaTimeSeries</title>
+<title>Sample time series for an mts time series object — mts_sample • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,28 +39,9 @@
 
 
 
-<meta property="og:title" content="Test mts object for correct structure — mts_isValid" />
-<meta property="og:description" content="The mts is checked for the presence of core
-meta and data columns.
-Core meta columns include:
-
-deviceDeploymentID -- unique identifier (see MazmaLocationUtils)
-deviceID -- device identifier
-locationID -- location identifier (see MazmaLocationUtils)
-locationName -- English language name
-longitude -- decimal degrees E
-latitude -- decimal degrees N
-elevation -- elevation of station in m
-countryCode -- ISO 3166-1 alpha-2
-stateCode -- ISO 3166-2 alpha-2
-timezone -- Olson time zone
-
-
-Core data columns include:
-
-datetime -- measurement time (UTC)
-
-" />
+<meta property="og:title" content="Sample time series for an mts time series object — mts_sample" />
+<meta property="og:description" content="Reduce the number of records (timesteps) in the data
+dataframe of the incoming mts through random sampling." />
 
 
 
@@ -146,64 +127,91 @@ datetime -- measurement time (UTC)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Test <em>mts</em> object for correct structure</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/utils-mts.R'><code>R/utils-mts.R</code></a></small>
-    <div class="hidden name"><code>mts_isValid.Rd</code></div>
+    <h1>Sample time series for an <em>mts</em> time series object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/mts_sample.R'><code>R/mts_sample.R</code></a></small>
+    <div class="hidden name"><code>mts_sample.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <code>mts</code> is checked for the presence of core
-<code>meta</code> and <code>data</code> columns.</p>
-<p>Core <code>meta</code> columns include:</p>
-<ul>
-<li><p><code>deviceDeploymentID</code> -- unique identifier (see <span class="pkg">MazmaLocationUtils</span>)</p></li>
-<li><p><code>deviceID</code> -- device identifier</p></li>
-<li><p><code>locationID</code> -- location identifier (see <span class="pkg">MazmaLocationUtils</span>)</p></li>
-<li><p><code>locationName</code> -- English language name</p></li>
-<li><p><code>longitude</code> -- decimal degrees E</p></li>
-<li><p><code>latitude</code> -- decimal degrees N</p></li>
-<li><p><code>elevation</code> -- elevation of station in m</p></li>
-<li><p><code>countryCode</code> -- ISO 3166-1 alpha-2</p></li>
-<li><p><code>stateCode</code> -- ISO 3166-2 alpha-2</p></li>
-<li><p><code>timezone</code> -- Olson time zone</p></li>
-</ul>
-
-<p>Core <code>data</code> columns include:</p>
-<ul>
-<li><p><code>datetime</code> -- measurement time (UTC)</p></li>
-</ul>
-
+    <p>Reduce the number of records (timesteps) in the <code>data</code>
+dataframe of the incoming <code>mts</code> through random sampling.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mts_isValid</span><span class='op'>(</span>mts <span class='op'>=</span> <span class='cn'>NULL</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>mts_sample</span><span class='op'>(</span>
+  mts <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sampleSize <span class='op'>=</span> <span class='fl'>5000</span>,
+  seed <span class='op'>=</span> <span class='cn'>NULL</span>,
+  keepOutliers <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  width <span class='op'>=</span> <span class='fl'>5</span>,
+  thresholdMin <span class='op'>=</span> <span class='fl'>3</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mts</th>
-      <td><p><em>mts</em> object</p></td>
+      <td><p><em>mts</em> object.</p></td>
     </tr>
     <tr>
-      <th>verbose</th>
-      <td><p>Logical specifying whether to produce detailed warning messages.</p></td>
+      <th>sampleSize</th>
+      <td><p>Non-negative integer giving the number of rows to choose.</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>Integer passed to <code><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></code> for reproducible sampling.</p></td>
+    </tr>
+    <tr>
+      <th>keepOutliers</th>
+      <td><p>Logical specifying a graphics focused sampling algorithm
+that retains outliers (see Details).</p></td>
+    </tr>
+    <tr>
+      <th>width</th>
+      <td><p>Integer width of the rolling window used for outlier detection.</p></td>
+    </tr>
+    <tr>
+      <th>thresholdMin</th>
+      <td><p>Numeric threshold for outlier detection.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Invisibly returns <code>TRUE</code> if <code>mts</code> has the correct structure,
-<code>FALSE</code> otherwise.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>A subset of the given <em>mts</em> object.</p>
+<p>An <em>mts</em> time series object with fewer timesteps.
+(A list with <code>meta</code> and <code>data</code> dataframes.)</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class='dont-index'><p><a href='mts_check.html'>mts_check</a></p></div>
+    <p>When <code>keepOutliers = FALSE</code>, random sampling is used to provide
+a statistically relevant subsample of the data.</p>
+    <h2 class="hasAnchor" id="outlier-detection"><a class="anchor" href="#outlier-detection"></a>Outlier Detection</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/MazamaTimeSeries'>MazamaTimeSeries</a></span><span class='op'>)</span>
+    
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>mts_isValid</span><span class='op'>(</span><span class='va'>example_mts</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-</div></pre>
+
+<p>When <code>keepOutliers = TRUE</code>, a customized sampling algorithm is used that
+attempts to create subsets for use in plotting that create plots that are
+visually identical to plots using all data. This is accomplished by
+preserving outliers and only sampling data in regions where overplotting
+is expected.</p>
+<p>The process is as follows:</p><ol>
+<li><p>find outliers using <code><a href='https://rdrr.io/pkg/MazamaRollUtils/man/findOutliers.html'>MazamaRollUtils::findOutliers()</a></code></p></li>
+<li><p>create a subset consisting of only outliers</p></li>
+<li><p>sample the remaining data</p></li>
+<li><p>merge the outliers and sampled data</p></li>
+</ol>
+
+<p>This algorithm works best when the <em>mts</em> object has only one or two
+timeseries.</p>
+<p>The <code>width</code> and <code>thresholdMin</code> parameters determine the number of
+outliers detected. For hourly data, a <code>width</code> of 5 and a <code>thresholdMin</code>
+of 3 or 4 seem to find many visually obvious outliers.</p>
+<p>Users attempting to optimize plotting speed for lengthy time series are
+encouraged to experiment with these two parameters along with
+<code>sampleSize</code> and review the results visually.</p>
+<p>See <code><a href='https://rdrr.io/pkg/MazamaRollUtils/man/findOutliers.html'>findOutliers</a></code>.</p>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

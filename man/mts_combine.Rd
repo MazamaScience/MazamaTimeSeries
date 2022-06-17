@@ -13,7 +13,7 @@ mts_combine(..., replaceMeta = FALSE)
 metadata associated with \code{deviceDeploymentIDs}.}
 }
 \value{
-An \code{mts} time series object containing all time series found
+An \emph{mts} time series object containing all time series found
 in the incoming \code{mts} objects.
 (A list with \code{meta} and \code{data} dataframes.)
 }

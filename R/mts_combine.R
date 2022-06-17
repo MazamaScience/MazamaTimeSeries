@@ -7,7 +7,7 @@
 #' @param replaceMeta Logical specifying whether to allow replacement of
 #' metadata associated with \code{deviceDeploymentIDs}.
 #'
-#' @return An \code{mts} time series object containing all time series found
+#' @return An \emph{mts} time series object containing all time series found
 #' in the incoming \code{mts} objects.
 #' (A list with \code{meta} and \code{data} dataframes.)
 #'
