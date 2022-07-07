@@ -13,6 +13,10 @@
 #' evaluates to TRUE are kept. Rows where the condition evaluates to \code{NA}
 #' are dropped.
 #'
+#' If an empty \emph{sts} object is passed in, it is immediately returned,
+#' allowing for multiple filtering steps to be piped together and only checking
+#' for an empty \emph{sts} object at the end of the pipeline.
+#'
 #' @note Filtering is done on values in \code{sts$data}.
 #'
 #' @return A subset of the incoming \code{sts} time series object.
@@ -50,7 +54,7 @@ sts_filter <- function(
   }
 
   if ( sts_isEmpty(sts) )
-    stop("Parameter 'sts' has no data.")
+    return(sts)
 
   # Remove any duplicate data records
   sts <- sts_distinct(sts)

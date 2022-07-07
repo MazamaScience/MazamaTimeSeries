@@ -21,4 +21,15 @@ test_that("basic metadata filtering", {
     mts_filterMeta(example_mts, doesntexist > 100)
   )
 
+  # Multiple filtering steps on an empty mts should not generate an error
+  expect_equal(
+    example_mts %>%
+      mts_filterMeta(communityRegion == "Temescal Valley") %>%
+      mts_filterMeta(stateCode == "IA") %>%
+      mts_filterMeta(stateCode == "NY") %>%
+      mts_filterMeta(stateCode == "CA") %>%
+      mts_isEmpty(),
+    TRUE
+  )
+
 })

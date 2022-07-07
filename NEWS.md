@@ -1,3 +1,11 @@
+# MazamaTimeSeries 0.2.7
+
+* Updated `mts/sts_filterMeta()` to return an empty _mts/sts_ object if an empty _mts/sts_
+object is passed in. Previous behavior was to stop with an error message. The
+new behavior allows multiple filtering steps to be piped together without having
+to check for an empty _mts/sts_ at each step. Now you can check once at the end
+of the pipeline.
+
 # MazamaTimeSeries 0.2.6
 
 * Added dependency on **MazamaRollUtils**

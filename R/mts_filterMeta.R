@@ -13,6 +13,10 @@
 #' evaluates to TRUE are kept. Rows where the condition evaluates to \code{NA}
 #' are dropped.
 #'
+#' If an empty \emph{mts} object is passed in, it is immediately returned,
+#' allowing for multiple filtering steps to be piped together and only checking
+#' for an empty \emph{mts} object at the end of the pipeline.
+#'
 #' @note Filtering is done on variables in \code{mts$meta}.
 #'
 #' @return A subset of the incoming \emph{mts} time series object.
@@ -57,7 +61,7 @@ mts_filterMeta <- function(
   }
 
   if ( mts_isEmpty(mts) )
-    stop("Parameter 'mts' has no data.")
+    return(mts)
 
   # Remove any duplicate data records
   mts <- mts_distinct(mts)

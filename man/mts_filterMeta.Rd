@@ -22,6 +22,10 @@ choose rows/cases where conditions are true.  Multiple conditions are
 combined with \code{&} or separated by a comma. Only rows where the condition
 evaluates to TRUE are kept. Rows where the condition evaluates to \code{NA}
 are dropped.
+
+If an empty \emph{mts} object is passed in, it is immediately returned,
+allowing for multiple filtering steps to be piped together and only checking
+for an empty \emph{mts} object at the end of the pipeline.
 }
 \note{
 Filtering is done on variables in \code{mts$meta}.

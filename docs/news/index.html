@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7</span>
       </span>
     </div>
 
@@ -129,6 +129,19 @@
       <small>Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="mazamatimeseries-027" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.7">
+<a href="#mazamatimeseries-027" class="anchor"></a>MazamaTimeSeries 0.2.7<small> Unreleased </small>
+</h1>
+<ul>
+<li>Updated <code>mts/sts_filterMeta()</code> to return an empty
+<em>mts/sts</em> object if an empty <em>mts/sts</em> object is passed
+in. Previous behavior was to stop with an error message. The new
+behavior allows multiple filtering steps to be piped together without
+having to check for an empty <em>mts/sts</em> at each step. Now you can
+check once at the end of the pipeline.</li>
+</ul>
+</div>
     <div id="mazamatimeseries-026" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.6">
 <a href="#mazamatimeseries-026" class="anchor"></a>MazamaTimeSeries 0.2.6<small> Unreleased </small>

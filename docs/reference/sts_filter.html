@@ -44,7 +44,10 @@
 choose rows/cases where conditions are true.  Multiple conditions are
 combined with &amp;amp; or separated by a comma. Only rows where the condition
 evaluates to TRUE are kept. Rows where the condition evaluates to NA
-are dropped." />
+are dropped.
+If an empty sts object is passed in, it is immediately returned,
+allowing for multiple filtering steps to be piped together and only checking
+for an empty sts object at the end of the pipeline." />
 
 
 
@@ -76,7 +79,7 @@ are dropped." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.7</span>
       </span>
     </div>
 
@@ -141,6 +144,9 @@ choose rows/cases where conditions are true.  Multiple conditions are
 combined with <code>&amp;</code> or separated by a comma. Only rows where the condition
 evaluates to TRUE are kept. Rows where the condition evaluates to <code>NA</code>
 are dropped.</p>
+<p>If an empty <em>sts</em> object is passed in, it is immediately returned,
+allowing for multiple filtering steps to be piped together and only checking
+for an empty <em>sts</em> object at the end of the pipeline.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sts_filter</span><span class='op'>(</span><span class='va'>sts</span>, <span class='va'>...</span><span class='op'>)</span></pre>
