@@ -18,9 +18,8 @@
 #' @return A reordered (subset) of the incoming \emph{mts} time series object.
 #' (A list with \code{meta} and \code{data} dataframes.)
 #'
-#' @seealso \link{mts_filterData}
-#' @seealso \link{mts_filterDate}
-#' @seealso \link{mts_filterDatetime}
+#' @seealso \link{mts_selectWhere}
+#'
 #' @examples
 #' library(MazamaTimeSeries)
 #'

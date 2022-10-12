@@ -46,9 +46,5 @@ print(rev_El_Monte$meta$deviceDeploymentID)
 
 }
 \seealso{
-\link{mts_filterData}
-
-\link{mts_filterDate}
-
-\link{mts_filterDatetime}
+\link{mts_selectWhere}
 }

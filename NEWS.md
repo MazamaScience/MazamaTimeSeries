@@ -1,3 +1,9 @@
+# MazamaTimeSeries 0.2.8
+
+* Updated `Carmel_Valley` to match the latest version of the **AirMonitor** package.
+* Added `Camp_Fire` dataset from the **AirMonitor** package.
+* Added `mts_selectWhere()` to select time series based on data values.
+
 # MazamaTimeSeries 0.2.7
 
 * Updated `mts/sts_filterMeta()` to return an empty _mts/sts_ object if an empty _mts/sts_

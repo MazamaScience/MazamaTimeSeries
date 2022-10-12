@@ -24,19 +24,14 @@ shows heavy smoke as well as strong diurnal cycles associated with sea
 breezes. Data are stored as an \emph{mts} object and are used in some
 examples in the package documentation.
 
-This dataset was generated on 2021-10-14 by running:
+This dataset was generated on 2022-10-12 by running:
 
 \preformatted{
 library(AirMonitor)
 
 Carmel_Valley <-
-  epa_aqs_loadAnnual(
-    year = 2016,
-    parameterCode = 88101,
-    archiveBaseUrl = NULL,
-    archiveBaseDir = "~/Data/monitoring"
-  ) \%>\%
-  monitor_filterMeta(deviceDeploymentID == "a9572a904a4ed46d_060530002_03") \%>\%
+  airnow_loadAnnual(2016) \%>\%
+  monitor_filterMeta(deviceDeploymentID == "a9572a904a4ed46d_840060530002") \%>\%
   monitor_filterDate(20160722, 20160815)
 
 save(Carmel_Valley, file = "data/Carmel_Valley.rda")

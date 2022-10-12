@@ -48,8 +48,14 @@ test_that("simple daily summary works", {
 
 test_that("na.rm and minCount work", {
 
+  # The first day of Carmel_Valley data already has one NA
+  #
+  # > Carmel_Valley$data[1:24,2]
+  # [1]  0  0  0  1  2  2  1  0  0  1  2  3  3  3  4  5  3  0  1  5  7 NA  4  0
+
+  # Add 5 more to be on the threshold for minCount = 18
   bop <- Carmel_Valley
-  bop$data[1:6,2] <- NA
+  bop$data[1:5,2] <- NA
 
   # na.rm = FALSE
   daily <- mts_summarize(

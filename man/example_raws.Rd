@@ -25,7 +25,7 @@ library(RAWSmet)
 setRawsDataDir("~/Data/RAWS")
 
 example_raws <-
-  cefa_load(nwsID = "452701") %>%
+  cefa_load(nwsID = "452701") \%>\%
   raws_filterDate(20160701, 20161001)
 
 save(example_raws, file = "data/example_raws.rda")

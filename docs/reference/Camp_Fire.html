@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Extract dataframes from mts objects — mts_extractDataFrame • MazamaTimeSeries</title>
+<title>Camp Fire example dataset — Camp_Fire • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,12 +39,9 @@
 
 
 
-<meta property="og:title" content="Extract dataframes from mts objects — mts_extractDataFrame" />
-<meta property="og:description" content="These functions are convenient wrappers for extracting the dataframes that
-comprise an mts object. These functions are designed to be useful when
-manipulating data in a pipeline chain using %&amp;gt;%.
-mts_extractData(mts) is equivalent to mts$data.
-mts_extractMeta(mts) is equivalent to mts$meta." />
+<meta property="og:title" content="Camp Fire example dataset — Camp_Fire" />
+<meta property="og:description" content="The Camp_Fire dataset provides a quickly loadable
+version of a mts_monitor object for practicing and code examples." />
 
 
 
@@ -130,35 +127,48 @@ mts_extractMeta(mts) is equivalent to mts$meta." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Extract dataframes from <em>mts</em> objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/utils-mts.R'><code>R/utils-mts.R</code></a></small>
-    <div class="hidden name"><code>mts_extractDataFrame.Rd</code></div>
+    <h1>Camp Fire example dataset</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>Camp_Fire.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These functions are convenient wrappers for extracting the dataframes that
-comprise an <em>mts</em> object. These functions are designed to be useful when
-manipulating data in a pipeline chain using <code>%&gt;%</code>.</p>
-<p><code>mts_extractData(mts)</code> is equivalent to <code>mts$data</code>.</p>
-<p><code>mts_extractMeta(mts)</code> is equivalent to <code>mts$meta</code>.</p>
+    <p>The <code>Camp_Fire</code> dataset provides a quickly loadable
+version of a <em>mts_monitor</em> object for practicing and code examples.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mts_extractData</span><span class='op'>(</span><span class='va'>mts</span><span class='op'>)</span>
+    <pre class="usage"><span class='va'>Camp_Fire</span></pre>
 
-<span class='fu'>mts_extractMeta</span><span class='op'>(</span><span class='va'>mts</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>mts</th>
-      <td><p><em>mts</em> object to extract dataframe from.</p></td>
-    </tr>
-    </table>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <p>A <em>mts</em> object with 360 rows and 134 columns of data.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A dataframe from the <em>mts</em> object.</p>
+    <p>The 2018 Camp Fire was the deadliest and most destructive wildfire in California's
+history, and the most expensive natural disaster in the world in 2018 in
+terms of insured losses. The fire caused at least 85 civilian fatalities and
+injured 12 civilians and five firefighters. It covered an area of 153,336
+acres and destroyed more than 18,000 structures, most with the first 4 hours.
+Smoke from the fire resulted in the worst air pollution ever for the
+San Francisco Bay Area and Sacramento Valley.</p>
+<p>This dataset was was generated on 2022-10-12 by running:</p>
+<pre>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/AirMonitor'>AirMonitor</a></span><span class='op'>)</span>
+
+<span class='va'>Camp_Fire</span> <span class='op'>&lt;-</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/AirMonitor/man/monitor_loadAnnual.html'>monitor_loadAnnual</a></span><span class='op'>(</span><span class='fl'>2018</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/AirMonitor/man/monitor_filterMeta.html'>monitor_filter</a></span><span class='op'>(</span><span class='va'>stateCode</span> <span class='op'>==</span> <span class='st'>'CA'</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/AirMonitor/man/monitor_filterDate.html'>monitor_filterDate</a></span><span class='op'>(</span>
+    startdate <span class='op'>=</span> <span class='fl'>20181108</span>,
+    enddate <span class='op'>=</span> <span class='fl'>20181123</span>,
+    timezone <span class='op'>=</span> <span class='st'>"America/Los_Angeles"</span>
+ <span class='op'>)</span> <span class='op'>%&gt;%</span>
+ <span class='fu'><a href='https://rdrr.io/pkg/AirMonitor/man/monitor_dropEmpty.html'>monitor_dropEmpty</a></span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span><span class='op'>(</span><span class='va'>Camp_Fire</span>, file <span class='op'>=</span> <span class='st'>"data/Camp_Fire.rda"</span><span class='op'>)</span>
+</pre>
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
