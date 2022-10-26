@@ -81,7 +81,7 @@ replaceMeta = TRUE." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
       </span>
     </div>
 
@@ -153,7 +153,11 @@ non-identical metadata for the same <code>deviceDeploymentID</code> unless
 <code>replaceMeta = TRUE</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mts_combine</span><span class='op'>(</span><span class='va'>...</span>, replaceMeta <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>mts_combine</span><span class='op'>(</span>
+  <span class='va'>...</span>,
+  replaceMeta <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  overlapStrategy <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"replace all"</span>, <span class='st'>"replace na"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,6 +170,11 @@ non-identical metadata for the same <code>deviceDeploymentID</code> unless
       <th>replaceMeta</th>
       <td><p>Logical specifying whether to allow replacement of
 metadata associated with <code>deviceDeploymentIDs</code>.</p></td>
+    </tr>
+    <tr>
+      <th>overlapStrategy</th>
+      <td><p>Strategy to use when data found in time series
+overlaps.</p></td>
     </tr>
     </table>
 
@@ -182,9 +191,12 @@ data overlaps exist. To handle this, incoming <em>mts</em> objects are first
 split into "shared" and "unshared" parts.</p>
 <p>Any "shared" parts are ordered based on the
 time stamp of their last record. Then <code><a href='https://dplyr.tidyverse.org/reference/distinct.html'>dplyr::distinct()</a></code> is used to
-remove records with duplicate <code>datetime</code> fields. Any data records found
+remove records with duplicate <code>datetime</code> fields.</p>
+<p>With <code>overlapStrategy = "replace all"</code>, any data records found
 in "later" <em>mts</em> objects are preferentially retained before the "shared"
 data are finally reordered by ascending <code>datetime</code>.</p>
+<p>With <code>overlapStrategy = "replace missing"</code>, only missing values in "earlier"
+<em>mts</em> objects are replaced with data records from "later" time series.</p>
 <p>The final step is combining the "shared" and "unshared" parts and placing
 them on a uniform time axis.</p>
 

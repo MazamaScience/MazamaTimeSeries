@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Example sts dataset — example_sts • MazamaTimeSeries</title>
+<title>Trim mts time series by removing missing values — mts_trim • MazamaTimeSeries</title>
 
 
 <!-- jquery -->
@@ -39,20 +39,9 @@
 
 
 
-<meta property="og:title" content="Example sts dataset — example_sts" />
-<meta property="og:description" content="The example_sts dataset provides a quickly loadable
-version of an sts object for practicing and code examples.
-This dataset was was generated on 2021-01-08 by running:
-
-library(AirSensor)
-
-example_sts &amp;lt;- example_pat
-example_sts$meta$elevation &amp;lt;- as.numeric(NA)
-example_sts$meta$locationName &amp;lt;- example_sts$meta$label
-
-save(example_sts, file = &quot;data/example_sts.rda&quot;)
-
-" />
+<meta property="og:title" content="Trim mts time series by removing missing values — mts_trim" />
+<meta property="og:description" content="Trims the time range of an mts object by removing
+time steps from the start and end that contain only missing values." />
 
 
 
@@ -138,34 +127,45 @@ save(example_sts, file = &quot;data/example_sts.rda&quot;)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Example <em>sts</em> dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/data.R'><code>R/data.R</code></a></small>
-    <div class="hidden name"><code>example_sts.Rd</code></div>
+    <h1>Trim <em>mts</em> time series by removing missing values</h1>
+    <small class="dont-index">Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/R/mts_trim.R'><code>R/mts_trim.R</code></a></small>
+    <div class="hidden name"><code>mts_trim.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <code>example_sts</code> dataset provides a quickly loadable
-version of an <em>sts</em> object for practicing and code examples.</p>
-<p>This dataset was was generated on 2021-01-08 by running:</p>
-<pre>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/AirSensor'>AirSensor</a></span><span class='op'>)</span>
-
-<span class='va'>example_sts</span> <span class='op'>&lt;-</span> <span class='va'>example_pat</span>
-<span class='va'>example_sts</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>$</span><span class='va'>elevation</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='cn'>NA</span><span class='op'>)</span>
-<span class='va'>example_sts</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>$</span><span class='va'>locationName</span> <span class='op'>&lt;-</span> <span class='va'>example_sts</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>$</span><span class='va'>label</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save</a></span><span class='op'>(</span><span class='va'>example_sts</span>, file <span class='op'>=</span> <span class='st'>"data/example_sts.rda"</span><span class='op'>)</span>
-</pre>
-
+    <p>Trims the time range of an <em>mts</em> object by removing
+time steps from the start and end that contain only missing values.</p>
     </div>
 
-    <pre class="usage"><span class='va'>example_sts</span></pre>
+    <pre class="usage"><span class='fu'>mts_trim</span><span class='op'>(</span>mts <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>mts</th>
+      <td><p><em>mts</em> object.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <em>sts</em> object composed of "meta" and "data" dataframes.</p>
+    <p>A subset of the incoming <em>mts</em> time series object.
+(A list with <code>meta</code> and <code>data</code> dataframes.)</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/MazamaScience/MazamaTimeSeries'>MazamaTimeSeries</a></span><span class='op'>)</span>
+
+<span class='co'># Untrimmed rangte</span>
+<span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>example_mts</span><span class='op'>$</span><span class='va'>data</span><span class='op'>$</span><span class='va'>datetime</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2019-07-01 07:00:00 UTC" "2019-07-08 06:00:00 UTC"</div><div class='input'>
+<span class='co'># Replace the first 50 data values for all non-"datetime" columns</span>
+<span class='va'>example_mts</span><span class='op'>$</span><span class='va'>data</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>50</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='cn'>NA</span>
+
+<span class='co'># Trimmed range</span>
+<span class='va'>mts_trimmed</span> <span class='op'>&lt;-</span> <span class='fu'>mts_trim</span><span class='op'>(</span><span class='va'>example_mts</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>mts_trimmed</span><span class='op'>$</span><span class='va'>data</span><span class='op'>$</span><span class='va'>datetime</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "2019-07-03 09:00:00 UTC" "2019-07-08 06:00:00 UTC"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

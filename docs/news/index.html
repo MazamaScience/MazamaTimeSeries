@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.9</span>
       </span>
     </div>
 
@@ -129,9 +129,25 @@
       <small>Source: <a href='https://github.com/MazamaScience/MazamaTimeSeries/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="mazamatimeseries-029" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.9">
+<a href="#mazamatimeseries-029" class="anchor"></a>MazamaTimeSeries 0.2.9<small> Unreleased </small>
+</h1>
+<ul>
+<li>Added <code><a href="../reference/mts_trim.html">mts_trim()</a></code> to remove all data records with only
+missing data.</li>
+<li>Updated <code><a href="../reference/mts_combine.html">mts_combine()</a></code> with an
+<code>overlapStrategy</code> argument. With
+<code>overlapStrategy = "replace all"</code>, values from later
+timeseries (including <code>NA</code>) always replace values from
+earlier timeseries. With <code>overlapStrategy = "replace na"</code>,
+values from later timeseries only replace <code>NA</code> values in
+earlier timeseries.</li>
+</ul>
+</div>
     <div id="mazamatimeseries-028" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.8">
-<a href="#mazamatimeseries-028" class="anchor"></a>MazamaTimeSeries 0.2.8<small> Unreleased </small>
+<a href="#mazamatimeseries-028" class="anchor"></a>MazamaTimeSeries 0.2.8<small> 2022-10-13 </small>
 </h1>
 <ul>
 <li>Updated <code>Carmel_Valley</code> to match the latest version of

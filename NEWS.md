@@ -1,3 +1,11 @@
+# MazamaTimeSeries 0.2.9
+
+* Added `mts_trim()` to remove all data records with only missing data.
+* Updated `mts_combine()` with an `overlapStrategy` argument. With
+`overlapStrategy = "replace all"`, values from later timeseries (including `NA`)
+always replace values from earlier timeseries. With `overlapStrategy = "replace na"`, 
+values from later timeseries only replace `NA` values in earlier timeseries.
+
 # MazamaTimeSeries 0.2.8
 
 * Updated `Carmel_Valley` to match the latest version of the **AirMonitor** package.

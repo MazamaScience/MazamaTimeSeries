@@ -6,6 +6,8 @@
 #' @param ... Any number of valid \emph{mts} objects.
 #' @param replaceMeta Logical specifying whether to allow replacement of
 #' metadata associated with \code{deviceDeploymentIDs}.
+#' @param overlapStrategy Strategy to use when data found in time series
+#' overlaps.
 #'
 #' @return An \emph{mts} time series object containing all time series found
 #' in the incoming \code{mts} objects.
@@ -31,9 +33,14 @@
 #'
 #' Any "shared" parts are ordered based on the
 #' time stamp of their last record. Then \code{dplyr::distinct()} is used to
-#' remove records with duplicate \code{datetime} fields. Any data records found
+#' remove records with duplicate \code{datetime} fields.
+#'
+#' With \code{overlapStrategy = "replace all"}, any data records found
 #' in "later" \emph{mts} objects are preferentially retained before the "shared"
 #' data are finally reordered by ascending \code{datetime}.
+#'
+#' With \code{overlapStrategy = "replace missing"}, only missing values in "earlier"
+#' \emph{mts} objects are replaced with data records from "later" time series.
 #'
 #' The final step is combining the "shared" and "unshared" parts and placing
 #' them on a uniform time axis.
@@ -69,7 +76,8 @@
 
 mts_combine <- function(
   ...,
-  replaceMeta = FALSE
+  replaceMeta = FALSE,
+  overlapStrategy = c("replace all", "replace na")
 ) {
 
   # Accept any number of mts objects
@@ -91,6 +99,8 @@ mts_combine <- function(
     result <- mts_check(mts)
   }
 
+  overlapStrategy <- match.arg(overlapStrategy)
+
   # ----- Later is better order ------------------------------------------------
 
   dataList <- lapply(mtsList, `[[`, "data")
@@ -106,7 +116,6 @@ mts_combine <- function(
   dataOrder <- order(lastDatetime, decreasing = TRUE)
 
   dataList <- dataList[dataOrder]
-
 
   # ----- Combine 'meta' -------------------------------------------------------
 
@@ -141,6 +150,17 @@ mts_combine <- function(
 
   }
 
+  # ----- Regular time axis ----------------------------------------------------
+
+  allTimes <-
+    lapply(dataList, `[[`, "datetime") %>%
+    unlist() %>%
+    as.POSIXct(origin = lubridate::origin, tz = "UTC")
+
+  # Create the full time axis
+  datetime <- seq(min(allTimes), max(allTimes), by = "hours")
+  hourlyDF <- data.frame(datetime = datetime)
+
   # ----- Combine 'data' -------------------------------------------------------
 
   # NOTE:  Here we need to proceed carefully to accomplish two goals:
@@ -169,27 +189,72 @@ mts_combine <- function(
     AB_names <- intersect(names(data), names(tbl))
     B_names <- c("datetime", setdiff(names(tbl), names(data)))
 
-    # A-only columns
+    # * A-only columns  -----
+
     A_data <-
       data %>%
       dplyr::select(dplyr::all_of(A_names)) %>%
       dplyr::arrange(.data$datetime)
 
-    # AB-shared columns with later-is-better logic
-    AB_tbl <- tbl %>% dplyr::select(dplyr::all_of(AB_names))
+    # * AB columns -----
 
-    AB_data <-
-      data %>%
-      dplyr::select(dplyr::all_of(AB_names)) %>%
-      dplyr::bind_rows(AB_tbl) %>%
-      dplyr::distinct(.data$datetime, .keep_all = TRUE) %>%
-      dplyr::arrange(.data$datetime)
+    if ( overlapStrategy == "replace all" ) {
 
-    # B-only columns
+      # AB-shared columns with later-is-better logic
+      AB_tbl <- tbl %>% dplyr::select(dplyr::all_of(AB_names))
+
+      AB_data <-
+        data %>%
+        dplyr::select(dplyr::all_of(AB_names)) %>%
+        dplyr::bind_rows(AB_tbl) %>%
+        dplyr::distinct(.data$datetime, .keep_all = TRUE) %>%
+        dplyr::arrange(.data$datetime)
+
+      # * clean up -----
+      rm(list = c("AB_tbl"))
+
+    } else if ( overlapStrategy == "replace na" ) {
+
+      # NOTE:  We put AB_tbl and AB_data on the same time axis so we can
+      # NOTE:  replace missing values per-timeseries. With both tibbles having
+      # NOTE:  an identical structure, we can apply a simple matrix mask.
+
+      AB_tblBrick <-
+        hourlyDF %>%
+        dplyr::left_join(tbl, by = "datetime") %>%   # uniform time axis
+        dplyr::select(dplyr::all_of(AB_names)) %>%   # shared columns
+        dplyr::arrange(.data$datetime) %>%           # ordered by time
+        dplyr::select(-1) %>%                        # remove 'datetime'
+        as.matrix()                                  # convert to matrix
+
+      AB_dataBrick <-
+        hourlyDF %>%
+        dplyr::left_join(data, by = "datetime") %>%
+        dplyr::select(dplyr::all_of(AB_names)) %>%
+        dplyr::arrange(.data$datetime) %>%
+        dplyr::select(-1) %>%
+        as.matrix()
+
+      # NOTE:  This only works for matrices, not tibbles
+      mask <- is.na(AB_dataBrick)
+      AB_dataBrick[mask] <- AB_tblBrick[mask]
+
+      AB_dataOnly <- dplyr::as_tibble(AB_dataBrick)
+
+      AB_data <- dplyr::bind_cols(hourlyDF, AB_dataOnly)
+
+      # * clean up -----
+      rm(list = c("AB_tblBrick", "AB_dataBrick", "AB_dataOnly"))
+    }
+
+    # * B-only columns -----
+
     B_tbl <-
       tbl %>%
       dplyr::select(dplyr::all_of(B_names)) %>%
       dplyr::arrange(.data$datetime)
+
+    # * combine A, AB and B -----
 
     # Start with A_data
     data <- A_data
@@ -212,23 +277,13 @@ mts_combine <- function(
 
 
     # * clean up -----
-
-    rm(list = c("tbl", "A_data", "AB_tbl", "AB_data", "B_tbl"))
+    rm(list = c("tbl", "A_data", "AB_data", "B_tbl"))
 
   }
 
   # ===== END LOOP =============================================================
 
   # ----- Regular time axis ----------------------------------------------------
-
-  allTimes <-
-    lapply(dataList, `[[`, "datetime") %>%
-    unlist() %>%
-    as.POSIXct(origin = lubridate::origin, tz = "UTC")
-
-  # Create the full time axis
-  datetime <- seq(min(allTimes), max(allTimes), by = "hours")
-  hourlyDF <- data.frame(datetime = datetime)
 
   data <-
     hourlyDF %>%
@@ -250,3 +305,6 @@ mts_combine <- function(
   return(invisible(mts))
 
 }
+
+# ===== INTERNAL FUNCTIONS =====================================================
+

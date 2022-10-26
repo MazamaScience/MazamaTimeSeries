@@ -4,13 +4,20 @@
 \alias{mts_combine}
 \title{Combine multiple \emph{mts} time series objects}
 \usage{
-mts_combine(..., replaceMeta = FALSE)
+mts_combine(
+  ...,
+  replaceMeta = FALSE,
+  overlapStrategy = c("replace all", "replace na")
+)
 }
 \arguments{
 \item{...}{Any number of valid \emph{mts} objects.}
 
 \item{replaceMeta}{Logical specifying whether to allow replacement of
 metadata associated with \code{deviceDeploymentIDs}.}
+
+\item{overlapStrategy}{Strategy to use when data found in time series
+overlaps.}
 }
 \value{
 An \emph{mts} time series object containing all time series found
@@ -39,9 +46,14 @@ split into "shared" and "unshared" parts.
 
 Any "shared" parts are ordered based on the
 time stamp of their last record. Then \code{dplyr::distinct()} is used to
-remove records with duplicate \code{datetime} fields. Any data records found
+remove records with duplicate \code{datetime} fields.
+
+With \code{overlapStrategy = "replace all"}, any data records found
 in "later" \emph{mts} objects are preferentially retained before the "shared"
 data are finally reordered by ascending \code{datetime}.
+
+With \code{overlapStrategy = "replace missing"}, only missing values in "earlier"
+\emph{mts} objects are replaced with data records from "later" time series.
 
 The final step is combining the "shared" and "unshared" parts and placing
 them on a uniform time axis.

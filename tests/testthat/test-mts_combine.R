@@ -121,3 +121,35 @@ test_that("new columns can be added", {
   )
 
 })
+
+test_that("overlapStragey = 'replace na' works", {
+
+  id <- "f1eb28176ffa3c00_3487"
+
+  # different values
+  mts_1 <- mts_select(example_mts, id)
+  mts_2 <- mts_select(example_mts, id)
+
+  replaceIndices <- c(50:60, 70, 80, 150:168)
+  keepIndices <- setdiff(1:168, replaceIndices)
+
+  mts_1$data[replaceIndices, 2] <- NA
+  mts_2$data[, 2] <- mts_2$data[, 2] * 100
+
+  mts <- mts_combine(mts_1, mts_2, overlapStrategy = "replace na")
+
+  # We retained non-missing original values
+  expect_identical(
+    mts$data[keepIndices, 2],
+    mts_1$data[keepIndices, 2]
+  )
+
+  # We replaced missing original values
+  expect_identical(
+    mts$data[replaceIndices, 2],
+    mts_2$data[replaceIndices, 2]
+  )
+
+})
+
+
