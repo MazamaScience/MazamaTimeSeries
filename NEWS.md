@@ -1,3 +1,8 @@
+# MazamaTimeSeries 0.2.10
+
+* Fixed bug in `mts_collapse()` so that it now handles metadata columns  of class
+`POSIXct`.
+
 # MazamaTimeSeries 0.2.9
 
 * Added `mts_trim()` to remove all data records with only missing data.

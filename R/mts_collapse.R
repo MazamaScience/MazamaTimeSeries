@@ -119,7 +119,11 @@ mts_collapse <- function(
     if ( length(unique(meta[[column]])) == 1 ) {
       newMeta[[column]] <- unique(meta[[column]])
     } else {
-      newMeta[[column]] <- as(NA, class(meta[[column]]))
+      if ( "POSIXt" %in% class(meta[[column]]) ) {
+        newMeta[[column]] <- as.POSIXct(NA)
+      } else {
+        newMeta[[column]] <- as(NA, class(meta[[column]]))
+      }
     }
   }
 
