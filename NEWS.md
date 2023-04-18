@@ -1,3 +1,10 @@
+# MazamaTimeSeries 0.2.11
+
+* Improved error message from `mts_filterDate()` and `mts_filterDatetime()` when
+a `POSIXct` value is encountered with no timezone information. This can happen
+when using `lubridate::now()`.
+* Update R dependency to 4.0.0.
+
 # MazamaTimeSeries 0.2.10
 
 * Fixed bug in `mts_collapse()` so that it now handles metadata columns  of class

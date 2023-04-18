@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.11</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/MazamaTimeSeries.html">Get started</a>
 </li>
@@ -67,7 +63,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/MazamaScience/MazamaTimeSeries/">
+  <a href="https://github.com/MazamaScience/MazamaTimeSeries/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -82,32 +78,33 @@
 
       
 
-      </header><script src="MazamaTimeSeries_files/header-attrs-2.14/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to MazamaTimeSeries</h1>
-                        <h4 class="author">Mazama Science</h4>
+                        <h4 data-toc-skip class="author">Mazama
+Science</h4>
             
-            <h4 class="date">2021-10-07</h4>
+            <h4 data-toc-skip class="date">2021-10-07</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/MazamaScience/MazamaTimeSeries/blob/master/vignettes/MazamaTimeSeries.Rmd"><code>vignettes/MazamaTimeSeries.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/MazamaScience/MazamaTimeSeries/blob/HEAD/vignettes/MazamaTimeSeries.Rmd" class="external-link"><code>vignettes/MazamaTimeSeries.Rmd</code></a></small>
       <div class="hidden name"><code>MazamaTimeSeries.Rmd</code></div>
 
     </div>
 
     
     
-<div id="background" class="section level2">
-<h2 class="hasAnchor">
-<a href="#background" class="anchor"></a>Background</h2>
+<div class="section level2">
+<h2 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
+</h2>
 <p>This package supports data management activities associated with
 environmental time series collected at fixed locations in space. The
 motivating fields include both air and water quality monitoring where
 fixed sensors report at regular time intervals.</p>
 </div>
-<div id="data-model" class="section level2">
-<h2 class="hasAnchor">
-<a href="#data-model" class="anchor"></a>Data Model</h2>
+<div class="section level2">
+<h2 id="data-model">Data Model<a class="anchor" aria-label="anchor" href="#data-model"></a>
+</h2>
 <p>The most compact format for time series data collected at fixed
 locations is a list including two tables.
 <strong>MazamaTimeSeries</strong> stores time series measurements in a
@@ -120,9 +117,9 @@ table. A unique <code>deviceDeploymentID</code> connects the two tables.
 In the language of relational databases, this “normalizes” the database
 and can greatly reduce the disk space and memory needed to store and
 work with the data.</p>
-<div id="single-time-series" class="section level3">
-<h3 class="hasAnchor">
-<a href="#single-time-series" class="anchor"></a>Single Time Series</h3>
+<div class="section level3">
+<h3 id="single-time-series">Single Time Series<a class="anchor" aria-label="anchor" href="#single-time-series"></a>
+</h3>
 <p>Time series data from a single environmental sensor typically
 consists of multiple parameters measured at successive times. This data
 is stored in an R list containing two dataframes. The package refers to
@@ -149,9 +146,9 @@ specified in <code>data$datetime</code> reflects device measurement
 times and is not required to have uniform spacing. (It <em>may</em> be
 regular but it need not be.)</p>
 </div>
-<div id="multiple-time-series" class="section level3">
-<h3 class="hasAnchor">
-<a href="#multiple-time-series" class="anchor"></a>Multiple Time Series</h3>
+<div class="section level3">
+<h3 id="multiple-time-series">Multiple Time Series<a class="anchor" aria-label="anchor" href="#multiple-time-series"></a>
+</h3>
 <p>Working with timeseries data from multiple sensors at once is often
 challenging because of the amount of memory required to store all the
 data from each sensor. However, a common situation is to have time
@@ -173,7 +170,7 @@ device/location metadata</p>
 <code>data</code> columns to be mapped onto the associated spatial and
 sensor metadata in a <code>meta</code> row. The following will always be
 true:</p>
-<pre><code><a href="https://rdrr.io/r/base/identical.html">identical(names(mts$data), c('datetime', mts$meta$deviceDeploymentID))</a></code></pre>
+<pre><code><span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">mts</span><span class="op">$</span><span class="va">data</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'datetime'</span>, <span class="va">mts</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">deviceDeploymentID</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 <p><code>mts</code> objects can support the following types of time
 series data:</p>
 <ul>
@@ -193,15 +190,15 @@ specified in <code>data$datetime</code> is guaranteed to be a regular
 hourly axis with no gaps.</p>
 </div>
 </div>
-<div id="example-usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example-usage" class="anchor"></a>Example Usage</h2>
+<div class="section level2">
+<h2 id="example-usage">Example Usage<a class="anchor" aria-label="anchor" href="#example-usage"></a>
+</h2>
 <p><em>See usage examples in the function documentation.</em></p>
 <hr>
 <p>Best wishes for efficient and productive analysis of time series
 data!</p>
 <hr>
-<p>This R package was created with funding from the USFS <a href="https://www.airfire.org">AirFire Research Team</a>.</p>
+<p>This R package was created with funding from the USFS <a href="https://www.airfire.org" class="external-link">AirFire Research Team</a>.</p>
 </div>
   </div>
 
@@ -216,11 +213,13 @@ data!</p>
 
 
       <footer><div class="copyright">
-  <p>Developed by Jonathan Callahan.</p>
+  <p></p>
+<p>Developed by Jonathan Callahan.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -228,6 +227,8 @@ data!</p>
 
   
 
+
+  
 
   </body>
 </html>

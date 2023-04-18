@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.11</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/MazamaTimeSeries.html">Get started</a>
 </li>
@@ -67,7 +63,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/MazamaScience/MazamaTimeSeries/">
+  <a href="https://github.com/MazamaScience/MazamaTimeSeries/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -82,32 +78,33 @@
 
       
 
-      </header><script src="Developer_Style_Guide_files/header-attrs-2.14/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Developer Style Guide</h1>
-                        <h4 class="author">Mazama Science</h4>
+                        <h4 data-toc-skip class="author">Mazama
+Science</h4>
             
-            <h4 class="date">2021-03-11</h4>
+            <h4 data-toc-skip class="date">2021-03-11</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/MazamaScience/MazamaTimeSeries/blob/master/vignettes/Developer_Style_Guide.Rmd"><code>vignettes/Developer_Style_Guide.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/MazamaScience/MazamaTimeSeries/blob/HEAD/vignettes/Developer_Style_Guide.Rmd" class="external-link"><code>vignettes/Developer_Style_Guide.Rmd</code></a></small>
       <div class="hidden name"><code>Developer_Style_Guide.Rmd</code></div>
 
     </div>
 
     
     
-<div id="r-style-guide" class="section level1">
-<h1 class="hasAnchor">
-<a href="#r-style-guide" class="anchor"></a>R Style Guide</h1>
+<div class="section level2">
+<h2 id="r-style-guide">R Style Guide<a class="anchor" aria-label="anchor" href="#r-style-guide"></a>
+</h2>
 <p>This document describes the coding style used within the package.
 Having a consistent style enhances the readability and
 “understandability” of the code and makes it easier for users and
 developers to work with this package and with other, related packages
-from <a href="http://mazamascience.com">Mazama Science</a>.</p>
-<div id="naming-objects" class="section level2">
-<h2 class="hasAnchor">
-<a href="#naming-objects" class="anchor"></a>Naming Objects</h2>
+from <a href="http://mazamascience.com" class="external-link">Mazama Science</a>.</p>
+<div class="section level3">
+<h3 id="naming-objects">Naming Objects<a class="anchor" aria-label="anchor" href="#naming-objects"></a>
+</h3>
 <p>Naming variables is one of the most important things to get right to
 make your code readable and understandable to future readers of the code
 <em>(perhaps even yourself!)</em>. Having a system for creating names
@@ -150,61 +147,61 @@ it. We often use variable names like:</p>
 </ul>
 <p>We occasionally use ’_’ to create classes of similar variables that
 are otherwise hard to name, e.g.:</p>
-<pre><code>sts_01
-sts_02
-sts_tidy</code></pre>
+<pre><code><span><span class="va">sts_01</span></span>
+<span><span class="va">sts_02</span></span>
+<span><span class="va">sts_tidy</span></span></code></pre>
 </div>
-<div id="naming-functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#naming-functions" class="anchor"></a>Naming Functions</h2>
+<div class="section level3">
+<h3 id="naming-functions">Naming Functions<a class="anchor" aria-label="anchor" href="#naming-functions"></a>
+</h3>
 <p>Most functions should strive to be atomic in nature and should do one
 thing really well. Think of them as individual <em>Lego</em> bricks that
 we click together to achieve more advanced functionality. Where objects
 are <em><strong>well described nouns</strong></em>, functions are
 <em><strong>well described verbs</strong></em> that describe what they
 do as in:</p>
-<pre><code><a href="../reference/sts_filter.html">sts_filter()
-sts_filterDate()
-sts_join()
-sts_toTidyDF()
-sts_trimDate()
-...</a></code></pre>
+<pre><code><span><span class="fu"><a href="../reference/sts_filter.html">sts_filter</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/sts_filterDate.html">sts_filterDate</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">sts_join</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">sts_toTidyDF</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/sts_trimDate.html">sts_trimDate</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">...</span></span></code></pre>
 <p>All of these functions begin with <code>sts_</code> because they are
 for creating or working with <code>sts</code> objects. Many of these
 functions accept a <code>sts</code> object as their first argument and
 return a modified <code>sts</code>. This means that they can be used
-with the <code><a href="../reference/%&gt;%.html">%&gt;%</a></code> “pipe” operator and chained together as
+with the <code>%&gt;%</code> “pipe” operator and chained together as
 in:</p>
-<pre><code>example_tidy &lt;-
-  example_sts %&gt;%
-  sts_filter(
-    temperature &gt; 50,
-    humidity &lt; 20,
-    pm25_A &gt; 100
-  ) %&gt;%
-  sts_toTidyDF()</code></pre>
+<pre><code><span><span class="va">example_tidy</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">example_sts</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/sts_filter.html">sts_filter</a></span><span class="op">(</span></span>
+<span>    <span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">50</span>,</span>
+<span>    <span class="va">humidity</span> <span class="op">&lt;</span> <span class="fl">20</span>,</span>
+<span>    <span class="va">pm25_A</span> <span class="op">&gt;</span> <span class="fl">100</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">sts_toTidyDF</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="naming-files" class="section level2">
-<h2 class="hasAnchor">
-<a href="#naming-files" class="anchor"></a>Naming Files</h2>
+<div class="section level3">
+<h3 id="naming-files">Naming Files<a class="anchor" aria-label="anchor" href="#naming-files"></a>
+</h3>
 <p>Each file should contain a single function of the same name. Thus,
 the function named <code><a href="../reference/sts_filterDate.html">sts_filterDate()</a></code> is defined in
 <code>sts_filterDate.R</code>. An exception is made for small, mostly
 internal functions used in conjunction with a particular type of object
 or activity. These can be stored together in a file named
 <code>utils-~</code>:</p>
-<pre><code>utils-sts.R
-utils-mts.R
-utils-pipe.R</code></pre>
+<pre><code><span><span class="va">utils</span><span class="op">-</span><span class="va">sts.R</span></span>
+<span><span class="va">utils</span><span class="op">-</span><span class="va">mts.R</span></span>
+<span><span class="va">utils</span><span class="op">-</span><span class="va">pipe.R</span></span></code></pre>
 </div>
-<div id="syntax" class="section level2">
-<h2 class="hasAnchor">
-<a href="#syntax" class="anchor"></a>Syntax</h2>
-<p>We generally adhere to the <a href="http://adv-r.had.co.nz/Style.html">Wickham Style Guide</a> for
+<div class="section level3">
+<h3 id="syntax">Syntax<a class="anchor" aria-label="anchor" href="#syntax"></a>
+</h3>
+<p>We generally adhere to the <a href="http://adv-r.had.co.nz/Style.html" class="external-link">Wickham Style Guide</a> for
 syntax with a few exceptions:</p>
-<div id="spacing" class="section level3">
-<h3 class="hasAnchor">
-<a href="#spacing" class="anchor"></a>Spacing</h3>
+<div class="section level4">
+<h4 id="spacing">Spacing<a class="anchor" aria-label="anchor" href="#spacing"></a>
+</h4>
 <p><strong>Do</strong> place spaces around code in parentheses if it is
 an <code>if</code> test:</p>
 <pre><code>if ( &lt;logical expression part1&gt; &amp;&amp; &lt;logical expression part2&gt; ) {
@@ -213,18 +210,18 @@ an <code>if</code> test:</p>
 <p>When debugging, this makes it much easier to select the logical test
 with a cursor and paste it into the RStudio console.</p>
 </div>
-<div id="lists" class="section level3">
-<h3 class="hasAnchor">
-<a href="#lists" class="anchor"></a>Lists</h3>
+<div class="section level4">
+<h4 id="lists">Lists<a class="anchor" aria-label="anchor" href="#lists"></a>
+</h4>
 <p>We generally like to specify R lists with each
 <code>parameter = value</code> pair on a separate line. This goes for
 regular lists and for named argument lists passed to a function:</p>
-<pre><code>example_filterDate &lt;-
-  example_sts %&gt;%
-  sts_filterDate(
-    startdate = 20180808,
-    enddate = 20180815
-  )</code></pre>
+<pre><code><span><span class="va">example_filterDate</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">example_sts</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/sts_filterDate.html">sts_filterDate</a></span><span class="op">(</span></span>
+<span>    startdate <span class="op">=</span> <span class="fl">20180808</span>,</span>
+<span>    enddate <span class="op">=</span> <span class="fl">20180815</span></span>
+<span>  <span class="op">)</span></span></code></pre>
 <p>Coding this way makes it easy to see which function arguments are
 being passed. It also eases future refactoring of the code when
 additional arguments need to be added or the order of arguments need to
@@ -250,11 +247,13 @@ own.</p>
 
 
       <footer><div class="copyright">
-  <p>Developed by Jonathan Callahan.</p>
+  <p></p>
+<p>Developed by Jonathan Callahan.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -262,6 +261,8 @@ own.</p>
 
   
 
+
+  
 
   </body>
 </html>

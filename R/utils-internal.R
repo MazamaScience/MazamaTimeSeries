@@ -7,10 +7,10 @@
 # ----- .determineTimezone -----------------------------------------------------
 
 .determineTimezone <- function(
-  any_ts = NULL,
-  startdate = NULL,
-  timezone = NULL,
-  verbose = TRUE
+    any_ts = NULL,
+    startdate = NULL,
+    timezone = NULL,
+    verbose = TRUE
 ) {
 
   MazamaCoreUtils::stopIfNull(any_ts)
@@ -24,6 +24,22 @@
   if ( lubridate::is.POSIXt(startdate) ) {
 
     timezone <- lubridate::tz(startdate)
+
+    # NOTE:  This can happen when using lubridate::now()
+    #
+    # > lubridate::now() %>% attributes()
+    # $class
+    # [1] "POSIXct" "POSIXt"
+    #
+    # $tzone
+    # [1] ""
+
+    if ( timezone == "" ) {
+      stop(paste0(
+        "POSIXct value '", startdate, "' has no timezone.\n",
+        "Be sure to use lubridate::now(tzone = 'UTC') or similar to guarantee a timezone is specified."
+      ))
+    }
 
   } else if ( !is.null(timezone) ) {
 
@@ -46,9 +62,9 @@
 # ----- .mostFrequentValue -----------------------------------------------------
 
 .mostFrequentValue <- function(
-  any_ts = NULL,
-  columnName,
-  verbose = TRUE
+    any_ts = NULL,
+    columnName,
+    verbose = TRUE
 ) {
 
   MazamaCoreUtils::stopIfNull(any_ts)
