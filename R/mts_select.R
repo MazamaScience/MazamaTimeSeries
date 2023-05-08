@@ -51,7 +51,24 @@ mts_select <- function(
   MazamaCoreUtils::stopIfNull(mts)
   MazamaCoreUtils::stopIfNull(deviceDeploymentID)
 
-  # NOTE:  mts_filterMeta() will take care of further validation
+  # No duplicate IDs allowed
+  if ( any(duplicated(deviceDeploymentID)) ) {
+    duplicateIDs <- deviceDeploymentID[duplicated(deviceDeploymentID)]
+    stop(sprintf(
+      "Duplicate IDs found in 'deviceDeploymentID': %s",
+      paste(duplicateIDs, collapse = ", ")
+    ))
+  }
+
+  # Warning message if missing ID is requested
+  if ( !all(deviceDeploymentID %in% mts$meta$deviceDeploymentID) ) {
+    missingIndices <- which(!deviceDeploymentID %in% mts$meta$deviceDeploymentID)
+    missingIDs <- deviceDeploymentID[missingIndices]
+    warning(sprintf(
+      "Requested IDs not found in 'meta': %s\n  The returned object will have fewer time series than the number of 'deviceDeploymentIDs' requested.",
+      paste(missingIDs, collapse = ", ")
+    ))
+  }
 
   # ----- Filter and reorder ---------------------------------------------------
 

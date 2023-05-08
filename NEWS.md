@@ -1,3 +1,10 @@
+# MazamaTimeSeries 0.2.12
+
+* Added error message when calling `mts_select()` with duplicate `deviceDeploymentIDs`.
+* Added warning message when calling `mts_select()` with `deviceDeploymentIDs` not
+found in `mts`.
+* Added `mts_arrange()` to order time series based on values of a `mts$meta` column.
+
 # MazamaTimeSeries 0.2.11
 
 * Improved error message from `mts_filterDate()` and `mts_filterDatetime()` when
@@ -45,12 +52,12 @@ of the pipeline.
 
 # MazamaTimeSeries 0.2.4
 
-* Updated to add a Zenodo DOI bdage.
+* Updated to add a Zenodo DOI badge.
 
 # MazamaTimeSeries 0.2.3
 
 * Added `sts_summarize()`.
-* Udated `example_raws` dataset.
+* Updated `example_raws` dataset.
 
 # MazamaTimeSeries 0.2.2
 
@@ -62,7 +69,7 @@ of the pipeline.
 
 # MazamaTimeSeries 0.2.0
 
-Version 0.2 of the pakcage is ready for operational use.
+Version 0.2 of the package is ready for operational use.
 
 * Replaced `sts_join()` with`sts_combine()`.
 
