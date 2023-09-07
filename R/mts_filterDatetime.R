@@ -7,17 +7,20 @@
 #' @param startdate Desired start datetime (ISO 8601).
 #' @param enddate Desired end datetime (ISO 8601).
 #' @param timezone Olson timezone used to interpret dates.
-#' @param unit Units used to determine time at end-of-day.
+#' @param unit Datetimes will be rounded to the nearest \code{unit}.
 #' @param ceilingStart Logical instruction to apply
 #'   \code{\link[lubridate]{ceiling_date}} to the \code{startdate} rather than
-#'   \code{\link[lubridate]{floor_date}}.
+#'   \code{\link[lubridate]{floor_date}} when rounding.
 #' @param ceilingEnd Logical instruction to apply
 #'   \code{\link[lubridate]{ceiling_date}} to the \code{enddate} rather than
-#'   \code{\link[lubridate]{floor_date}}.
+#'   \code{\link[lubridate]{floor_date}} when rounding.
+#' @param includeEnd Logical specifying that records associated with \code{enddate}
+#' should be included.
 #'
 #' @description Subsets an \code{mts} object by datetime. This function
 #' allows for sub-day filtering as opposed to \code{mts_filterDate()} which
-#' always filters to day-boundaries.
+#' always filters to day-boundaries. Both the \code{startdate} and the
+#' \code{enddate} will be included in the subset.
 #'
 #' Datetimes can be anything that is understood by
 #' \code{MazamaCoreUtils::parseDatetime()}. For non-\code{POSIXct} values,
@@ -31,6 +34,12 @@
 #' \item{use passed in \code{timezone}}
 #' \item{get timezone from \code{mts}}
 #' }
+#'
+#' @note The returned \code{mts} object will contain data running from the
+#' beginning of \code{startdate} until
+#' the \strong{beginning} of \code{enddate} -- \emph{i.e.} no values associated
+#' with \code{enddate} will be returned. To include \code{enddate} you can
+#' specify \code{includeEnd = TRUE}.
 #'
 #' @return A subset of the incoming \emph{mts} time series object.
 #' (A list with \code{meta} and \code{data} dataframes.)
@@ -59,7 +68,8 @@ mts_filterDatetime <- function(
   timezone = NULL,
   unit = "sec",
   ceilingStart = FALSE,
-  ceilingEnd = FALSE
+  ceilingEnd = FALSE,
+  includeEnd = FALSE
 ) {
 
   # ----- Validate parameters --------------------------------------------------
@@ -106,10 +116,17 @@ mts_filterDatetime <- function(
 
   } else {
 
-    data <-
-      mts$data %>%
-      dplyr::filter(.data$datetime >= timeRange[1]) %>%
-      dplyr::filter(.data$datetime < timeRange[2])
+    if ( includeEnd ) {
+      data <-
+        mts$data %>%
+        dplyr::filter(.data$datetime >= timeRange[1]) %>%
+        dplyr::filter(.data$datetime <= timeRange[2])
+    } else {
+      data <-
+        mts$data %>%
+        dplyr::filter(.data$datetime >= timeRange[1]) %>%
+        dplyr::filter(.data$datetime < timeRange[2])
+    }
 
   }
 

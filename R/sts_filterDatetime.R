@@ -14,6 +14,8 @@
 #' @param ceilingEnd Logical instruction to apply
 #'   \code{\link[lubridate]{ceiling_date}} to the \code{enddate} rather than
 #'   \code{\link[lubridate]{floor_date}}
+#' @param includeEnd Logical specifying that records associated with \code{enddate}
+#' should be included.
 #'
 #' @description Subsets a MazamaSingleTimeseries object by datetime. This function
 #' allows for sub-day filtering as opposed to \code{sts_filterDate()} which
@@ -31,6 +33,12 @@
 #' \item{use passed in \code{timezone}}
 #' \item{get timezone from \code{sts}}
 #' }
+#'
+#' @note The returned \code{sts} object will contain data running from the
+#' beginning of \code{startdate} until
+#' the \strong{beginning} of \code{enddate} -- \emph{i.e.} no values associated
+#' with \code{enddate} will be returned. To include \code{enddate} you can
+#' specify \code{includeEnd = TRUE}.
 #'
 #' @return A subset of the incoming \emph{sts} time series object.
 #' (A list with \code{meta} and \code{data} dataframes.)
@@ -57,7 +65,8 @@ sts_filterDatetime <- function(
   timezone = NULL,
   unit = "sec",
   ceilingStart = FALSE,
-  ceilingEnd = FALSE
+  ceilingEnd = FALSE,
+  includeEnd = FALSE
 ) {
 
   # ----- Validate parameters --------------------------------------------------
@@ -107,10 +116,17 @@ sts_filterDatetime <- function(
 
   } else {
 
-    data <-
-      sts$data %>%
-      dplyr::filter(.data$datetime >= timeRange[1]) %>%
-      dplyr::filter(.data$datetime < timeRange[2])
+    if ( includeEnd ) {
+      data <-
+        sts$data %>%
+        dplyr::filter(.data$datetime >= timeRange[1]) %>%
+        dplyr::filter(.data$datetime <= timeRange[2])
+    } else {
+      data <-
+        sts$data %>%
+        dplyr::filter(.data$datetime >= timeRange[1]) %>%
+        dplyr::filter(.data$datetime < timeRange[2])
+    }
 
   }
 

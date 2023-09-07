@@ -215,3 +215,23 @@ test_that("POSIXct date formats work with timezones", {
   )
 
 })
+
+test_that("includeEnd works", {
+
+  startdate <- min(example_sts$data$datetime)
+  enddate <- max(example_sts$data$datetime)
+  new_sts <-
+    sts_filterDatetime(
+      example_sts,
+      startdate = startdate,
+      enddate = enddate,
+      includeEnd = TRUE
+    )
+
+  expect_identical(
+    c(startdate, enddate),
+    range( new_sts$data$datetime )
+  )
+
+})
+

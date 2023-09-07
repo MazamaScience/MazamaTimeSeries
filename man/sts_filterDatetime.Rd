@@ -11,7 +11,8 @@ sts_filterDatetime(
   timezone = NULL,
   unit = "sec",
   ceilingStart = FALSE,
-  ceilingEnd = FALSE
+  ceilingEnd = FALSE,
+  includeEnd = FALSE
 )
 }
 \arguments{
@@ -32,6 +33,9 @@ sts_filterDatetime(
 \item{ceilingEnd}{Logical instruction to apply
 \code{\link[lubridate]{ceiling_date}} to the \code{enddate} rather than
 \code{\link[lubridate]{floor_date}}}
+
+\item{includeEnd}{Logical specifying that records associated with \code{enddate}
+should be included.}
 }
 \value{
 A subset of the incoming \emph{sts} time series object.
@@ -54,6 +58,13 @@ Timezone determination precedence assumes that if you are passing in
 \item{use passed in \code{timezone}}
 \item{get timezone from \code{sts}}
 }
+}
+\note{
+The returned \code{sts} object will contain data running from the
+beginning of \code{startdate} until
+the \strong{beginning} of \code{enddate} -- \emph{i.e.} no values associated
+with \code{enddate} will be returned. To include \code{enddate} you can
+specify \code{includeEnd = TRUE}.
 }
 \examples{
 library(MazamaTimeSeries)

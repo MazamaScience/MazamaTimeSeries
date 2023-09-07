@@ -68,7 +68,7 @@ calculations are accurate to within 10 minutes. For latitudes less than +/-
 \section{Attribution}{
 
 Internal functions used for ephemerides calculations were copied verbatim
-from the \url{https://cran.r-project.org/package=maptools} package source
+from the now deprecated \pkg{maptools} package source
 code in an effort to reduce the number of package dependencies.
 }
 

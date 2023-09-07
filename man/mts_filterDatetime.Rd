@@ -11,7 +11,8 @@ mts_filterDatetime(
   timezone = NULL,
   unit = "sec",
   ceilingStart = FALSE,
-  ceilingEnd = FALSE
+  ceilingEnd = FALSE,
+  includeEnd = FALSE
 )
 }
 \arguments{
@@ -23,15 +24,18 @@ mts_filterDatetime(
 
 \item{timezone}{Olson timezone used to interpret dates.}
 
-\item{unit}{Units used to determine time at end-of-day.}
+\item{unit}{Datetimes will be rounded to the nearest \code{unit}.}
 
 \item{ceilingStart}{Logical instruction to apply
 \code{\link[lubridate]{ceiling_date}} to the \code{startdate} rather than
-\code{\link[lubridate]{floor_date}}.}
+\code{\link[lubridate]{floor_date}} when rounding.}
 
 \item{ceilingEnd}{Logical instruction to apply
 \code{\link[lubridate]{ceiling_date}} to the \code{enddate} rather than
-\code{\link[lubridate]{floor_date}}.}
+\code{\link[lubridate]{floor_date}} when rounding.}
+
+\item{includeEnd}{Logical specifying that records associated with \code{enddate}
+should be included.}
 }
 \value{
 A subset of the incoming \emph{mts} time series object.
@@ -40,7 +44,8 @@ A subset of the incoming \emph{mts} time series object.
 \description{
 Subsets an \code{mts} object by datetime. This function
 allows for sub-day filtering as opposed to \code{mts_filterDate()} which
-always filters to day-boundaries.
+always filters to day-boundaries. Both the \code{startdate} and the
+\code{enddate} will be included in the subset.
 
 Datetimes can be anything that is understood by
 \code{MazamaCoreUtils::parseDatetime()}. For non-\code{POSIXct} values,
@@ -54,6 +59,13 @@ Timezone determination precedence assumes that if you are passing in
 \item{use passed in \code{timezone}}
 \item{get timezone from \code{mts}}
 }
+}
+\note{
+The returned \code{mts} object will contain data running from the
+beginning of \code{startdate} until
+the \strong{beginning} of \code{enddate} -- \emph{i.e.} no values associated
+with \code{enddate} will be returned. To include \code{enddate} you can
+specify \code{includeEnd = TRUE}.
 }
 \examples{
 library(MazamaTimeSeries)

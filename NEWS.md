@@ -1,3 +1,8 @@
+# MazamaTimeSeries 0.2.13
+
+* Bumped **MazamaCoreUtils** dependency to 0.4.15.
+* Added `includeEnd` argument to `mts/sts_filterDatetime()`.
+
 # MazamaTimeSeries 0.2.12
 
 * Added error message when calling `mts_select()` with duplicate `deviceDeploymentIDs`.
