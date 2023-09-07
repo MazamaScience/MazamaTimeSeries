@@ -1,3 +1,7 @@
+# MazamaTimeSeries 0.2.14
+
+* Added `mts_slice_head()` and `mts_slice_tail()`.
+
 # MazamaTimeSeries 0.2.13
 
 * Bumped **MazamaCoreUtils** dependency to 0.4.15.
