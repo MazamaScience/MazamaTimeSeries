@@ -14,7 +14,7 @@
 #' @examples
 #' library(MazamaTimeSeries)
 #'
-#' # Untrimmed rangte
+#' # Untrimmed range
 #' range(example_mts$data$datetime)
 #'
 #' # Replace the first 50 data values for all non-"datetime" columns

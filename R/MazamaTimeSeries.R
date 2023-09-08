@@ -1,6 +1,7 @@
 #'
 #' @docType package
 #' @name MazamaTimeSeries
+#' @aliases MazamaTimeSeries-package
 #' @title Core functionality for environmental time series
 #' @description
 #' Utility functions for working with environmental time series data from known

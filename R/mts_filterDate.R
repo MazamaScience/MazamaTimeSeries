@@ -94,7 +94,7 @@ mts_filterDate <- function(
   # Remove any duplicate data records
   mts <- mts_distinct(mts)
 
-  if ( is.null(startdate) && !is.null(enddate) )
+  if ( is.null(startdate) && is.null(enddate) )
     stop("at least one of 'startdate' or 'enddate' must be specified")
 
   # Use internal function to determine the timezone to use
