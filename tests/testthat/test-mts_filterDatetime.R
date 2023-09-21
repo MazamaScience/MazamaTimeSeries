@@ -64,7 +64,7 @@ test_that("character date formats work with timezones", {
 
   expect_identical(
     c(start_HST, end_HST),
-    range( mts_filterDatetime(example_mts, 20190702, 20190703, timezone = "US/Hawaii")$data$datetime )
+    range( mts_filterDatetime(example_mts, 20190702, 20190703, timezone = "Pacific/Honolulu")$data$datetime )
   )
 
   expect_identical(
@@ -113,8 +113,8 @@ test_that("POSIXct date formats work", {
   end_UTC <- ISOdatetime(2019, 07, 02, 23, 00, 00, tz = "UTC")
 
   # Local times
-  start_Hawaii <- ISOdatetime(2019, 07, 02, 00, 00, 00, tz = "US/Hawaii")
-  end_Hawaii <- ISOdatetime(2019, 07, 03, 00, 00, 00, tz = "US/Hawaii")
+  start_Hawaii <- ISOdatetime(2019, 07, 02, 00, 00, 00, tz = "Pacific/Honolulu")
+  end_Hawaii <- ISOdatetime(2019, 07, 03, 00, 00, 00, tz = "Pacific/Honolulu")
 
   start_LA <- ISOdatetime(2019, 07, 02, 00, 00, 00, tz = "America/Los_Angeles")
   end_LA <- ISOdatetime(2019, 07, 03, 00, 00, 00, tz = "America/Los_Angeles")
@@ -177,8 +177,8 @@ test_that("POSIXct date formats work with timezones", {
   end_UTC <- ISOdatetime(2019, 07, 02, 23, 00, 00, tz = "UTC")
 
   # Local times
-  start_Hawaii <- ISOdatetime(2019, 07, 02, 00, 00, 00, tz = "US/Hawaii")
-  end_Hawaii <- ISOdatetime(2019, 07, 03, 00, 00, 00, tz = "US/Hawaii")
+  start_Hawaii <- ISOdatetime(2019, 07, 02, 00, 00, 00, tz = "Pacific/Honolulu")
+  end_Hawaii <- ISOdatetime(2019, 07, 03, 00, 00, 00, tz = "Pacific/Honolulu")
 
   start_LA <- ISOdatetime(2019, 07, 02, 00, 00, 00, tz = "America/Los_Angeles")
   end_LA <- ISOdatetime(2019, 07, 03, 00, 00, 00, tz = "America/Los_Angeles")
@@ -191,7 +191,7 @@ test_that("POSIXct date formats work with timezones", {
 
   expect_identical(
     c(start_HST, end_HST),
-    range( mts_filterDatetime(example_mts, start_Hawaii, end_Hawaii, timezone = "US/Hawaii")$data$datetime )
+    range( mts_filterDatetime(example_mts, start_Hawaii, end_Hawaii, timezone = "Pacific/Honolulu")$data$datetime )
   )
 
   expect_identical(

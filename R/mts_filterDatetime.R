@@ -17,7 +17,9 @@
 #' @param includeEnd Logical specifying that records associated with \code{enddate}
 #' should be included.
 #'
-#' @description Subsets an \code{mts} object by datetime. This function
+#' @description \strong{\code{DEPRECATED -- use \link{mts_setTimeAxis}}}.
+#'
+#' Subsets an \code{mts} object by datetime. This function
 #' allows for sub-day filtering as opposed to \code{mts_filterDate()} which
 #' always filters to day-boundaries. Both the \code{startdate} and the
 #' \code{enddate} will be included in the subset.
@@ -35,11 +37,15 @@
 #' \item{get timezone from \code{mts}}
 #' }
 #'
-#' @note The returned \code{mts} object will contain data running from the
-#' beginning of \code{startdate} until
-#' the \strong{beginning} of \code{enddate} -- \emph{i.e.} no values associated
-#' with \code{enddate} will be returned. To include \code{enddate} you can
-#' specify \code{includeEnd = TRUE}.
+#' @note This function is deprecated as of \pkg{MazamaTimeSeris 0.2.15}.
+#' Please use \link{mts_setTimeAxis} to shorten or lengthen the time axis
+#' of an \emph{mts} object.
+#'
+# @note The returned \code{mts} object will contain data running from the
+# beginning of \code{startdate} until
+# the \strong{beginning} of \code{enddate} -- \emph{i.e.} no values associated
+# with \code{enddate} will be returned. To include \code{enddate} you can
+# specify \code{includeEnd = TRUE}.
 #'
 #' @return A subset of the incoming \emph{mts} time series object.
 #' (A list with \code{meta} and \code{data} dataframes.)
@@ -47,19 +53,19 @@
 #' @seealso \link{mts_filterData}
 #' @seealso \link{mts_filterDate}
 #' @seealso \link{mts_filterMeta}
-#'
-#' @examples
-#' library(MazamaTimeSeries)
-#'
-#' example_mts %>%
-#'   mts_filterDatetime(
-#'     startdate = "2019-07-03 06:00:00",
-#'     enddate = "2019-07-06 18:00:00"
-#'   ) %>%
-#'   mts_extractData() %>%
-#'   dplyr::pull(datetime) %>%
-#'   range()
-#'
+#
+# @examples
+# library(MazamaTimeSeries)
+#
+# example_mts %>%
+#   mts_filterDatetime(
+#     startdate = "2019-07-03 06:00:00",
+#     enddate = "2019-07-06 18:00:00"
+#   ) %>%
+#   mts_extractData() %>%
+#   dplyr::pull(datetime) %>%
+#   range()
+#
 
 mts_filterDatetime <- function(
   mts = NULL,

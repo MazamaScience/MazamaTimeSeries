@@ -6,20 +6,20 @@
 #' @param mts \emph{mts} object.
 #' @param startdate Desired start date (ISO 8601).
 #' @param enddate Desired end date (ISO 8601).
-#' @param timezone Olson timezone used to interpret dates.
+#' @param timezone Olson timezone used to interpret \code{startdate} and \code{enddate}.
 #'
 #' @description Extends or contracts the time range of an \emph{mts} object by
 #' adding/removing time steps at the start and end and filling any new time
 #' steps with missing values. The resulting time axis is guaranteed to be
-#' a regular, hourly axis with no gaps. This is useful when you want to
-#' place several \emph{mts} objects on the same time axis for platting without
-#' combining them.
+#' a regular, hourly axis with no gaps using the same timezone as the incoming
+#' \emph{mts} object. This is useful when you want to place separate \emph{mts}
+#' objects on the same time axis for platting.
 #'
 #' If either \code{startdate} or \code{enddate} is missing, the start or end of
 #' the timeseries in \code{mts} will be used.
 #'
 #' @note If \code{startdate} or \code{enddate} is a \code{POSIXct} value, then
-#' \code{timezone} will set to the timezone associated with \code{startdate}
+#' \code{timezone} will be set to the timezone associated with \code{startdate}
 #' or \code{enddate}.
 #' In this common case, you don't need to specify \code{timezone} explicitly.
 #'
@@ -36,14 +36,14 @@
 #' # Default range
 #' range(example_mts$data$datetime)
 #'
-#' # One-sided extend (keeps POSIXct timezone from mts$data$datetime)
+#' # One-sided extend with user specified timezone
 #' example_mts %>%
-#'   mts_setTimeAxis(enddate = 20190815) %>%
+#'   mts_setTimeAxis(enddate = 20190815, timezone = "UTC") %>%
 #'   mts_extractData() %>%
 #'   dplyr::pull(datetime) %>%
 #'   range()
 #'
-#' # Two-sided extend with timezone (uses user specified timezone)
+#' # Two-sided extend with user specified timezone
 #' example_mts %>%
 #'   mts_setTimeAxis(20190615, 20190815, timezone = "UTC") %>%
 #'   mts_extractData() %>%
@@ -99,6 +99,8 @@ mts_setTimeAxis <- function(
 
   # ----- Alter the time axis --------------------------------------------------
 
+  time_axis_timezone <- lubridate::tz(mts$data$datetime[1])
+
   if ( is.null(startdate) ) {
     startdate <- min(mts$data$datetime)
   } else {
@@ -117,6 +119,9 @@ mts_setTimeAxis <- function(
 
   # Merge the data onto the new time axis with a left join
   mts$data <- dplyr::left_join(hourlyDF, mts$data, by = "datetime")
+
+  # Make sure we retain the original timezone from mts$data$datetime
+  mts$data$datetime <- lubridate::with_tz(mts$data$datetime, tzone = time_axis_timezone)
 
   # ----- Return ---------------------------------------------------------------
 

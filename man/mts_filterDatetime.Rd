@@ -42,6 +42,8 @@ A subset of the incoming \emph{mts} time series object.
 (A list with \code{meta} and \code{data} dataframes.)
 }
 \description{
+\strong{\code{DEPRECATED -- use \link{mts_setTimeAxis}}}.
+
 Subsets an \code{mts} object by datetime. This function
 allows for sub-day filtering as opposed to \code{mts_filterDate()} which
 always filters to day-boundaries. Both the \code{startdate} and the
@@ -61,24 +63,9 @@ Timezone determination precedence assumes that if you are passing in
 }
 }
 \note{
-The returned \code{mts} object will contain data running from the
-beginning of \code{startdate} until
-the \strong{beginning} of \code{enddate} -- \emph{i.e.} no values associated
-with \code{enddate} will be returned. To include \code{enddate} you can
-specify \code{includeEnd = TRUE}.
-}
-\examples{
-library(MazamaTimeSeries)
-
-example_mts \%>\%
-  mts_filterDatetime(
-    startdate = "2019-07-03 06:00:00",
-    enddate = "2019-07-06 18:00:00"
-  ) \%>\%
-  mts_extractData() \%>\%
-  dplyr::pull(datetime) \%>\%
-  range()
-
+This function is deprecated as of \pkg{MazamaTimeSeris 0.2.15}.
+Please use \link{mts_setTimeAxis} to shorten or lengthen the time axis
+of an \emph{mts} object.
 }
 \seealso{
 \link{mts_filterData}

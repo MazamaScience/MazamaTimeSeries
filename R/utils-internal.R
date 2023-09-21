@@ -10,7 +10,7 @@
     any_ts = NULL,
     startdate = NULL,
     timezone = NULL,
-    verbose = TRUE
+    verbose = FALSE
 ) {
 
   MazamaCoreUtils::stopIfNull(any_ts)
@@ -43,7 +43,7 @@
 
   } else if ( !is.null(timezone) ) {
 
-    # Do nothing
+    # Do nothing; timezone is already defined
 
   } else {
 

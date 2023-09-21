@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.15</span>
       </span>
     </div>
 
@@ -61,7 +61,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.2.14" id="mazamatimeseries-0214">MazamaTimeSeries 0.2.14<a class="anchor" aria-label="anchor" href="#mazamatimeseries-0214"></a></h2>
+<h2 class="page-header" data-toc-text="0.2.15" id="mazamatimeseries-0215">MazamaTimeSeries 0.2.15<a class="anchor" aria-label="anchor" href="#mazamatimeseries-0215"></a></h2>
+<ul><li>Fixed <code><a href="../reference/mts_setTimeAxis.html">mts_setTimeAxis()</a></code> so that always retains the original timezone associated with <code>mts$data$datetime</code>.</li>
+<li>Removed non-compliant timezones like <code>"US/Hawaii"</code> from the codebase.</li>
+<li>Deprecated <code><a href="../reference/mts_filterDatetime.html">mts_filterDatetime()</a></code> in favor of <code><a href="../reference/mts_setTimeAxis.html">mts_setTimeAxis()</a></code> which is more general.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.2.14" id="mazamatimeseries-0214">MazamaTimeSeries 0.2.14<small>2023-09-08</small><a class="anchor" aria-label="anchor" href="#mazamatimeseries-0214"></a></h2>
 <ul><li>Added <code><a href="../reference/mts_slice.html">mts_slice_head()</a></code> and <code><a href="../reference/mts_slice.html">mts_slice_tail()</a></code>.</li>
 <li>Added <code><a href="../reference/mts_setTimeAxis.html">mts_setTimeAxis()</a></code> to modify mts time spans.</li>
 </ul></div>

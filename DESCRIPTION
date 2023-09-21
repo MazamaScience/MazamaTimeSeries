@@ -1,6 +1,6 @@
 Type: Package
 Package: MazamaTimeSeries
-Version: 0.2.14
+Version: 0.2.15
 Title: Core Functionality for Environmental Time Series
 Authors@R: c(
     person("Jonathan", "Callahan", email="jonathan.s.callahan@gmail.com", role=c("aut","cre")),

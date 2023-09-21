@@ -1,3 +1,11 @@
+# MazamaTimeSeries 0.2.15
+
+* Fixed `mts_setTimeAxis()` so that always retains the original timezone 
+associated with `mts$data$datetime`.
+* Removed non-compliant timezones like `"US/Hawaii"` from the codebase.
+* Deprecated `mts_filterDatetime()` in favor of `mts_setTimeAxis()` which is
+more general.
+
 # MazamaTimeSeries 0.2.14
 
 * Added `mts_slice_head()` and `mts_slice_tail()`.
