@@ -1,3 +1,7 @@
+# MazamaTimeSeries 0.2.16
+
+* Added `mts_pull()` to get columns of data from `mts$meta` or `mts$data`.
+
 # MazamaTimeSeries 0.2.15
 
 * Fixed `mts_setTimeAxis()` so that always retains the original timezone 
