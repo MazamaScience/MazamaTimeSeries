@@ -49,9 +49,9 @@ sts_check <- function(sts) {
 #' Core \code{meta} columns include:
 #'
 #' \itemize{
-#'   \item{\code{deviceDeploymentID} -- unique identifier (see \pkg{MazmaLocationUtils})}
+#'   \item{\code{deviceDeploymentID} -- unique identifier (see \href{https://mazamascience.github.io/MazamaLocationUtils/}{MazmaLocationUtils})}
 #'   \item{\code{deviceID} -- device identifier}
-#'   \item{\code{locationID} -- location identifier (see \pkg{MazmaLocationUtils})}
+#'   \item{\code{locationID} -- location identifier (see \href{https://mazamascience.github.io/MazamaLocationUtils/}{MazmaLocationUtils})}
 #'   \item{\code{locationName} -- English language name}
 #'   \item{\code{longitude} -- decimal degrees E}
 #'   \item{\code{latitude} -- decimal degrees N}

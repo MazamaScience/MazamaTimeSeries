@@ -37,7 +37,7 @@
 #' \item{get timezone from \code{mts}}
 #' }
 #'
-#' @note This function is deprecated as of \pkg{MazamaTimeSeris 0.2.15}.
+#' @note This function is deprecated as of \strong{MazamaTimeSeries 0.2.15}.
 #' Please use \link{mts_setTimeAxis} to shorten or lengthen the time axis
 #' of an \emph{mts} object.
 #'
@@ -87,8 +87,9 @@ mts_filterDatetime <- function(
   if ( !mts_isValid(mts) )
     stop("'mts' is not a valid 'mts' object")
 
+  # Return the mts if it is empty so pipelines don't break
   if ( mts_isEmpty(mts) )
-    stop("'mts' has no data")
+    return(mts)
 
   # Remove any duplicate data records
   mts <- mts_distinct(mts)

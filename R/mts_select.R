@@ -12,8 +12,10 @@
 #' time series identified by \code{deviceDeploymentID} in the order specified.
 #'
 #' This can be used the specify a preferred order and is helpful when using
-#' faceted plot functions based on \pkg{ggplot}
-#' such as those found in the \pkg{AirMonitorPlots} package.
+#' faceted plot functions based on
+#' \href{https://ggplot2.tidyverse.org}{ggplot}
+#' such as those found in the
+#' \href{https://mazamascience.github.io/AirMonitorPlots/}{AirMonitorPlots} package.
 #'
 #' @return A reordered (subset) of the incoming \emph{mts} time series object.
 #' (A list with \code{meta} and \code{data} dataframes.)

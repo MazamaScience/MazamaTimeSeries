@@ -35,8 +35,9 @@ mts_trim <- function(
   if ( !mts_isValid(mts) )
     stop("Parameter 'mts' is not a valid 'mts' object.")
 
+  # Return the mts if it is empty so pipelines don't break
   if ( mts_isEmpty(mts) )
-    stop("Parameter 'mts' has no data.")
+    return(mts)
 
   # Remove any duplicate data records
   mts <- mts_distinct(mts)

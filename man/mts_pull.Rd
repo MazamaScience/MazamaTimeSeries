@@ -16,7 +16,7 @@ dataframe of the incoming \emph{mts} time series object.}
 An array of values.
 }
 \description{
-This function acts similarly to \code{\link[dplyr]{pull}} working on
+This function acts similarly to \code{dplyr::pull()} working on
 \code{mts$meta} or \code{mts$data}. Data are returned as a simple array.
 Data are pulled from whichever dataframe contains \code{var}.
 }

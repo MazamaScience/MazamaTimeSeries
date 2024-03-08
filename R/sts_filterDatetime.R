@@ -78,8 +78,9 @@ sts_filterDatetime <- function(
   if ( !sts_isValid(sts) )
     stop("Parameter 'sts' is not a valid 'sts' object.")
 
+  # Return the sts if it is empty so pipelines don't break
   if ( sts_isEmpty(sts) )
-    stop("Parameter 'sts' has no data.")
+    return(sts)
 
   # Remove any duplicate data records
   sts <- sts_distinct(sts)

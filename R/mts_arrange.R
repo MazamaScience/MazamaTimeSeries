@@ -48,6 +48,7 @@ mts_arrange <- function(
     }
   }
 
+  # Return the mts if it is empty so pipelines don't break
   if ( mts_isEmpty(mts) )
     return(mts)
 

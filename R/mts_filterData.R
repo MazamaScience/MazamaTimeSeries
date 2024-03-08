@@ -19,8 +19,6 @@
 #' @return A subset of the incoming \emph{mts} time series object.
 #' (A list with \code{meta} and \code{data} dataframes.)
 #'
-#' @seealso \link{mts_filterDate}
-#' @seealso \link{mts_filterDatetime}
 #' @seealso \link{mts_filterMeta}
 #'
 #' @examples
@@ -57,8 +55,9 @@ mts_filterData <- function(
     }
   }
 
+  # Return the mts if it is empty so pipelines don't break
   if ( mts_isEmpty(mts) )
-    stop("'mts' has no data")
+    return(mts)
 
   # Remove any duplicate data records
   mts <- mts_distinct(mts)

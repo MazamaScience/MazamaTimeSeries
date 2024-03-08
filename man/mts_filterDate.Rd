@@ -40,7 +40,7 @@ A subset of the incoming \emph{mts} time series object.
 \description{
 Subsets an \emph{mts} object by date. This function
 always filters to day-boundaries. For sub-day filtering, use
-\code{mts_filterDatetime()}.
+\code{mts_setTimeAxis()}.
 
 Dates can be anything that is understood by \code{MazamaCoreUtils::parseDatetime()}
 including either of the following recommended formats:
@@ -80,9 +80,5 @@ example_mts \%>\%
 
 }
 \seealso{
-\link{mts_filterData}
-
-\link{mts_filterDatetime}
-
-\link{mts_filterMeta}
+\link{mts_setTimeAxis}
 }

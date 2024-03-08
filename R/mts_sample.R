@@ -48,7 +48,7 @@
 #' encouraged to experiment with these two parameters along with
 #' \code{sampleSize} and review the results visually.
 #'
-#' See \code{\link[MazamaRollUtils]{findOutliers}}.
+#' See \code{MazamaRollUtils::findOutliers()}.
 #'
 
 mts_sample <- function(
@@ -64,6 +64,7 @@ mts_sample <- function(
 
   MazamaCoreUtils::stopIfNull(mts)
 
+  # Return the mts if it is empty so pipelines don't break
   if ( mts_isEmpty(mts) )
     return(mts)
 

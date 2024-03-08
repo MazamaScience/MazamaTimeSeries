@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MazamaTimeSeries</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
                         <h4 data-toc-skip class="author">Mazama
 Science</h4>
             
-            <h4 data-toc-skip class="date">2021-10-07</h4>
+            <h4 data-toc-skip class="date">2024-03-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MazamaScience/MazamaTimeSeries/blob/HEAD/vignettes/MazamaTimeSeries.Rmd" class="external-link"><code>vignettes/MazamaTimeSeries.Rmd</code></a></small>
       <div class="hidden name"><code>MazamaTimeSeries.Rmd</code></div>
@@ -144,7 +144,8 @@ multiple parameters are measured by a single device.</p>
 <p><em><strong>Note:</strong></em> The <code>sts</code> object time axis
 specified in <code>data$datetime</code> reflects device measurement
 times and is not required to have uniform spacing. (It <em>may</em> be
-regular but it need not be.)</p>
+regular but it need not be.) It <em>is</em> guaranteed to be
+monotonically increasing.</p>
 </div>
 <div class="section level3">
 <h3 id="multiple-time-series">Multiple Time Series<a class="anchor" aria-label="anchor" href="#multiple-time-series"></a>
@@ -156,7 +157,7 @@ series that share a common time axis – <em>e.g.</em> hourly
 measurements. In this case, it is possible to create single-parameter
 <code>data</code> dataframes that contain all data for all sensors for a
 single parameter of interest. In air quality applications, common
-parameters of interest include PM2.5 and Ozone.</p>
+parameters of interest include PM<sub>2.5</sub> and Ozone.</p>
 <p>Multi-sensor, single-parameter time series data is stored in an R
 list with two dataframes. The package refers to this structure as an
 <code>mts</code> object for
@@ -186,8 +187,8 @@ time.</p>
 <p>In this manner, software can create both timeseries plots and maps
 from a single <code>mts</code> object in memory.</p>
 <p><em><strong>Note:</strong></em> The <code>mts</code> object time axis
-specified in <code>data$datetime</code> is guaranteed to be a regular
-hourly axis with no gaps.</p>
+specified in <code>data$datetime</code> is guaranteed to be a regularly
+spaced, monotonic axis with no gaps.</p>
 </div>
 </div>
 <div class="section level2">

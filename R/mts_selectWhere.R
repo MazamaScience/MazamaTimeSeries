@@ -60,8 +60,9 @@ mts_selectWhere <- function(
   # Remove any duplicate data records
   mts <- mts_distinct(mts)
 
+  # Return the mts if it is empty so pipelines don't break
   if ( mts_isEmpty(mts) )
-    stop("Parameter 'mts' has no data.")
+    return(mts)
 
   if ( !is.function(FUN) )
     stop("'FUN' is not a function.")

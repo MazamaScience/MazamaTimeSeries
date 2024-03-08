@@ -41,9 +41,5 @@ example_mts \%>\%
 
 }
 \seealso{
-\link{mts_filterDate}
-
-\link{mts_filterDatetime}
-
 \link{mts_filterMeta}
 }

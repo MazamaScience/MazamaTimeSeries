@@ -69,6 +69,6 @@ Users attempting to optimize plotting speed for lengthy time series are
 encouraged to experiment with these two parameters along with
 \code{sampleSize} and review the results visually.
 
-See \code{\link[MazamaRollUtils]{findOutliers}}.
+See \code{MazamaRollUtils::findOutliers()}.
 }
 

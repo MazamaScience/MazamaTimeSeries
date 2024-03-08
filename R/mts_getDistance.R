@@ -9,7 +9,7 @@
 #' @param measure One of "geodesic", "haversine", "vincenty" or "cheap"
 #'
 #' @description
-#' This function uses the \pkg{geodist} package to return the distances (meters)
+#' This function uses the [geodist] package to return the distances (meters)
 #' between \code{mts} locations
 #' and a location of interest. These distances can be used to create a
 #' mask identifying monitors within a certain radius of the location of interest.

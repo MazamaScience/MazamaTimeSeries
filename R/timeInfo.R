@@ -48,7 +48,7 @@
 #'
 #' @section Attribution:
 #' Internal functions used for ephemerides calculations were copied verbatim
-#' from the now deprecated \pkg{maptools} package source
+#' from the now deprecated \strong{maptools} package source
 #' code in an effort to reduce the number of package dependencies.
 #'
 #' @section Warning:
@@ -70,9 +70,9 @@
 #' \url{https://ecology.wa.gov/Research-Data/Data-resources/Models-spreadsheets/Modeling-the-environment/Models-tools-for-TMDLs}), who in turn
 #' translated it from original Javascript code by NOAA (see Details).
 #' Roger Bivand \email{roger.bivand@nhh.no} adapted the code to work with
-#' \pkg{sp} classes. Jonathan Callahan \email{jonathan.callahan@gmail.com}
-#' adapted the source code from the \pkg{maptools} package to work with
-#' \pkg{MazamaTimeSeries} classes.
+#' \strong{sp} classes. Jonathan Callahan \email{jonathan.callahan@gmail.com}
+#' adapted the source code from the \strong{maptools} package to work with
+#' \href{https://mazamascience.github.io/MazamaTimeSeries/}{MazmaTimeSeries} classes.
 #'
 #' @section References:
 #' Meeus, J. (1991) Astronomical Algorithms. Willmann-Bell, Inc.

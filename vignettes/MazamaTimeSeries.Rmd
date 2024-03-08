@@ -1,7 +1,7 @@
 ---
 title: "Introduction to MazamaTimeSeries"
 author: "Mazama Science"
-date: "2021-10-07"
+date: "2024-03-08"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to MazamaTimeSeries}
@@ -57,7 +57,7 @@ device.
 
 _**Note:**_ The `sts` object time axis specified in `data$datetime` reflects device 
 measurement times and is not required to have uniform spacing. (It _may_ be 
-regular but it need not be.)
+regular but it need not be.) It _is_ guaranteed to be monotonically increasing.
 
 ### Multiple Time Series
 
@@ -67,7 +67,7 @@ sensor. However, a common situation is to have time series that share a
 common time axis -- _e.g._ hourly measurements. In this case, it is possible to
 create single-parameter `data` dataframes that contain all data for all 
 sensors for a single parameter of interest. In air quality applications, common
-parameters of interest include PM2.5 and Ozone.
+parameters of interest include PM~2.5~ and Ozone.
 
 Multi-sensor, single-parameter time series data is 
 stored in an R list with two dataframes. The package refers to this structure as 
@@ -100,7 +100,7 @@ In this manner, software can create both timeseries plots and maps from a single
 `mts` object in memory.
 
 _**Note:**_ The `mts` object time axis specified in `data$datetime` is 
-guaranteed to be a regular hourly axis with no gaps.
+guaranteed to be a regularly spaced, monotonic axis with no gaps.
 
 ## Example Usage
 

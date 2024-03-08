@@ -63,7 +63,7 @@ Timezone determination precedence assumes that if you are passing in
 }
 }
 \note{
-This function is deprecated as of \pkg{MazamaTimeSeris 0.2.15}.
+This function is deprecated as of \strong{MazamaTimeSeries 0.2.15}.
 Please use \link{mts_setTimeAxis} to shorten or lengthen the time axis
 of an \emph{mts} object.
 }

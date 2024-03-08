@@ -25,16 +25,27 @@ adding/removing time steps at the start and end and filling any new time
 steps with missing values. The resulting time axis is guaranteed to be
 a regular, hourly axis with no gaps using the same timezone as the incoming
 \emph{mts} object. This is useful when you want to place separate \emph{mts}
-objects on the same time axis for platting.
+objects on the same time axis for plotting.
+
+Dates can be anything that is understood by \code{MazamaCoreUtils::parseDatetime()}
+including either of the following recommended formats:
+
+\itemize{
+\item{\code{"YYYYmmdd"}}
+\item{\code{"YYYY-mm-dd"}}
+}
+
+Timezone determination precedence assumes that if you are passing in
+\code{POSIXct} values then you know what you are doing:
+
+\enumerate{
+\item{get timezone from \code{startdate} if it is \code{POSIXct}}
+\item{use passed in \code{timezone}}
+\item{get timezone from \code{mts}}
+}
 
 If either \code{startdate} or \code{enddate} is missing, the start or end of
 the timeseries in \code{mts} will be used.
-}
-\note{
-If \code{startdate} or \code{enddate} is a \code{POSIXct} value, then
-\code{timezone} will be set to the timezone associated with \code{startdate}
-or \code{enddate}.
-In this common case, you don't need to specify \code{timezone} explicitly.
 
 If neither \code{startdate} nor \code{enddate} is a \code{POSIXct} value
 AND no \code{timezone} is supplied, the timezone will be inferred from

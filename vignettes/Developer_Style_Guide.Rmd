@@ -1,7 +1,7 @@
 ---
 title: "Developer Style Guide"
 author: "Mazama Science"
-date: "2021-03-11"
+date: "2024-03-08"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Developer Style Guide}

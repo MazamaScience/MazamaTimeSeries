@@ -17,7 +17,7 @@
 #'
 #' @description Subsets an \emph{mts} object by date. This function
 #' always filters to day-boundaries. For sub-day filtering, use
-#' \code{mts_filterDatetime()}.
+#' \code{mts_setTimeAxis()}.
 #'
 #' Dates can be anything that is understood by \code{MazamaCoreUtils::parseDatetime()}
 #' including either of the following recommended formats:
@@ -45,9 +45,7 @@
 #' @return A subset of the incoming \emph{mts} time series object.
 #' (A list with \code{meta} and \code{data} dataframes.)
 #'
-#' @seealso \link{mts_filterData}
-#' @seealso \link{mts_filterDatetime}
-#' @seealso \link{mts_filterMeta}
+#' @seealso \link{mts_setTimeAxis}
 #'
 #' @examples
 #' library(MazamaTimeSeries)
@@ -88,8 +86,9 @@ mts_filterDate <- function(
     }
   }
 
+  # Return the mts if it is empty so pipelines don't break
   if ( mts_isEmpty(mts) )
-    stop("'mts' has no data")
+    return(mts)
 
   # Remove any duplicate data records
   mts <- mts_distinct(mts)

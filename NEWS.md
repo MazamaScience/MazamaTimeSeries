@@ -1,3 +1,15 @@
+# MazamaTimeSeries 0.2.17
+
+Updated dependencies:
+
+* MazamaCoreUtils 0.4.15 => 0.5.2
+
+* All `mts_~()` functions that return an _mts_ object now return an empty _mts_
+when an empty _mts_ is used as input. This prevents breaks in the middle of 
+pipelines so that "emptiness" only needs to be checked at the end.
+* All `sts_~()` functions that return an _sts_ object now return an empty _sts_
+when an empty _sts_ is used as input.
+
 # MazamaTimeSeries 0.2.16
 
 * Added `mts_pull()` to get columns of data from `mts$meta` or `mts$data`.

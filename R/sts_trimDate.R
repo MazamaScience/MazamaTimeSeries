@@ -47,8 +47,9 @@ sts_trimDate <- function(
   if ( !sts_isValid(sts) )
     stop("'sts' is not a valid 'sts' object")
 
+  # Return the sts if it is empty so pipelines don't break
   if ( sts_isEmpty(sts) )
-    stop("'sts' has no data")
+    return(sts)
 
   # Remove any duplicate data records
   sts <- sts_distinct(sts)

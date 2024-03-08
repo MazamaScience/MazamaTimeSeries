@@ -76,8 +76,9 @@ mts_collapse <- function(
     longitude <- latitude <- NULL
   }
 
+  # Return the mts if it is empty so pipelines don't break
   if ( mts_isEmpty(mts) )
-    stop("'mts' has no data")
+    return(mts)
 
   # ----- Generate meta --------------------------------------------------------
 

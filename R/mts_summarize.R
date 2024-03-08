@@ -68,8 +68,9 @@ mts_summarize <- function(
   MazamaCoreUtils::stopIfNull(FUN)
   MazamaCoreUtils::stopIfNull(minCount)
 
+  # Return the mts if it is empty so pipelines don't break
   if ( mts_isEmpty(mts) )
-    stop("'mts' has no data")
+    return(mts)
 
   if ( length(unique(mts$meta$timezone)) > 1 )
     stop("'mts' has muliple timezones")

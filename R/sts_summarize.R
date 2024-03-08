@@ -48,8 +48,9 @@ sts_summarize <- function(
   MazamaCoreUtils::stopIfNull(FUN)
   MazamaCoreUtils::stopIfNull(minCount)
 
-  if ( MazamaTimeSeries::sts_isEmpty(sts) )
-    stop("'sts' has no data")
+  # Return the sts if it is empty so pipelines don't break
+  if ( sts_isEmpty(sts) )
+    return(sts)
 
   if ( length(unique(sts$meta$timezone)) > 1 )
     stop("'sts' has muliple timezones")

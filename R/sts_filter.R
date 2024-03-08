@@ -53,6 +53,7 @@ sts_filter <- function(
     }
   }
 
+  # Return the sts if it is empty so pipelines don't break
   if ( sts_isEmpty(sts) )
     return(sts)
 

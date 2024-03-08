@@ -10,8 +10,8 @@
 #' @description A generalized metadata filter for \emph{mts} objects to
 #' choose rows/cases where conditions are true.  Multiple conditions are
 #' combined with \code{&} or separated by a comma. Only rows where the condition
-#' evaluates to TRUE are kept. Rows where the condition evaluates to \code{NA}
-#' are dropped.
+#' evaluates to TRUE are kept. Rows where the condition evaluates to FALSE or
+#' \code{NA} are dropped.
 #'
 #' If an empty \emph{mts} object is passed in, it is immediately returned,
 #' allowing for multiple filtering steps to be piped together and only checking
@@ -22,10 +22,8 @@
 #' @return A subset of the incoming \emph{mts} time series object.
 #' (A list with \code{meta} and \code{data} dataframes.)
 #'
-#'
 #' @seealso \link{mts_filterData}
-#' @seealso \link{mts_filterDate}
-#' @seealso \link{mts_filterDatetime}
+#'
 #' @examples
 #' library(MazamaTimeSeries)
 #'
@@ -60,6 +58,7 @@ mts_filterMeta <- function(
     }
   }
 
+  # Return the mts if it is empty so pipelines don't break
   if ( mts_isEmpty(mts) )
     return(mts)
 

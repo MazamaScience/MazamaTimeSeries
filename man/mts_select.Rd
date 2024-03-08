@@ -21,8 +21,10 @@ This function acts similarly to \code{dplyr::select()} working on
 time series identified by \code{deviceDeploymentID} in the order specified.
 
 This can be used the specify a preferred order and is helpful when using
-faceted plot functions based on \pkg{ggplot}
-such as those found in the \pkg{AirMonitorPlots} package.
+faceted plot functions based on
+\href{https://ggplot2.tidyverse.org}{ggplot}
+such as those found in the
+\href{https://mazamascience.github.io/AirMonitorPlots/}{AirMonitorPlots} package.
 }
 \examples{
 library(MazamaTimeSeries)
