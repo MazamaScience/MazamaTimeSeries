@@ -1,4 +1,4 @@
-# MazamaTimeSeries 0.2.17
+# MazamaTimeSeries 0.3.0
 
 Updated dependencies:
 
