@@ -108,10 +108,5 @@ _See usage examples in the function documentation._
 
 ----
 
-Best wishes for efficient and productive analysis of time series data!
-
-----
-
-This R package was created with funding from the USFS 
-[AirFire Research Team](https://www.airfire.org).
+This project is supported by the [USFS AirFire](https://www.airfire.org) team.
 

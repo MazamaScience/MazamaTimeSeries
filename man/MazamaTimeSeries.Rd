@@ -12,3 +12,24 @@ meta' dataframe contains spatial and measuring device metadata associated with
 deployments at known locations. A 'data' dataframe contains a 'datetime' column
 followed by columns of measurements associated with each "device-deployment".
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/MazamaScience/MazamaTimeSeries}
+  \item \url{https://mazamascience.github.io/MazamaTimeSeries/}
+  \item Report bugs at \url{https://github.com/MazamaScience/MazamaTimeSeries/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Jonathan Callahan \email{jonathan.s.callahan@gmail.com}
+
+Other contributors:
+\itemize{
+  \item Hans Martin \email{hansmrtn@gmail.com} [contributor]
+  \item Eli Grosman \email{eligrosman1@gmail.com} [contributor]
+  \item Roger Bivand \email{roger.bivand@nhh.no} [contributor]
+  \item Sebastian Luque \email{spluque@gmail.com} [contributor]
+}
+
+}

@@ -105,6 +105,5 @@ guaranteed to be a regular hourly axis with no gaps.
 
 ----
 
-This R package was created with funding from the USFS 
-[AirFire Research Team](https://www.airfire.org).
+This project is supported by the [USFS AirFire](https://www.airfire.org) team.
 
