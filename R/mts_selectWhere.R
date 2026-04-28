@@ -80,7 +80,10 @@ mts_selectWhere <- function(
   # Apply function
   mask <-
     tbl %>%
-    dplyr::summarize(dplyr::across(.cols = dplyr::everything(), FUN)) %>%
+    dplyr::summarize(
+      dplyr::across(dplyr::everything(), FUN),
+      .groups = "drop"
+    ) %>%
     as.logical()
 
   # Get deviceDeploymentIDs where FUN returns TRUE

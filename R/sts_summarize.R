@@ -89,16 +89,33 @@ sts_summarize <- function(
 
     # Create 'timeUnit' in the desired timezone as a grouping variable
     dplyr::mutate(
-      timeUnit = lubridate::floor_date(lubridate::with_tz(.data$datetime, tz = timezone), unit)
+      timeUnit = lubridate::floor_date(
+        lubridate::with_tz(.data$datetime, tz = timezone),
+        unit
+      )
     ) %>%
-    dplyr::select(all_of(retainedNames)) %>%
+    dplyr::select(dplyr::all_of(retainedNames)) %>%
     dplyr::group_by(.data$timeUnit) %>%
 
-    # Summarize using FUN (will ignore 'timeUnit' column)
-    dplyr::summarize(across(everything(), customFUN, ...)) %>%
+    # Summarize using customFUN
+    dplyr::summarize(
+      dplyr::across(
+        dplyr::everything(),
+        \(x) customFUN(x, ...)
+      ),
+      .groups = "drop"
+    ) %>%
 
     # Replace +/-Inf and NaN with NA
-    dplyr::mutate(across(everything(), function(x) { x[!is.finite(x)] <- NA; return(x) })) %>%
+    dplyr::mutate(
+      dplyr::across(
+        dplyr::everything(),
+        function(x) {
+          x[!is.finite(x)] <- NA
+          return(x)
+        }
+      )
+    ) %>%
 
     # New, daily 'datetime'
     dplyr::rename(datetime = .data$timeUnit)

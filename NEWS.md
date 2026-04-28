@@ -1,3 +1,13 @@
+# MazamaTimeSeries 0.3.2
+
+* Updated use of `dplyr::summarize()` to avoid deprecation warning.
+
+Updated dependencies:
+
+* MazamaCoreUtils 0.5.3 => 0.6.0
+* MazamaCoreUtils 0.1.4 => 1.0.0
+
+
 # MazamaTimeSeries 0.3.1
 
 Minor documentation updates.
